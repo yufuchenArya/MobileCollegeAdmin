@@ -27,6 +27,7 @@ MCARestIntraction *restIntraction;
 -(void)requestForParentSignUp:(NSString *)info;
 -(void)requestForStudentSignUp:(NSString *)info;
 -(void)requestForTaskList:(NSString *)info;
+-(void)requestForConfirmationApi:(NSString*)info;
 -(void)requestForDeleteOrCompleteTask:(NSString *)info;
 -(void)requestForAddTask:(NSString *)info;
 

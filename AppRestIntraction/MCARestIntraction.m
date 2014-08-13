@@ -415,17 +415,24 @@
          
          NSString *errMsg = [results valueForKey:@"msg"];
          dispatch_async(dispatch_get_main_queue(), ^
-                        {
-                            [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_DELETE_COMPLETE_TASK_SUCCESS object:errMsg];
-                        });
+                {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_DELETE_TASK_SUCCESS object:errMsg];
+                });
          
-     }else{
+     }else if ([status_code isEqualToString:@"S1027"]){
          
          NSString *errMsg = [results valueForKey:@"msg"];
          dispatch_async(dispatch_get_main_queue(), ^
-                        {
-                            [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_DELETE_COMPLETE_TASK_FAILED object:errMsg];
-                        });
+                {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_COMPLETE_TASK_SUCCESS object:errMsg];
+                });
+     } else{
+         
+         NSString *errMsg = [results valueForKey:@"msg"];
+         dispatch_async(dispatch_get_main_queue(), ^
+                {
+                    [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_DELETE_COMPLETE_TASK_FAILED object:errMsg];
+                });
         }
 }
 
@@ -478,4 +485,39 @@
     }
 }
 
+-(void)requestForConfirmationApi:(NSString *)info{
+    
+    NSURL *url = [NSURL URLWithString:URL_MAIN];
+    ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:url];
+    
+    [request setPostValue:info forKey:@"data"];
+    
+    [request setDelegate:self];
+    [request setDidFailSelector:@selector(requestConfirmationApiFail:)];
+    [request setDidFinishSelector:@selector(requestConfirmationApiSuccess:)];
+    [request startAsynchronous];
+}
+-(void)requestConfirmationApiFail:(ASIFormDataRequest*)request{
+    
+    dispatch_async(dispatch_get_main_queue(), ^
+                   {
+                       [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_ADD_TASK_FAILED object:@"Unable to perfrom task at this movement."];
+                   });
+}
+-(void)requestConfirmationApiSuccess:(ASIFormDataRequest*)request{
+    
+    NSString *responseString = [request responseString];
+    responseString = [[responseString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@""];
+    responseString = [responseString stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+    SBJSON *parser=[[SBJSON alloc]init];
+    
+    NSDictionary *results = [parser objectWithString:responseString error:nil];
+    NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
+    NSString *status_code = [results valueForKey:@"status_code"];
+    
+    dispatch_async(dispatch_get_main_queue(), ^
+                   {
+                       [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_ADD_TASK_FAILED object:@"Unable to perfrom task at this movement."];
+                   });
+}
 @end

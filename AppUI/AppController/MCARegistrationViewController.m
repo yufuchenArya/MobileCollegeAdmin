@@ -238,7 +238,6 @@
     }
  
     [textField resignFirstResponder];
-    
     return YES;
 }
 
@@ -246,7 +245,6 @@
 -(IBAction)ReturnKeyButton:(id)sender
 {
     [sender resignFirstResponder];
-    
 }
 -(IBAction)btnBackDidClicked:(id)sender{
     
@@ -258,14 +256,12 @@
     
         view_ParentSignup.hidden = NO ;
         view_StudentSignup.hidden = YES ;
-        
         [self.view addSubview:scrollV_parent];
         
     }else{
         
         view_ParentSignup.hidden = YES ;
         view_StudentSignup.hidden = NO ;
-        
         [self.view addSubview:scrollV_stud];
     }
     
@@ -402,6 +398,7 @@
                     [info setValue:@"" forKey:@"zipcode"];
                 }
 
+                tx_studGrade.text = [tx_studGrade.text stringByReplacingOccurrencesOfString:@"th" withString:@""];
                 [info setValue:tx_studGrade.text forKey:@"grade"];
                 [info setValue:@"s" forKey:@"user_type"];
                 
@@ -930,6 +927,7 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
     NSMutableDictionary *dict_Student =[NSMutableDictionary new];
     
     [dict_Student setValue:tx_addStudEmail.text forKey:@"signin_id"];
+    tx_addStudGrade.text = [tx_addStudGrade.text stringByReplacingOccurrencesOfString:@"th" withString:@""];
     [dict_Student setValue:tx_addStudGrade.text forKey:@"grade"];
     [dict_Student setValue:tx_addStudName.text forKey:@"username"];
     [dict_Student setValue:@"" forKey:@"user_id"];

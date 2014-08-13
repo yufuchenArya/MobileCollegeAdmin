@@ -20,5 +20,4 @@
 }
 @property(nonatomic,strong)MCATaskDetailDHolder *taskDetailDHolder;
 
-
 @end

@@ -37,12 +37,12 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(taskListSuccess:) name:NOTIFICATION_TASK_LIST_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(taskListFailed:) name:NOTIFICATION_TASK_LIST_FAILED object:nil];
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteOrCompleteTaskSuccess:) name:NOTIFICATION_DELETE_COMPLETE_TASK_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteTaskSuccess:) name:NOTIFICATION_DELETE_TASK_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(completeTaskSuccess:) name:NOTIFICATION_COMPLETE_TASK_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteOrCompleteTaskFailed:) name:NOTIFICATION_DELETE_COMPLETE_TASK_FAILED object:nil];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addTaskSuccess:) name:NOTIFICATION_ADD_TASK_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addTaskFailed:) name:NOTIFICATION_ADD_TASK_FAILED object:nil];
-
     
     segControl_task.tintColor=[UIColor whiteColor];
     arr_gradeList = [[NSArray alloc]initWithObjects:@"My Task",@"12th",@"11th",@"10th", nil];
@@ -187,6 +187,36 @@
     [HUD show];
     [HUD setHUDText:@"Loading"];
     [self requestTaskList:jsonTaskData];
+    
+}
+
+-(void)confirmationApi:(id)sender{
+    
+    NSMutableDictionary *info=[NSMutableDictionary new];
+    
+    [info setValue:@"[]" forKey:@"deleted_task"];
+    
+    [info setValue:@"conform" forKey:@"cmd"];
+    [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TOKEN] forKey:@"user_token"];
+    [info setValue:@"" forKey:@"app_token"];
+    [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
+    [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID] forKey:@"user_id"];
+    [info setValue:@"1.0" forKey:@"app_ver"];
+    
+    NSError* error;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    NSString* jsonConfirmationData=  [[NSString alloc] initWithData:jsonData
+                                                   encoding:NSUTF8StringEncoding];
+    jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    jsonConfirmationData = [jsonConfirmationData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@":\"\[" withString:@":["];
+    jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
+    
+    [HUD show];
+    [HUD setHUDText:@"Loading"];
+    [self requestConfirmation:jsonConfirmationData];
     
 }
 #pragma mark - IB_ACTION
@@ -374,7 +404,7 @@
       
         if (indexPath.row == [[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_GRADE_INDEX]) {
            
-            [btn_selectGrade setBackgroundImage:[UIImage imageNamed:@"green_Checkmark.png"]
+            [btn_selectGrade setBackgroundImage:[UIImage imageNamed:@"blue_checkMark.png"]
                                        forState:UIControlStateNormal];
             
         }
@@ -512,12 +542,15 @@
         case 0:
         {
             NSIndexPath *cellIndexPath = [tbl_taskCurrent indexPathForCell:cell];
-            MCATaskDetailDHolder *taskDHolder  = [[arr_currentTaskList objectAtIndex:cellIndexPath.row]valueForKey:@"str_taskId"];
+            MCATaskDetailDHolder *taskDHolder  = [arr_currentTaskList objectAtIndex:cellIndexPath.row];
             
             NSDateFormatter *dateFormatterTime = [[NSDateFormatter alloc]init];
             [dateFormatterTime setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
             NSString *str_dateTime = [dateFormatterTime stringFromDate:[NSDate date]];
             
+            arr_completedTaskDetail = [NSMutableArray new];
+            taskDHolder.str_taskStatus = @"c";
+            [arr_completedTaskDetail addObject:taskDHolder];
             
             NSMutableDictionary *info=[NSMutableDictionary new];
             [info setValue:str_dateTime forKey:@"updated_at"];
@@ -543,14 +576,10 @@
             
             [HUD show];
             [self requestDeleteOrCompleteTask:jsonDeleteTaskData];
-            
-            
             [cell hideUtilityButtonsAnimated:YES];
             break;
-
-            
         }
-        default:
+            default:
             break;
     }
 }
@@ -616,6 +645,14 @@
 //        [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
     }
 }
+-(void)requestConfirmation:(NSString*)info{
+    
+    if ([MCAGlobalFunction isConnectedToInternet]) {
+        [[MCARestIntraction sharedManager]requestForConfirmationApi:info];
+    }else{
+        [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
+    }
+}
 -(void)requestDeleteOrCompleteTask:(NSString*)info{
     
     if ([MCAGlobalFunction isConnectedToInternet]) {
@@ -637,10 +674,10 @@
         
     }else{
         
-        
         [[MCADBIntraction databaseInteractionManager]insertTaskList:arr_taskList];
     }
     
+    [self confirmationApi:nil];
     [self createTaskList:@"My Task"];
     
 }
@@ -648,10 +685,15 @@
     
     [HUD hide];
 }
--(void)deleteOrCompleteTaskSuccess:(NSNotification*)notification{
+-(void)deleteTaskSuccess:(NSNotification*)notification{
 
 //    [self getTaskList:nil];
     [[MCADBIntraction databaseInteractionManager]updateTaskList:arr_deletedTaskDetail];
+    [self createTaskList:@"My Task"];
+}
+-(void)completeTaskSuccess:(NSNotification*)notification{
+    
+    [[MCADBIntraction databaseInteractionManager]updateTaskList:arr_completedTaskDetail];
     [self createTaskList:@"My Task"];
 }
 -(void)deleteOrCompleteTaskFailed:(NSNotification*)notification{

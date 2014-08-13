@@ -57,7 +57,8 @@
 #define NOTIFICATION_ADD_TASK_SUCCESS @"notificationAddTaskSuccess"
 #define NOTIFICATION_ADD_TASK_FAILED @"notificationAddTaskFailed"
 
-#define NOTIFICATION_DELETE_COMPLETE_TASK_SUCCESS @"notificationDeleteCompleteTaskSuccess"
+#define NOTIFICATION_DELETE_TASK_SUCCESS @"notificationDeleteTaskSuccess"
+#define NOTIFICATION_COMPLETE_TASK_SUCCESS @"notificationCompleteTaskSuccess"
 #define NOTIFICATION_DELETE_COMPLETE_TASK_FAILED @"notificationDeleteCompleteTaskFailed"
 
 

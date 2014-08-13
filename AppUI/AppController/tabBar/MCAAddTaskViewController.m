@@ -42,7 +42,6 @@
     arr_priority = [[NSMutableArray alloc]initWithObjects:@"Higher",@"Regular", nil];
    
 }
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -85,7 +84,6 @@
     [UIView beginAnimations:@"animate" context:nil];
     [UIView setAnimationDuration:0.2f];
     [UIView setAnimationBeginsFromCurrentState: NO];
-    
     self.view.frame=CGRectMake(self.view.frame.origin.x,-90,self.view.frame.size.width,self.view.frame.size.height);
    
     [UIView commitAnimations];
@@ -116,6 +114,7 @@
     [self.view addSubview:view_transBg];
     
     tbl_priority = [[UITableView alloc]initWithFrame:CGRectMake(20, 160, 282, 82)];
+    tbl_priority.scrollEnabled = NO;
     tbl_priority.dataSource = self;
     tbl_priority.delegate = self;
     [tbl_priority reloadData];
@@ -181,7 +180,7 @@
     
     if (![tx_taskNAme.text isEqualToString:@""] && ![tx_priority.text isEqualToString:@""] && ![tx_chooseDate.text isEqualToString:@""] && ![tv_description.text isEqualToString:@""])
     {
-        
+        [self keyboardDisappeared];
         NSMutableDictionary *dict_addTask =[NSMutableDictionary new];
         [dict_addTask setValue:str_dateSelected forKey:@"task_start_date"];
         if ([tx_priority.text isEqualToString:@"Higher"]) {
@@ -211,7 +210,7 @@
         NSString*json_AddTaskString = [[NSString alloc] initWithData:jsonData
                                                 encoding:NSUTF8StringEncoding];
         json_AddTaskString = [json_AddTaskString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        json_AddTaskString = [json_AddTaskString stringByReplacingOccurrencesOfString:@" " withString:@""];
+//        json_AddTaskString = [json_AddTaskString stringByReplacingOccurrencesOfString:@" " withString:@""];
         json_AddTaskString = [json_AddTaskString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
         
         NSMutableDictionary *info=[NSMutableDictionary new];
@@ -230,11 +229,11 @@
         NSString* jsonAddTaskData =  [[NSString alloc] initWithData:jsonTaskData
                                                           encoding:NSUTF8StringEncoding];
         jsonAddTaskData = [jsonAddTaskData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        jsonAddTaskData = [jsonAddTaskData stringByReplacingOccurrencesOfString:@" " withString:@""];
+//        jsonAddTaskData = [jsonAddTaskData stringByReplacingOccurrencesOfString:@" " withString:@""];
         jsonAddTaskData = [jsonAddTaskData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
         
         jsonAddTaskData = [jsonAddTaskData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-        jsonAddTaskData = [jsonAddTaskData stringByReplacingOccurrencesOfString:@":\"\[" withString:@":["];
+        jsonAddTaskData = [jsonAddTaskData stringByReplacingOccurrencesOfString:@": \"\[" withString:@":["];
         jsonAddTaskData = [jsonAddTaskData stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
         
         [HUD show];
@@ -354,7 +353,6 @@
     
     NSDateFormatter *dateFormatter1 = [[NSDateFormatter alloc]init];
     [dateFormatter1 setDateFormat:@"yyyy-MM-dd 00:00:00"];
-    
     str_dateSelected = [dateFormatter1 stringFromDate:datePicker.date];
     [sheet_datePicker dismissWithClickedButtonIndex:0 animated:YES];
     
