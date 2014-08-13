@@ -484,6 +484,7 @@
                        });
     }
 }
+#pragma mark - CONFIRMATION API 
 
 -(void)requestForConfirmationApi:(NSString *)info{
     
@@ -515,9 +516,12 @@
     NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
     NSString *status_code = [results valueForKey:@"status_code"];
     
-    dispatch_async(dispatch_get_main_queue(), ^
-                   {
-                       [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_ADD_TASK_FAILED object:@"Unable to perfrom task at this movement."];
-                   });
+    if ([status_code isEqualToString:@"U1001"]) {
+        dispatch_async(dispatch_get_main_queue(), ^
+               {
+                   
+               });
+
+    }
 }
 @end

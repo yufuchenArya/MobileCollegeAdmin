@@ -211,7 +211,7 @@
                                                    encoding:NSUTF8StringEncoding];
     jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     jsonConfirmationData = [jsonConfirmationData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-    jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@":\"\[" withString:@":["];
+    jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@": \"\[" withString:@":["];
     jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
     
     [HUD show];
@@ -624,8 +624,6 @@
             
             [HUD show];
             [self requestDeleteOrCompleteTask:jsonDeleteTaskData];
-            
-            
             [cell hideUtilityButtonsAnimated:YES];
             break;
         }
