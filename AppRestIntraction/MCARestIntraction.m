@@ -502,7 +502,7 @@
     
     dispatch_async(dispatch_get_main_queue(), ^
                    {
-                       [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_ADD_TASK_FAILED object:@"Unable to perfrom task at this movement."];
+                       
                    });
 }
 -(void)requestConfirmationApiSuccess:(ASIFormDataRequest*)request{
