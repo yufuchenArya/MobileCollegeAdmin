@@ -32,7 +32,6 @@
 #define KEY_LANGUAGE_CODE @"language_code"
 #define KEY_STUDENT_COUNT @"stud_count"
 #define KEY_TASK_GRADE_INDEX @"taskGradeIndex"
-#define KEY_LANG_CODE @"lang_code"
 
 
 //Notification

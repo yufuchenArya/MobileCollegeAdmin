@@ -10,6 +10,7 @@
 #import "CustomTableViewCell.h"
 #import "SWTableViewCell.h"
 #import "MCATaskDetailViewController.h"
+#import "MCAAppDelegate.h"
 
 @interface MCATaskViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,SWTableViewCellDelegate>{
     
@@ -33,4 +34,5 @@
     AryaHUD *HUD;
 }
 -(IBAction)btnSegControl_taskDidClicked:(id)sender;
+-(IBAction)btnLogoutDidClicked:(id)sender;
 @end

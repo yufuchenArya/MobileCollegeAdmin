@@ -44,7 +44,6 @@
        lbl_taskPriority.text = @"Higher";
        lbl_taskPriority.textColor = [UIColor colorWithRed:251.0/255.0 green:0.0/255.0 blue:71.0/255.0 alpha:1.0];
        lbl_taskColor.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:0.0/255.0 blue:71.0/255.0 alpha:1.0];
-       
         
     }else{
         

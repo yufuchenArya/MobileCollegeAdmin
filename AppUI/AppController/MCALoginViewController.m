@@ -81,11 +81,8 @@
     } else
     {
         self.view.frame =CGRectMake(0,0,  self.view.frame.size.width, self.view.frame.size.height);
-    
         // this is iphone 4
     }
-    
-    
     [UIView commitAnimations];
 }
 
@@ -147,7 +144,6 @@
     }
 }
 
-
 #pragma mark - NSNOTIFICATION SELECTOR
 
 -(void)loginSuccess:(NSNotification*)notification{
@@ -160,13 +156,12 @@
    [[NSUserDefaults standardUserDefaults]setInteger:loginDHolder.arr_StudentData.count forKey:KEY_STUDENT_COUNT];
    [[NSUserDefaults standardUserDefaults]setValue:loginDHolder.str_userToken forKey:KEY_USER_TOKEN];
    [[NSUserDefaults standardUserDefaults]setValue:[loginDHolder.arr_StudentData valueForKey:@"language"] forKey:KEY_LANGUAGE_CODE];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+   [[NSUserDefaults standardUserDefaults]synchronize];
     
    [HUD hide];
    [self performSegueWithIdentifier:@"tabBarSeque" sender:self];
     
 }
-
 -(void)loginFailed:(NSNotification*)notification{
     
     [HUD hide];

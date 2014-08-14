@@ -76,7 +76,6 @@
         
         if ([[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] isEqualToString:@"p"])
         {
-            
             UIImage* img_add = [UIImage imageNamed:@"add.png"];
             CGRect img_addFrame = CGRectMake(0, 0, img_add.size.width, img_add.size.height);
             UIButton *btn_add = [[UIButton alloc] initWithFrame:img_addFrame];
@@ -116,7 +115,6 @@
             self.navigationItem.title = @"Task";
             [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:btnBar_add,nil]];
 //            [nav_TaskBar setItems:[NSArray arrayWithObject:self.navigationItem]];
-            
         }
     }
     
@@ -125,18 +123,14 @@
 -(void)apiCalling:(id)sender{
     
      arr_taskList = [[MCADBIntraction databaseInteractionManager]retrieveTaskList:nil];
-    
     //Api calling
     if (!arr_taskList.count > 0)
     {
         arr_taskList = [NSMutableArray new];
         [self getTaskList:nil];
-        
     }else{
-        
         [self createTaskList:@"My Task"];
     }
-    
 }
 - (void)didReceiveMemoryWarning
 {
@@ -470,13 +464,11 @@
                 cell.lbl_taskPriority.textColor = [UIColor colorWithRed:251.0/255.0 green:0.0/255.0 blue:71.0/255.0 alpha:1.0];
                 cell.lbl_taskColor.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:0.0/255.0 blue:71.0/255.0 alpha:1.0];
                 
-                
             }else{
                 
                 cell.lbl_taskPriority.text = @"Regular";
                 cell.lbl_taskPriority.textColor = [UIColor colorWithRed:254.0/255.0 green:206.0/255.0 blue:36.0/255.0 alpha:1.0];
                 cell.lbl_taskColor.backgroundColor = [UIColor colorWithRed:254.0/255.0 green:206.0/255.0 blue:36.0/255.0 alpha:1.0];
-               
                 
             }
 
@@ -523,18 +515,20 @@
     
     MCATaskDetailDHolder *taskDetailDHolder;
     
-    if (tableView == tbl_taskCurrent) {
-        
-        taskDetailDHolder  = [arr_currentTaskList objectAtIndex:indexPath.row];
-    }else if(tableView == tbl_taskCompleted){
-        
-        taskDetailDHolder = [arr_completedTaskList objectAtIndex:indexPath.row];
-    }else if (tableView == tbl_taskDeleted){
-        
-        taskDetailDHolder = [arr_deletedTaskList objectAtIndex:indexPath.row];
-    }
+    if ((tableView != tbl_gradeList)) {
+       
+        if (tableView == tbl_taskCurrent) {
+            
+            taskDetailDHolder  = [arr_currentTaskList objectAtIndex:indexPath.row];
+        }else if(tableView == tbl_taskCompleted){
+            
+            taskDetailDHolder = [arr_completedTaskList objectAtIndex:indexPath.row];
+        }else if (tableView == tbl_taskDeleted){
+            
+            taskDetailDHolder = [arr_deletedTaskList objectAtIndex:indexPath.row];
+        }
         [self performSegueWithIdentifier:@"segue_taskDetail" sender:taskDetailDHolder];
-  
+    }
 }
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index {
     
@@ -677,6 +671,9 @@
     
     [self confirmationApi:nil];
     [self createTaskList:@"My Task"];
+    [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_TASK_GRADE_INDEX];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    [tbl_gradeList reloadData];
     
 }
 -(void)taskListFailed:(NSNotification*)notification{
@@ -705,7 +702,6 @@
     [self getTaskList:nil];
     
 }
-
 -(void)addTaskFailed:(NSNotification*)notification{
     
     [HUD hide];
@@ -731,61 +727,62 @@
       [[NSUserDefaults standardUserDefaults]setValue:taskDHolder.str_nowDate forKey:KEY_NOW_DATE];
       [[NSUserDefaults standardUserDefaults]synchronize];
         
-      if ([[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] isEqualToString:@"p"])
-      {
-        if ([sender isEqualToString:@"My Task"]) {
-            
-            if ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"] ){
+        if ([taskDHolder.str_status isEqualToString:@"1"])
+        {
+            if ([[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] isEqualToString:@"p"])
+            {
+                if ([sender isEqualToString:@"My Task"]) {
+                    
+                    if ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"] ){
+                        
+                        [arr_currentTaskList addObject:taskDHolder];
+                        
+                    }else if ([taskDHolder.str_taskStatus isEqualToString:@"c"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"]){
+                        
+                        [arr_completedTaskList addObject:taskDHolder];
+                        
+                    }else if([taskDHolder.str_taskStatus isEqualToString:@"d"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"]){
+                        
+                        [arr_deletedTaskList addObject:taskDHolder];
+                    }
+                    
+                }else{
+                    if ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_grade isEqualToString:sender]){
+                        
+                        [arr_currentTaskList addObject:taskDHolder];
+                        
+                    }else if ([taskDHolder.str_taskStatus isEqualToString:@"c"] && [taskDHolder.str_grade isEqualToString:sender]){
+                        
+                        [arr_completedTaskList addObject:taskDHolder];
+                        
+                    }else if([taskDHolder.str_taskStatus isEqualToString:@"d"] && [taskDHolder.str_grade isEqualToString:sender]){
+                        
+                        [arr_deletedTaskList addObject:taskDHolder];
+                    }
+                }
+            }else{
                 
-                [arr_currentTaskList addObject:taskDHolder];
-                
-            }else if ([taskDHolder.str_taskStatus isEqualToString:@"c"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"]){
-                
-                [arr_completedTaskList addObject:taskDHolder];
-                
-            }else if([taskDHolder.str_taskStatus isEqualToString:@"d"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"]){
-                
-                [arr_deletedTaskList addObject:taskDHolder];
+                if ([taskDHolder.str_taskStatus isEqualToString:@"o"]){
+                    
+                    [arr_currentTaskList addObject:taskDHolder];
+                    
+                }else if ([taskDHolder.str_taskStatus isEqualToString:@"c"]){
+                    
+                    [arr_completedTaskList addObject:taskDHolder];
+                    
+                }else if([taskDHolder.str_taskStatus isEqualToString:@"d"]){
+                    
+                    [arr_deletedTaskList addObject:taskDHolder];
+                }
             }
-            
-        }else{
-            if ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_grade isEqualToString:sender]){
-                
-                [arr_currentTaskList addObject:taskDHolder];
-                
-            }else if ([taskDHolder.str_taskStatus isEqualToString:@"c"] && [taskDHolder.str_grade isEqualToString:sender]){
-                
-                [arr_completedTaskList addObject:taskDHolder];
-                
-            }else if([taskDHolder.str_taskStatus isEqualToString:@"d"] && [taskDHolder.str_grade isEqualToString:sender]){
-                
-                [arr_deletedTaskList addObject:taskDHolder];
-             }
-          }
-      }else{
-          
-          if ([taskDHolder.str_taskStatus isEqualToString:@"o"]){
-              
-              [arr_currentTaskList addObject:taskDHolder];
-              
-          }else if ([taskDHolder.str_taskStatus isEqualToString:@"c"]){
-              
-              [arr_completedTaskList addObject:taskDHolder];
-              
-          }else if([taskDHolder.str_taskStatus isEqualToString:@"d"]){
-              
-              [arr_deletedTaskList addObject:taskDHolder];
-          }
-       }
-   }
-    
+        }
+    }
     NSLog(@"%ld",(long)segControl_task.selectedSegmentIndex);
     
     [HUD hide];
     [self btnSegControl_taskDidClicked:nil];
 
 }
-
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     if ([segue.identifier isEqualToString:@"segue_taskDetail"]) {
@@ -793,8 +790,14 @@
         MCATaskDetailViewController *taskDetailViewCtr = (MCATaskDetailViewController*)[segue destinationViewController];
         
         taskDetailViewCtr.taskDetailDHolder = (MCATaskDetailDHolder*)sender;
-        
     }
+}
+-(IBAction)btnLogoutDidClicked:(id)sender{
     
+    [[MCADBIntraction databaseInteractionManager]deleteTaskList:nil];
+    
+    MCAAppDelegate *appdelegate = (MCAAppDelegate *)[UIApplication sharedApplication].delegate;
+    [appdelegate logout];
+
 }
 @end

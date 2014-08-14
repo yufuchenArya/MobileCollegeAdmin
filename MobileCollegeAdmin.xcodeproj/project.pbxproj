@@ -10,6 +10,8 @@
 		CE0D694F1995DC5C009C0DBE /* MCADBIntraction.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0D694E1995DC5C009C0DBE /* MCADBIntraction.m */; };
 		CE0D69521995FE9C009C0DBE /* MCAAddTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0D69511995FE9C009C0DBE /* MCAAddTaskViewController.m */; };
 		CE174993198D19C200F61135 /* AryaHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CE174992198D19C200F61135 /* AryaHUD.m */; };
+		CE17F55E199C75DF0027251A /* MCAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE17F55D199C75DF0027251A /* MCAAppDelegate.m */; };
+		CE17F560199C75F90027251A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE17F55F199C75F90027251A /* Images.xcassets */; };
 		CE1805A0198656260087CA3D /* MCAStudentDHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = CE18059F198656260087CA3D /* MCAStudentDHolder.m */; };
 		CE24C6011994B2A70048B85D /* MCATaskDetailDHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = CE24C6001994B2A70048B85D /* MCATaskDetailDHolder.m */; };
 		CE278A1919920D6700783592 /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = CE278A0E19920D6700783592 /* NSMutableArray+SWUtilityButtons.m */; };
@@ -36,8 +38,6 @@
 		CE84C1F31962D83800A351FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE84C1F21962D83800A351FF /* UIKit.framework */; };
 		CE84C1F91962D83800A351FF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE84C1F71962D83800A351FF /* InfoPlist.strings */; };
 		CE84C1FB1962D83800A351FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CE84C1FA1962D83800A351FF /* main.m */; };
-		CE84C1FF1962D83800A351FF /* MCAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE84C1FE1962D83800A351FF /* MCAAppDelegate.m */; };
-		CE84C2071962D83800A351FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE84C2061962D83800A351FF /* Images.xcassets */; };
 		CE84C20E1962D83800A351FF /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE84C20D1962D83800A351FF /* XCTest.framework */; };
 		CE84C20F1962D83800A351FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE84C1EE1962D83800A351FF /* Foundation.framework */; };
 		CE84C2101962D83800A351FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE84C1F21962D83800A351FF /* UIKit.framework */; };
@@ -91,6 +91,9 @@
 		CE0D69511995FE9C009C0DBE /* MCAAddTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAAddTaskViewController.m; sourceTree = "<group>"; };
 		CE174991198D19C200F61135 /* AryaHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AryaHUD.h; sourceTree = "<group>"; };
 		CE174992198D19C200F61135 /* AryaHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AryaHUD.m; sourceTree = "<group>"; };
+		CE17F55C199C75DF0027251A /* MCAAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAAppDelegate.h; sourceTree = "<group>"; };
+		CE17F55D199C75DF0027251A /* MCAAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAAppDelegate.m; sourceTree = "<group>"; };
+		CE17F55F199C75F90027251A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		CE18059E198656260087CA3D /* MCAStudentDHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAStudentDHolder.h; sourceTree = "<group>"; };
 		CE18059F198656260087CA3D /* MCAStudentDHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAStudentDHolder.m; sourceTree = "<group>"; };
 		CE24C5FF1994B2A70048B85D /* MCATaskDetailDHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCATaskDetailDHolder.h; sourceTree = "<group>"; };
@@ -137,9 +140,6 @@
 		CE84C1F81962D83800A351FF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CE84C1FA1962D83800A351FF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CE84C1FC1962D83800A351FF /* MobileCollegeAdmin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileCollegeAdmin-Prefix.pch"; sourceTree = "<group>"; };
-		CE84C1FD1962D83800A351FF /* MCAAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MCAAppDelegate.h; path = ../MobileCollegeAdmin/MCAAppDelegate.h; sourceTree = "<group>"; };
-		CE84C1FE1962D83800A351FF /* MCAAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MCAAppDelegate.m; path = ../MobileCollegeAdmin/MCAAppDelegate.m; sourceTree = "<group>"; };
-		CE84C2061962D83800A351FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../MobileCollegeAdmin/Images.xcassets; sourceTree = "<group>"; };
 		CE84C20C1962D83800A351FF /* MobileCollegeAdminTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MobileCollegeAdminTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE84C20D1962D83800A351FF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		CE84C2151962D83800A351FF /* MobileCollegeAdminTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MobileCollegeAdminTests-Info.plist"; sourceTree = "<group>"; };
@@ -244,6 +244,13 @@
 			path = HUD;
 			sourceTree = "<group>";
 		};
+		CE17F561199C76210027251A /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
 		CE278A0C19920D4000783592 /* MCATableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,7 +330,9 @@
 		CE84C1E21962D83800A351FF = {
 			isa = PBXGroup;
 			children = (
-				CE84C2261962D8DA00A351FF /* AppDelegate */,
+				CE17F561199C76210027251A /* AppDelegate */,
+				CE17F55C199C75DF0027251A /* MCAAppDelegate.h */,
+				CE17F55D199C75DF0027251A /* MCAAppDelegate.m */,
 				CE84C2281962D92D00A351FF /* AppUtilities */,
 				CE84C2291962D97E00A351FF /* AppCoreData */,
 				CE84C22F1962DA1600A351FF /* AppController */,
@@ -331,7 +340,6 @@
 				CE84C22A1962D98900A351FF /* AppModel */,
 				CE84C2311962DB6200A351FF /* AppExternal */,
 				CEEDCADD197F8EB10088511D /* AppRestIntraction */,
-				CE84C2271962D8EA00A351FF /* AppResources */,
 				CE84C1F41962D83800A351FF /* MobileCollegeAdmin */,
 				CE84C2131962D83800A351FF /* MobileCollegeAdminTests */,
 				CE84C1ED1962D83800A351FF /* Frameworks */,
@@ -405,26 +413,10 @@
 		CE84C2251962D8BA00A351FF /* AppUI */ = {
 			isa = PBXGroup;
 			children = (
+				CE17F55F199C75F90027251A /* Images.xcassets */,
 				CE84C2231962D88700A351FF /* Main_Iphone.storyboard */,
 			);
 			path = AppUI;
-			sourceTree = "<group>";
-		};
-		CE84C2261962D8DA00A351FF /* AppDelegate */ = {
-			isa = PBXGroup;
-			children = (
-				CE84C1FD1962D83800A351FF /* MCAAppDelegate.h */,
-				CE84C1FE1962D83800A351FF /* MCAAppDelegate.m */,
-			);
-			path = AppDelegate;
-			sourceTree = "<group>";
-		};
-		CE84C2271962D8EA00A351FF /* AppResources */ = {
-			isa = PBXGroup;
-			children = (
-				CE84C2061962D83800A351FF /* Images.xcassets */,
-			);
-			path = AppResources;
 			sourceTree = "<group>";
 		};
 		CE84C2281962D92D00A351FF /* AppUtilities */ = {
@@ -654,8 +646,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE84C2071962D83800A351FF /* Images.xcassets in Resources */,
 				CE2AA315199A4BFD00D43008 /* MobileCollegeAdmin.sqlite in Resources */,
+				CE17F560199C75F90027251A /* Images.xcassets in Resources */,
 				CE84C1F91962D83800A351FF /* InfoPlist.strings in Resources */,
 				CE84C2241962D88700A351FF /* Main_Iphone.storyboard in Resources */,
 			);
@@ -691,11 +683,11 @@
 				CE174993198D19C200F61135 /* AryaHUD.m in Sources */,
 				CE278A2219920DEF00783592 /* CustomTableViewCell.m in Sources */,
 				CE84C23A1962DE2E00A351FF /* MCARegistrationViewController.m in Sources */,
+				CE17F55E199C75DF0027251A /* MCAAppDelegate.m in Sources */,
 				CEEDCAC0197F8BE20088511D /* ASIHTTPRequest.m in Sources */,
 				CEEDCAD4197F8BF30088511D /* SBJsonParser.m in Sources */,
 				CEEDCAD3197F8BF30088511D /* SBJsonBase.m in Sources */,
 				CE0D694F1995DC5C009C0DBE /* MCADBIntraction.m in Sources */,
-				CE84C1FF1962D83800A351FF /* MCAAppDelegate.m in Sources */,
 				CE278A251992365A00783592 /* MCASignUpDHolder.m in Sources */,
 				CEDB9B42198F61A6006B3C9B /* MCAGlobalData.m in Sources */,
 				CE6E7D1E1990A963005470BC /* MCATaskViewController.m in Sources */,

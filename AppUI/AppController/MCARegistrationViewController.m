@@ -86,7 +86,8 @@
     isParentNotifyPush = NO;
     
     HUD=[AryaHUD new];
-    [self.view addSubview:HUD];
+//    [self.view addSubview:HUD];
+//    [HUD show];
     
 }
 -(UIStatusBarStyle)preferredStatusBarStyle{
@@ -345,6 +346,7 @@
                jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
                  
                [HUD show];
+               [self.view addSubview:HUD];
                [self requestParentSignUp:jsonParentData];
             
             }else{
@@ -430,6 +432,8 @@
                 jsonStudData = [jsonStudData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
                 jsonStudData = [jsonStudData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
                 [HUD show];
+//                [HUD setHUDText:@"loading"];
+                [self.view addSubview:HUD];
                 [self requestStudentSignUp:jsonStudData];
                 
             }else{
@@ -968,6 +972,7 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
 -(void)parentSignUpSuccess:(NSNotification*)notification{
     
     [HUD hide];
+    [HUD removeFromSuperview];
     MCASignUpDHolder *signUpDHolder = notification.object;
     [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_userId forKey:KEY_USER_ID];
     [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_signinId forKey:KEY_SIGNIN_ID];
@@ -985,11 +990,13 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
 -(void)parentSignUpFailed:(NSNotification*)notification{
     
     [HUD hide];
+    [HUD removeFromSuperview];
     [MCAGlobalFunction showAlert:notification.object];
 }
 -(void)studSignUpSuccess:(NSNotification*)notification{
    
     [HUD hide];
+    [HUD removeFromSuperview];
     MCASignUpDHolder *signUpDHolder = notification.object;
     [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_userId forKey:KEY_USER_ID];
     [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_signinId forKey:KEY_SIGNIN_ID];
@@ -1006,6 +1013,7 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
 -(void)studSignUpFailed:(NSNotification*)notification{
     
     [HUD hide];
+    [HUD removeFromSuperview];
     [MCAGlobalFunction showAlert:notification.object];
     
 }

@@ -719,7 +719,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wia-BD-JSn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1763" y="-1289"/>
+            <point key="canvasLocation" x="-1843" y="-1289"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="HWe-oN-SNq">
@@ -1009,7 +1009,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Bsc-SC-mBo"/>
+                    <navigationItem key="navigationItem" id="Bsc-SC-mBo">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="uOl-A3-hBf">
+                            <connections>
+                                <action selector="btnLogoutDidClicked:" destination="umo-6W-oaU" id="SVp-oL-unh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="segControl_task" destination="t6i-Re-bSO" id="vo5-Dn-OVe"/>
                         <outlet property="tbl_taskCompleted" destination="eOP-Wm-qKd" id="jVd-O6-Bgr"/>
@@ -1289,12 +1295,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h8X-B3-Ffx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1795" y="25"/>
+            <point key="canvasLocation" x="-1811" y="9"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="c3o-Ly-ve4">
             <objects>
-                <tabBarController definesPresentationContext="YES" id="DV0-V6-0NY" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="tabBarMCA" definesPresentationContext="YES" id="DV0-V6-0NY" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="YQx-xV-B1k">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>

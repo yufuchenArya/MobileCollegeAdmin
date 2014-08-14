@@ -21,8 +21,12 @@
 }
 
 -(void)goToTabbarView:(id)sender{
+    
+    if (sender) {
+       
+        tabBarMCACtr = (UITabBarController*)[sender destinationViewController];
+    }
    
-    tabBarMCACtr = (UITabBarController*)[sender destinationViewController];
     tabBarMCACtr.tabBar.backgroundImage = [UIImage imageNamed:@"tabBgIphone.png"];
     
     tabBarMCACtr.tabBar.selectionIndicatorImage  = [UIImage imageNamed:@"blueBg.png"];
@@ -31,7 +35,6 @@
      setFinishedSelectedImage:[[UIImage imageNamed:@"taskSelect.png"]
                                imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
      withFinishedUnselectedImage:[UIImage imageNamed:@"task.png"]];
-    
     
     [[tabBarMCACtr.tabBar.items objectAtIndex:1]
      setFinishedSelectedImage:[[UIImage imageNamed:@"calendarSelect.png"]
@@ -58,6 +61,11 @@
       nil] forState:UIControlStateNormal];
     
     tabBarMCACtr.delegate = self;
+    
+    if (!sender) {
+        
+        
+    }
 
 }
 //- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
