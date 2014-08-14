@@ -281,10 +281,13 @@
     tx_parentConfirmPwd.text = [tx_parentConfirmPwd.text stringByTrimmingCharactersInSet:
                           [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    if (![tx_parentName.text isEqualToString:@""]&&![tx_parentPwd.text isEqualToString:@""]&&![tx_parentConfirmPwd.text isEqualToString:@""]) {
+    if (![tx_parentName.text isEqualToString:@""]) {
         
         if ([MCAValidation isValidEmailId:tx_parentEmail.text]&& ![tx_parentEmail.text isEqualToString:@""])
         {
+            if (![tx_parentPwd.text isEqualToString:@""])
+            {
+          
             if (isParentAcceptTerms)
              {
                 NSMutableDictionary *info=[NSMutableDictionary new];
@@ -355,7 +358,12 @@
            
         }else{
             
-            [MCAGlobalFunction showAlert:EMAIL_MESSAGE];
+            [MCAGlobalFunction showAlert:INVALID_PWD];
+        }
+        }else{
+            
+             [MCAGlobalFunction showAlert:EMAIL_MESSAGE];
+           
         }
     }else{
         
@@ -363,8 +371,6 @@
     }
 }
 -(IBAction)btnStudSignUpDidClicked:(id)sender{
-    
-    [btn_keyboardDone removeFromSuperview];
     
     tx_studName.text = [tx_studName.text stringByTrimmingCharactersInSet:
                                 [NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -375,12 +381,14 @@
     tx_studConfirmPwd.text = [tx_studConfirmPwd.text stringByTrimmingCharactersInSet:
                                 [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    if (![tx_studName.text isEqualToString:@""]&&![tx_studPwd.text isEqualToString:@""]&&![tx_studConfirmPwd.text isEqualToString:@""]) {
-        
-        if ([MCAValidation isValidEmailId:tx_studEmail.text]&&![tx_studEmail.text isEqualToString:@""])
+    if (![tx_studName.text isEqualToString:@""])
+    {
+       if ([MCAValidation isValidEmailId:tx_studEmail.text]&&![tx_studEmail.text isEqualToString:@""])
         {
-          if (![tx_studGrade.text isEqualToString:@""]&& ![tx_studSelectPerson.text isEqualToString:@""])
+         if (![tx_studPwd.text isEqualToString:@""])
           {
+           if (![tx_studGrade.text isEqualToString:@""] && ![tx_studSelectPerson.text isEqualToString:@""])
+           {
             if (isStudAcceptTerms)
             {
                 NSMutableDictionary *info=[NSMutableDictionary new];
@@ -431,6 +439,10 @@
                                                                   encoding:NSUTF8StringEncoding];
                 jsonStudData = [jsonStudData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
                 jsonStudData = [jsonStudData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+                
+                [btn_keyboardDone removeFromSuperview];
+                [self resignTextField];
+                
                 [HUD show];
 //                [HUD setHUDText:@"loading"];
                 [self.view addSubview:HUD];
@@ -442,9 +454,10 @@
           }else{
               [MCAGlobalFunction showAlert:@"Please select Grade and Person."];
           }
-           
         }else{
-            
+              [MCAGlobalFunction showAlert:INVALID_PWD];
+        }
+    }else{            
             [MCAGlobalFunction showAlert:EMAIL_MESSAGE];
         }
     }else{
@@ -904,6 +917,7 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
     if ([MCAGlobalFunction isConnectedToInternet]) {
         [[MCARestIntraction sharedManager]requestForAddStudent:info];
     }else{
+        [HUD hide];
         [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
     }
 }
@@ -912,6 +926,7 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
     if ([MCAGlobalFunction isConnectedToInternet]) {
         [[MCARestIntraction sharedManager]requestForParentSignUp:info];
     }else{
+        [HUD hide];
         [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
     }
 }
@@ -920,6 +935,7 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
     if ([MCAGlobalFunction isConnectedToInternet]) {
         [[MCARestIntraction sharedManager]requestForStudentSignUp:info];
     }else{
+        [HUD hide];
         [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
     }
 }

@@ -319,7 +319,8 @@
     if ([MCAGlobalFunction isConnectedToInternet]) {
         [[MCARestIntraction sharedManager]requestForAddTask:info];
     }else{
-       
+        
+        [HUD hide];
         [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
     }
 }

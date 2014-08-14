@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 arya. All rights reserved.
 //
 
-
-
 //Condition
 #define IS_IPHONE_5 ([[UIScreen mainScreen] bounds].size.height == 568)
 
@@ -15,13 +13,14 @@
 #define URL_MAIN @"http://122.176.45.15:8080/careerdefine/api/"
 
 //Message
-
-#define PWD_MESSAGE @"Please enter valid password."
+#define INVALID_PWD @"Please enter valid password."
 #define EMAIL_MESSAGE @"Please enter valid email address."
+#define INVALID_USERNAME @"Please enter valid username."
 #define NET_NOT_AVAIALABLE @"Please connect to internet."
 #define MANDATORY_MESSAGE @"All fields are mandatory." 
 #define ACCEPT_TERM_MESSAGE @"Please accept Terms of Use."
-#define INVALID_USERNAME @"Please enter valid username and password."
+#define INVALID_USERNAME_PWD @"Please enter valid username and password."
+#define INVALID_EMAIL_PWD @"Please enter valid email address and password."
 
 //keys
 #define KEY_USER_ID @"user_id"
@@ -32,6 +31,7 @@
 #define KEY_LANGUAGE_CODE @"language_code"
 #define KEY_STUDENT_COUNT @"stud_count"
 #define KEY_TASK_GRADE_INDEX @"taskGradeIndex"
+#define KEY_TASK_STUD_INDEX @"taskStudIndex"
 
 
 //Notification

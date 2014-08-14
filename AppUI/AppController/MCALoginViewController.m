@@ -98,7 +98,7 @@
     {
         if ([tx_pwd.text isEqualToString:@""]) {
             
-            [MCAGlobalFunction showAlert:PWD_MESSAGE];
+            [MCAGlobalFunction showAlert:INVALID_PWD];
             
         }else{
             
@@ -140,6 +140,7 @@
     if ([MCAGlobalFunction isConnectedToInternet]) {
         [[MCARestIntraction sharedManager]requestForLogin:info];
     }else{
+        [HUD hide];
         [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
     }
 }
@@ -157,7 +158,7 @@
    [[NSUserDefaults standardUserDefaults]setValue:loginDHolder.str_userToken forKey:KEY_USER_TOKEN];
    [[NSUserDefaults standardUserDefaults]setValue:[loginDHolder.arr_StudentData valueForKey:@"language"] forKey:KEY_LANGUAGE_CODE];
    [[NSUserDefaults standardUserDefaults]synchronize];
-    
+  
    [HUD hide];
    [self performSegueWithIdentifier:@"tabBarSeque" sender:self];
     

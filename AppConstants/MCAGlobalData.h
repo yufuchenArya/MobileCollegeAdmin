@@ -12,6 +12,7 @@
 
 UITabBarController *tabBarMCACtr;
 FMDatabase *dBCollgeAdmin;
+NSMutableArray *arr_loginData;
 
 @interface MCAGlobalData : NSObject<UITabBarControllerDelegate>{
     

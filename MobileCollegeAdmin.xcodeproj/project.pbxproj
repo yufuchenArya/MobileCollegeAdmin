@@ -23,8 +23,6 @@
 		CE278A2219920DEF00783592 /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE278A2119920DEF00783592 /* CustomTableViewCell.m */; };
 		CE278A251992365A00783592 /* MCASignUpDHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = CE278A241992365A00783592 /* MCASignUpDHolder.m */; };
 		CE2AA3131999DE4900D43008 /* MCATaskDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2AA3121999DE4900D43008 /* MCATaskDetailViewController.m */; };
-		CE2AA315199A4BFD00D43008 /* MobileCollegeAdmin.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CE2AA314199A4BFD00D43008 /* MobileCollegeAdmin.sqlite */; };
-		CE2AA316199A4BFD00D43008 /* MobileCollegeAdmin.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CE2AA314199A4BFD00D43008 /* MobileCollegeAdmin.sqlite */; };
 		CE2AE62D1998881100B23FFF /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2AE6241998881100B23FFF /* FMDatabase.m */; };
 		CE2AE62E1998881100B23FFF /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2AE6261998881100B23FFF /* FMDatabaseAdditions.m */; };
 		CE2AE62F1998881100B23FFF /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2AE6281998881100B23FFF /* FMDatabasePool.m */; };
@@ -51,6 +49,8 @@
 		CE84C2411962E46800A351FF /* MCAGlobalFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = CE84C2401962E46800A351FF /* MCAGlobalFunction.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CE84C2441962E48600A351FF /* MCAValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE84C2431962E48600A351FF /* MCAValidation.m */; };
 		CEA9D9D1197FEFFE009C3884 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA9D9D0197FEFFE009C3884 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CED96799199CC2EC0028EC32 /* MobileCollegeAdmin.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CED96798199CC2EC0028EC32 /* MobileCollegeAdmin.sqlite */; };
+		CED9679A199CC2EC0028EC32 /* MobileCollegeAdmin.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CED96798199CC2EC0028EC32 /* MobileCollegeAdmin.sqlite */; };
 		CEDB9B42198F61A6006B3C9B /* MCAGlobalData.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDB9B41198F61A6006B3C9B /* MCAGlobalData.m */; };
 		CEDB9B49198FAE48006B3C9B /* MCAForgotPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDB9B48198FAE48006B3C9B /* MCAForgotPwdViewController.m */; };
 		CEEDCABB197F8BE20088511D /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEDCAA7197F8BE20088511D /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -91,8 +91,8 @@
 		CE0D69511995FE9C009C0DBE /* MCAAddTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAAddTaskViewController.m; sourceTree = "<group>"; };
 		CE174991198D19C200F61135 /* AryaHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AryaHUD.h; sourceTree = "<group>"; };
 		CE174992198D19C200F61135 /* AryaHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AryaHUD.m; sourceTree = "<group>"; };
-		CE17F55C199C75DF0027251A /* MCAAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAAppDelegate.h; sourceTree = "<group>"; };
-		CE17F55D199C75DF0027251A /* MCAAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAAppDelegate.m; sourceTree = "<group>"; };
+		CE17F55C199C75DF0027251A /* MCAAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCAAppDelegate.h; path = ../MCAAppDelegate.h; sourceTree = "<group>"; };
+		CE17F55D199C75DF0027251A /* MCAAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCAAppDelegate.m; path = ../MCAAppDelegate.m; sourceTree = "<group>"; };
 		CE17F55F199C75F90027251A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		CE18059E198656260087CA3D /* MCAStudentDHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAStudentDHolder.h; sourceTree = "<group>"; };
 		CE18059F198656260087CA3D /* MCAStudentDHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAStudentDHolder.m; sourceTree = "<group>"; };
@@ -116,7 +116,6 @@
 		CE278A241992365A00783592 /* MCASignUpDHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCASignUpDHolder.m; sourceTree = "<group>"; };
 		CE2AA3111999DE4900D43008 /* MCATaskDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCATaskDetailViewController.h; sourceTree = "<group>"; };
 		CE2AA3121999DE4900D43008 /* MCATaskDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCATaskDetailViewController.m; sourceTree = "<group>"; };
-		CE2AA314199A4BFD00D43008 /* MobileCollegeAdmin.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = MobileCollegeAdmin.sqlite; sourceTree = "<group>"; };
 		CE2AE6231998881100B23FFF /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
 		CE2AE6241998881100B23FFF /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
 		CE2AE6251998881100B23FFF /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
@@ -159,6 +158,7 @@
 		CE84C2431962E48600A351FF /* MCAValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAValidation.m; sourceTree = "<group>"; };
 		CEA9D9CF197FEFFE009C3884 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		CEA9D9D0197FEFFE009C3884 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		CED96798199CC2EC0028EC32 /* MobileCollegeAdmin.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = MobileCollegeAdmin.sqlite; sourceTree = "<group>"; };
 		CEDB9B40198F61A5006B3C9B /* MCAGlobalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCAGlobalData.h; path = ../AppConstants/MCAGlobalData.h; sourceTree = "<group>"; };
 		CEDB9B41198F61A6006B3C9B /* MCAGlobalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCAGlobalData.m; path = ../AppConstants/MCAGlobalData.m; sourceTree = "<group>"; };
 		CEDB9B47198FAE48006B3C9B /* MCAForgotPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCAForgotPwdViewController.h; path = forgotPwd/MCAForgotPwdViewController.h; sourceTree = "<group>"; };
@@ -247,6 +247,8 @@
 		CE17F561199C76210027251A /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				CE17F55C199C75DF0027251A /* MCAAppDelegate.h */,
+				CE17F55D199C75DF0027251A /* MCAAppDelegate.m */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";
@@ -331,10 +333,8 @@
 			isa = PBXGroup;
 			children = (
 				CE17F561199C76210027251A /* AppDelegate */,
-				CE17F55C199C75DF0027251A /* MCAAppDelegate.h */,
-				CE17F55D199C75DF0027251A /* MCAAppDelegate.m */,
 				CE84C2281962D92D00A351FF /* AppUtilities */,
-				CE84C2291962D97E00A351FF /* AppCoreData */,
+				CE84C2291962D97E00A351FF /* AppDB */,
 				CE84C22F1962DA1600A351FF /* AppController */,
 				CE84C2251962D8BA00A351FF /* AppUI */,
 				CE84C22A1962D98900A351FF /* AppModel */,
@@ -434,13 +434,14 @@
 			path = AppUtilits;
 			sourceTree = "<group>";
 		};
-		CE84C2291962D97E00A351FF /* AppCoreData */ = {
+		CE84C2291962D97E00A351FF /* AppDB */ = {
 			isa = PBXGroup;
 			children = (
-				CE2AA314199A4BFD00D43008 /* MobileCollegeAdmin.sqlite */,
+				CED96798199CC2EC0028EC32 /* MobileCollegeAdmin.sqlite */,
 				CE0D694D1995DC5C009C0DBE /* MCADBIntraction.h */,
 				CE0D694E1995DC5C009C0DBE /* MCADBIntraction.m */,
 			);
+			name = AppDB;
 			path = AppCoreData;
 			sourceTree = "<group>";
 		};
@@ -646,8 +647,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE2AA315199A4BFD00D43008 /* MobileCollegeAdmin.sqlite in Resources */,
 				CE17F560199C75F90027251A /* Images.xcassets in Resources */,
+				CED96799199CC2EC0028EC32 /* MobileCollegeAdmin.sqlite in Resources */,
 				CE84C1F91962D83800A351FF /* InfoPlist.strings in Resources */,
 				CE84C2241962D88700A351FF /* Main_Iphone.storyboard in Resources */,
 			);
@@ -658,7 +659,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE84C2181962D83800A351FF /* InfoPlist.strings in Resources */,
-				CE2AA316199A4BFD00D43008 /* MobileCollegeAdmin.sqlite in Resources */,
+				CED9679A199CC2EC0028EC32 /* MobileCollegeAdmin.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

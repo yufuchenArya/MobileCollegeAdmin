@@ -51,8 +51,8 @@
     
     NSDictionary *results = [parser objectWithString:responseString error:nil];
     NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
+    NSMutableArray *arr_studList = [NSMutableArray new];
     NSString *status_code = [results valueForKey:@"status_code"];
-    
     
     if ([status_code isEqualToString:@"S1002"]){
         
@@ -65,6 +65,29 @@
         loginDHolder.str_userIsApproved = [responseDict valueForKey:@"user_is_approved"];
         loginDHolder.arr_StudentData = [responseDict valueForKey:@"student"];
         
+        for (int i = 0; i < loginDHolder.arr_StudentData.count; i++)
+        {
+            MCASignUpDHolder *studDHolder = [MCASignUpDHolder new];
+            studDHolder.str_userId = [[loginDHolder.arr_StudentData valueForKey:@"user_id"]objectAtIndex:i];
+            studDHolder.str_userType = [[loginDHolder.arr_StudentData valueForKey:@"user_type"]objectAtIndex:i];
+            studDHolder.str_userName = [[loginDHolder.arr_StudentData valueForKey:@"username"]objectAtIndex:i];
+            studDHolder.str_signinId = [[loginDHolder.arr_StudentData valueForKey:@"signin_id"]objectAtIndex:i];
+            studDHolder.str_lang = [[loginDHolder.arr_StudentData valueForKey:@"language"]objectAtIndex:i];
+            studDHolder.str_zipCode = [[loginDHolder.arr_StudentData valueForKey:@"zipcode"]objectAtIndex:i];
+            studDHolder.str_grade = [[loginDHolder.arr_StudentData valueForKey:@"grade"]objectAtIndex:i];
+            studDHolder.str_family = [[loginDHolder.arr_StudentData valueForKey:@"family"]objectAtIndex:i];
+            studDHolder.str_notifyByPush = [[loginDHolder.arr_StudentData valueForKey:@"notify_by_push"]objectAtIndex:i];
+            studDHolder.str_notifyByMail = [[loginDHolder.arr_StudentData valueForKey:@"notify_by_email"]objectAtIndex:i];
+            
+            [arr_studList addObject:studDHolder];
+        
+        }
+    
+        [[MCADBIntraction databaseInteractionManager]insertStudList:arr_studList];
+        
+        arr_loginData = [NSMutableArray new];
+        [arr_loginData addObject:loginDHolder];
+             
         dispatch_async(dispatch_get_main_queue(), ^
                        {
                            [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_LOGIN_SUCCESS object:loginDHolder];

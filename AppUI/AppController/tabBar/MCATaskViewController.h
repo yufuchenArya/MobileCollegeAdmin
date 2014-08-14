@@ -20,6 +20,7 @@
     IBOutlet UITableView *tbl_taskCompleted;
     IBOutlet UITableView *tbl_taskDeleted;
     IBOutlet UITableView *tbl_gradeList;
+    IBOutlet UITableView *tbl_studentList;
                   UIView *view_transBg;
     
     NSMutableArray *arr_taskList;
@@ -29,6 +30,7 @@
     
     NSMutableArray *arr_deletedTaskDetail;
     NSMutableArray *arr_completedTaskDetail;
+    NSMutableArray *arr_studentList;
            NSArray *arr_gradeList;
     
     AryaHUD *HUD;

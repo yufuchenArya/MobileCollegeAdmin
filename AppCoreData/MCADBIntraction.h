@@ -17,4 +17,7 @@
 -(void)deleteTaskList:(id)sender;
 -(void)deleteTask:(NSMutableArray*)arr_task;
 -(NSMutableArray*)retrieveTaskList:(id)sender;
+
+-(void)insertStudList:(NSMutableArray*)arr_studList;
+-(NSMutableArray*)retrieveStudList:(id)sender;
 @end

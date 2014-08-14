@@ -197,4 +197,70 @@ MCADBIntraction *databaseManager = nil;
   }
 }
 
+#pragma mark - STUDENT QUERY
+
+-(void)insertStudList:(NSMutableArray*)arr_studList{
+    
+    for (int i=0; i<arr_studList.count;i++)
+    {
+        MCASignUpDHolder *studDHoler=[arr_studList objectAtIndex:i];
+        
+        NSString *query=[NSString stringWithFormat:@"insert into tbl_studentlist(userId,userType,userName,signinId,language,zipcode,grade,family,notifyByPush,notifyByEmail) values(\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\")",studDHoler.str_userId,studDHoler.str_userType,studDHoler.str_userName,studDHoler.str_signinId,studDHoler.str_lang,studDHoler.str_zipCode,studDHoler.str_grade,studDHoler.str_family,studDHoler.str_notifyByPush,studDHoler.str_notifyByMail];
+        
+        @try
+        {
+            [dBCollgeAdmin open];
+            if ([dBCollgeAdmin executeUpdate:query])
+            {
+                NSLog(@"successfully inserted");
+            }
+        }
+        @catch (NSException *e)
+        {
+            NSLog(@"%@",e);
+        }
+        @finally
+        {
+            [dBCollgeAdmin close];
+        }
+    }
+}
+-(NSMutableArray*)retrieveStudList:(id)sender{
+    
+    NSMutableArray *arr_dbStudList=[[NSMutableArray alloc]init];
+    NSString *query=@"Select * from tbl_studentlist";
+    
+    @try
+    {
+        [dBCollgeAdmin open];
+        FMResultSet *resultSet=[dBCollgeAdmin executeQuery:query];
+        while ([resultSet next])
+        {
+            MCASignUpDHolder *studDHolder=[MCASignUpDHolder new];
+            studDHolder.str_userId = [resultSet stringForColumn:@"userId"];
+            studDHolder.str_userType = [resultSet stringForColumn:@"userType"];
+            studDHolder.str_userName = [resultSet stringForColumn:@"userName"];
+            studDHolder.str_signinId = [resultSet stringForColumn:@"signinId"];
+            studDHolder.str_lang = [resultSet stringForColumn:@"language"];
+            studDHolder.str_zipCode = [resultSet stringForColumn:@"zipcode"];
+            studDHolder.str_grade = [resultSet stringForColumn:@"grade"];
+            studDHolder.str_family = [resultSet stringForColumn:@"family"];
+            studDHolder.str_notifyByPush = [resultSet stringForColumn:@"notifyByPush"];
+            studDHolder.str_notifyByMail = [resultSet stringForColumn:@"notifyByEmail"];
+            
+            [arr_dbStudList addObject:studDHolder];
+        }
+        [resultSet close];
+    }
+    @catch (NSException *exception)
+    {
+        NSLog(@"%@",exception);
+    }
+    @finally
+    {
+        [dBCollgeAdmin close];
+    }
+    return arr_dbStudList;
+}
+
 @end

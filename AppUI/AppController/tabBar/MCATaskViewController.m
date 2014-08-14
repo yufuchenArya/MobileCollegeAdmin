@@ -33,6 +33,10 @@
     [self.view addSubview:HUD];
     
     arr_taskList = [NSMutableArray new];
+    arr_studentList = [NSMutableArray new];
+    arr_loginData = [[NSUserDefaults standardUserDefaults]objectForKey:@"test"];
+    
+    arr_studentList = [[MCADBIntraction databaseInteractionManager]retrieveStudList:nil];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(taskListSuccess:) name:NOTIFICATION_TASK_LIST_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(taskListFailed:) name:NOTIFICATION_TASK_LIST_FAILED object:nil];
@@ -63,6 +67,9 @@
         CGRect img_studFrame = CGRectMake(0, 0, img_student.size.width, img_student.size.height);
         UIButton *btn_student = [[UIButton alloc] initWithFrame:img_studFrame];
         [btn_student setBackgroundImage:img_student forState:UIControlStateNormal];
+        [btn_student addTarget:self
+                      action:@selector(btnBar_studentDidClicked:)
+            forControlEvents:UIControlEventTouchUpInside];
         [btn_student setShowsTouchWhenHighlighted:YES];
         
         UIBarButtonItem *btnBar_student =[[UIBarButtonItem alloc] initWithCustomView:btn_student];
@@ -141,6 +148,7 @@
     
     [view_transBg removeFromSuperview];
     [tbl_gradeList removeFromSuperview];
+    [tbl_studentList removeFromSuperview];
     self.navigationController.navigationBar.userInteractionEnabled = YES;
     
 }
@@ -294,7 +302,6 @@
 -(void)btn_selectGradeDidClicked:(id)sender{
     
     MCACustomButton *btn_temp = (MCACustomButton*)sender;
-    
     NSString *str_selectedGrade = [arr_gradeList objectAtIndex:btn_temp.index];
     
     [[NSUserDefaults standardUserDefaults]setInteger:btn_temp.index forKey:KEY_TASK_GRADE_INDEX];
@@ -309,16 +316,58 @@
     self.navigationController.navigationBar.userInteractionEnabled = YES;
     
 }
--(void)btn_deleteTaskDidClicked:(id)sender{
+-(void)btnBar_studentDidClicked:(id)sender{
     
+    if (IS_IPHONE_5) {
+        view_transBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 568)];
+    }else{
+        view_transBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 480)];
+    }
     
+    view_transBg.backgroundColor = [UIColor blackColor];
+    view_transBg.layer.opacity = 0.7f;
+    [self.view addSubview:view_transBg];
+    
+    tbl_studentList = [[UITableView alloc]initWithFrame:CGRectMake(20, 160, 282, arr_studentList.count*96)];
+    tbl_studentList.dataSource = self;
+    tbl_studentList.delegate = self;
+    [tbl_studentList reloadData];
+    [self.view addSubview:tbl_studentList];
+    [self.view bringSubviewToFront:tbl_studentList];
+    
+    self.navigationController.navigationBar.userInteractionEnabled = NO;
+    
+}
+-(void)btn_selectStudDidClicked:(id)sender{
+    
+    MCACustomButton *btn_temp = (MCACustomButton*)sender;
+    MCASignUpDHolder *studDHolder;
+    NSString *str_userId;
+    if (btn_temp.index == 0) {
+        
+        str_userId = @"All";
+        
+    }else{
+        
+       studDHolder = [arr_studentList objectAtIndex:btn_temp.index-1];
+       str_userId = studDHolder.str_userId;
+    }
+    
+    [[NSUserDefaults standardUserDefaults]setInteger:btn_temp.index forKey:KEY_TASK_STUD_INDEX];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    
+    [view_transBg removeFromSuperview];
+    [tbl_gradeList removeFromSuperview];
+    [HUD show];
+    [self createTaskList:str_userId];
+    self.navigationController.navigationBar.userInteractionEnabled = YES;
     
 }
 #pragma mark -  UITABLEVIEW DELEGATE AND DATASOURCE METHODS
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    if (tableView == tbl_gradeList) {
+    if (tableView == tbl_gradeList || tableView == tbl_studentList) {
         return 32;
     }else{
         return 0;
@@ -328,7 +377,6 @@
 {
     if (tableView == tbl_gradeList) {
         // 1. The view for the header
-        
         UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width,30)];
         
         // 2. Set a custom background color and a border
@@ -346,14 +394,36 @@
         
         // 5. Finally return
         return headerView;
-    }else{
+    }else if (tableView == tbl_studentList)
+    {
+        // 1. The view for the header
+        UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width,30)];
+        
+        // 2. Set a custom background color and a border
+        headerView.backgroundColor = [UIColor colorWithRed:39.0/255 green:166.0/255 blue:213.0/255 alpha:1];
+        
+        // 3. Add an image
+        UILabel* headerLabel = [[UILabel alloc] init];
+        headerLabel.frame = CGRectMake(0,2,282,22);
+        headerLabel.textColor = [UIColor whiteColor];
+        headerLabel.font = [UIFont boldSystemFontOfSize:14];
+        headerLabel.text = @"Select Student";
+        headerLabel.textAlignment = NSTextAlignmentCenter;
+        
+        [headerView addSubview:headerLabel];
+        
+        // 5. Finally return
+        return headerView;
+    
+    }
+    else{
         
         return nil;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (tableView == tbl_gradeList) {
+    if (tableView == tbl_gradeList || tableView == tbl_studentList) {
         return 32;
     }else{
         return 72;
@@ -372,15 +442,19 @@
      }else if(tableView == tbl_taskDeleted){
          
          return arr_deletedTaskList.count;
-     }else{
+     }else if(tableView == tbl_gradeList){
          
          return arr_gradeList.count;
+     }else{
+         
+         return arr_studentList.count + 1;
      }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (tableView == tbl_gradeList) {
+     
         NSString *cellIdentifier =@"cell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil)
@@ -412,9 +486,54 @@
          [cell addSubview:btn_selectGrade];
         
         tbl_gradeList.separatorInset=UIEdgeInsetsMake(0.0, 0 + 1.0, 0.0, 0.0);
-        
         return cell;
 
+    }else if(tableView == tbl_studentList){
+        
+        NSString *cellIdentifier =@"cell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil)
+            cell = [[UITableViewCell alloc]
+                    initWithStyle:UITableViewCellStyleDefault
+                    reuseIdentifier:cellIdentifier];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
+        
+        if (indexPath.row == 0) {
+          
+            cell.textLabel.text = @"All";
+            
+        }else{
+            
+            MCASignUpDHolder *studDHolder = [arr_studentList objectAtIndex:indexPath.row-1];
+
+            cell.textLabel.text = studDHolder.str_userName;
+        }
+        
+        MCACustomButton *btn_selectStudent = [MCACustomButton buttonWithType:UIButtonTypeCustom];
+        btn_selectStudent.frame = CGRectMake(242, 4, 24, 24);
+        btn_selectStudent.layer.cornerRadius = 12.0f;
+        
+        if (indexPath.row == [[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_GRADE_INDEX]) {
+            
+            [btn_selectStudent setBackgroundImage:[UIImage imageNamed:@"blue_checkMark.png"]
+                                         forState:UIControlStateNormal];
+            
+        }
+        
+        btn_selectStudent.layer.borderColor = [UIColor colorWithRed:39.0/255 green:166.0/255 blue:213.0/255 alpha:1].CGColor;
+        btn_selectStudent.layer.borderWidth = 1.0f;
+        [btn_selectStudent addTarget:self
+                              action:@selector(btn_selectStudDidClicked:)
+                    forControlEvents:UIControlEventTouchUpInside];
+        btn_selectStudent.index = indexPath.row;
+        [cell addSubview:btn_selectStudent];
+
+        
+        tbl_studentList.separatorInset=UIEdgeInsetsMake(0.0, 0 + 1.0, 0.0, 0.0);
+        return cell;
+     
     }else{
         CustomTableViewCell *cell;
         MCATaskDetailDHolder *taskDHolder;
@@ -515,7 +634,7 @@
     
     MCATaskDetailDHolder *taskDetailDHolder;
     
-    if ((tableView != tbl_gradeList)) {
+    if (tableView != tbl_gradeList || tableView != tbl_studentList) {
        
         if (tableView == tbl_taskCurrent) {
             
@@ -632,6 +751,7 @@
     if ([MCAGlobalFunction isConnectedToInternet]) {
         [[MCARestIntraction sharedManager]requestForTaskList:info];
     }else{
+        [HUD hide];
 //        arr_taskList = [[MCADBIntraction databaseInteractionManager]retrieveTaskList:nil];
         [self createTaskList:@"My Task"];
 //        [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
@@ -642,6 +762,7 @@
     if ([MCAGlobalFunction isConnectedToInternet]) {
         [[MCARestIntraction sharedManager]requestForConfirmationApi:info];
     }else{
+        [HUD hide];
         [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
     }
 }
@@ -650,6 +771,7 @@
     if ([MCAGlobalFunction isConnectedToInternet]) {
         [[MCARestIntraction sharedManager]requestForDeleteOrCompleteTask:info];
     }else{
+        [HUD hide];
          [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
     }
 }
@@ -672,6 +794,9 @@
     [self confirmationApi:nil];
     [self createTaskList:@"My Task"];
     [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_TASK_GRADE_INDEX];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    
+    [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_TASK_STUD_INDEX];
     [[NSUserDefaults standardUserDefaults]synchronize];
     [tbl_gradeList reloadData];
     
@@ -729,6 +854,34 @@
         
         if ([taskDHolder.str_status isEqualToString:@"1"])
         {
+            if ([[NSUserDefaults standardUserDefaults]integerForKey:KEY_STUDENT_COUNT] > 0){
+                
+                if ([sender isEqualToString:@"All"]) {
+                    
+                    if ([taskDHolder.str_taskStatus isEqualToString:@"o"]) {
+                        
+                        [arr_currentTaskList addObject:taskDHolder];
+                    }else if([taskDHolder.str_taskStatus isEqualToString:@"c"]){
+                        
+                        [arr_completedTaskList addObject:taskDHolder];
+                    }else{
+                        
+                        [arr_deletedTaskList addObject:taskDHolder];
+                    }
+                }else{
+                    if ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_userId isEqualToString:sender]) {
+                        
+                        [arr_currentTaskList addObject:taskDHolder];
+                    }else if([taskDHolder.str_taskStatus isEqualToString:@"c"] && [taskDHolder.str_userId isEqualToString:sender]){
+                        
+                        [arr_completedTaskList addObject:taskDHolder];
+                    }else{
+                        
+                        [arr_deletedTaskList addObject:taskDHolder];
+                    }
+                }
+        }else{
+                
             if ([[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] isEqualToString:@"p"])
             {
                 if ([sender isEqualToString:@"My Task"]) {
@@ -777,6 +930,7 @@
             }
         }
     }
+}
     NSLog(@"%ld",(long)segControl_task.selectedSegmentIndex);
     
     [HUD hide];

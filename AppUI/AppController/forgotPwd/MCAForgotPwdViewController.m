@@ -95,6 +95,7 @@
     if ([MCAGlobalFunction isConnectedToInternet]) {
         [[MCARestIntraction sharedManager]requestForForgotPwd:info];
     }else{
+        [HUD hide];
         [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
     }
 }
