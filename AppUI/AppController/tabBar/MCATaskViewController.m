@@ -287,7 +287,7 @@
     }
     
     view_transBg.backgroundColor = [UIColor blackColor];
-    view_transBg.layer.opacity = 0.7f;
+    view_transBg.layer.opacity = 0.6f;
     [self.view addSubview:view_transBg];
     
     tbl_gradeList = [[UITableView alloc]initWithFrame:CGRectMake(20, 160, 282, 160)];
@@ -325,10 +325,10 @@
     }
     
     view_transBg.backgroundColor = [UIColor blackColor];
-    view_transBg.layer.opacity = 0.7f;
+    view_transBg.layer.opacity = 0.6f;
     [self.view addSubview:view_transBg];
     
-    tbl_studentList = [[UITableView alloc]initWithFrame:CGRectMake(20, 160, 282, arr_studentList.count*96)];
+    tbl_studentList = [[UITableView alloc]initWithFrame:CGRectMake(20, 160, 282, 210)];
     tbl_studentList.dataSource = self;
     tbl_studentList.delegate = self;
     [tbl_studentList reloadData];
@@ -414,7 +414,6 @@
         
         // 5. Finally return
         return headerView;
-    
     }
     else{
         
@@ -515,7 +514,7 @@
         btn_selectStudent.frame = CGRectMake(242, 4, 24, 24);
         btn_selectStudent.layer.cornerRadius = 12.0f;
         
-        if (indexPath.row == [[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_GRADE_INDEX]) {
+        if (indexPath.row == [[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_STUD_INDEX]) {
             
             [btn_selectStudent setBackgroundImage:[UIImage imageNamed:@"blue_checkMark.png"]
                                          forState:UIControlStateNormal];
@@ -544,9 +543,16 @@
             taskDHolder = (MCATaskDetailDHolder *)[arr_currentTaskList objectAtIndex:indexPath.row];
             cell  = (CustomTableViewCell *)[tableView dequeueReusableCellWithIdentifier:                                                 cellIdentifier forIndexPath:indexPath];
             
-            // Add utility buttons
-            NSMutableArray *leftUtilityButtons = [NSMutableArray new];
-            NSMutableArray *rightUtilityButtons = [NSMutableArray new];
+            NSMutableArray *leftUtilityButtons;
+            NSMutableArray *rightUtilityButtons;
+            
+            if (![[NSUserDefaults standardUserDefaults]integerForKey:KEY_STUDENT_COUNT] > 0) {
+                
+                // Add utility buttons
+                leftUtilityButtons = [NSMutableArray new];
+                rightUtilityButtons = [NSMutableArray new];
+                
+            }
             
             if ([taskDHolder.str_taskPriority isEqualToString:@"h"]) {
                 
@@ -569,7 +575,6 @@
             
             cell.leftUtilityButtons = leftUtilityButtons;
             cell.rightUtilityButtons = rightUtilityButtons;
-
             
         }else if (tableView == tbl_taskCompleted){
             
@@ -602,7 +607,6 @@
                 cell.lbl_taskPriority.text = @"Higher";
                 cell.lbl_taskPriority.textColor = [UIColor colorWithRed:251.0/255.0 green:0.0/255.0 blue:71.0/255.0 alpha:1.0];
                 cell.lbl_taskColor.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:0.0/255.0 blue:71.0/255.0 alpha:1.0];
-               
                 
             }else{
                 
@@ -625,7 +629,7 @@
         NSString *strDate = [dateFormatter1 stringFromDate:dateTemp];
         cell.lbl_taskStartDate.text = strDate;
         
-              cell.selectionStyle = UITableViewCellSelectionStyleNone;
+         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
         return cell;
     }
@@ -633,9 +637,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     MCATaskDetailDHolder *taskDetailDHolder;
-    
-    if (tableView != tbl_gradeList || tableView != tbl_studentList) {
-       
+   
         if (tableView == tbl_taskCurrent) {
             
             taskDetailDHolder  = [arr_currentTaskList objectAtIndex:indexPath.row];
@@ -646,6 +648,11 @@
             
             taskDetailDHolder = [arr_deletedTaskList objectAtIndex:indexPath.row];
         }
+    
+    if (tableView == tbl_gradeList || tableView == tbl_studentList) {
+                
+    }else{
+        
         [self performSegueWithIdentifier:@"segue_taskDetail" sender:taskDetailDHolder];
     }
 }
@@ -856,7 +863,7 @@
         {
             if ([[NSUserDefaults standardUserDefaults]integerForKey:KEY_STUDENT_COUNT] > 0){
                 
-                if ([sender isEqualToString:@"All"]) {
+                if ([sender isEqualToString:@"All"] || [sender isEqualToString:@"My Task"]) {
                     
                     if ([taskDHolder.str_taskStatus isEqualToString:@"o"]) {
                         
@@ -946,12 +953,5 @@
         taskDetailViewCtr.taskDetailDHolder = (MCATaskDetailDHolder*)sender;
     }
 }
--(IBAction)btnLogoutDidClicked:(id)sender{
-    
-    [[MCADBIntraction databaseInteractionManager]deleteTaskList:nil];
-    
-    MCAAppDelegate *appdelegate = (MCAAppDelegate *)[UIApplication sharedApplication].delegate;
-    [appdelegate logout];
 
-}
 @end

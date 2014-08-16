@@ -29,6 +29,10 @@
 		CE2AE6301998881100B23FFF /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2AE62A1998881100B23FFF /* FMDatabaseQueue.m */; };
 		CE2AE6311998881100B23FFF /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2AE62C1998881100B23FFF /* FMResultSet.m */; };
 		CE2AE636199890AF00B23FFF /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE2AE635199890AF00B23FFF /* libsqlite3.0.dylib */; };
+		CE303986199F230D00D17A2B /* MCAMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE303985199F230D00D17A2B /* MCAMoreViewController.m */; };
+		CE30398A199F35F500D17A2B /* 58*58@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE303987199F35F500D17A2B /* 58*58@2x.png */; };
+		CE30398B199F35F500D17A2B /* 80*80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE303988199F35F500D17A2B /* 80*80@2x.png */; };
+		CE30398C199F35F500D17A2B /* 120*120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE303989199F35F500D17A2B /* 120*120@2x.png */; };
 		CE394C3619938D300080B5B8 /* MCACustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE394C3519938D300080B5B8 /* MCACustomButton.m */; };
 		CE6E7D1E1990A963005470BC /* MCATaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6E7D1D1990A963005470BC /* MCATaskViewController.m */; };
 		CE84C1EF1962D83800A351FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE84C1EE1962D83800A351FF /* Foundation.framework */; };
@@ -127,6 +131,11 @@
 		CE2AE62B1998881100B23FFF /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		CE2AE62C1998881100B23FFF /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
 		CE2AE635199890AF00B23FFF /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		CE303984199F230D00D17A2B /* MCAMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAMoreViewController.h; sourceTree = "<group>"; };
+		CE303985199F230D00D17A2B /* MCAMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAMoreViewController.m; sourceTree = "<group>"; };
+		CE303987199F35F500D17A2B /* 58*58@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "58*58@2x.png"; sourceTree = "<group>"; };
+		CE303988199F35F500D17A2B /* 80*80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80*80@2x.png"; sourceTree = "<group>"; };
+		CE303989199F35F500D17A2B /* 120*120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "120*120@2x.png"; sourceTree = "<group>"; };
 		CE394C3419938D300080B5B8 /* MCACustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCACustomButton.h; sourceTree = "<group>"; };
 		CE394C3519938D300080B5B8 /* MCACustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCACustomButton.m; sourceTree = "<group>"; };
 		CE6E7D1C1990A963005470BC /* MCATaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCATaskViewController.h; sourceTree = "<group>"; };
@@ -311,6 +320,7 @@
 		CE6E7D1A1990A8F6005470BC /* tabBar */ = {
 			isa = PBXGroup;
 			children = (
+				CE84C2341962DDDD00A351FF /* more */,
 				CE6E7D1B1990A90E005470BC /* tasks */,
 			);
 			path = tabBar;
@@ -376,6 +386,9 @@
 		CE84C1F41962D83800A351FF /* MobileCollegeAdmin */ = {
 			isa = PBXGroup;
 			children = (
+				CE303987199F35F500D17A2B /* 58*58@2x.png */,
+				CE303988199F35F500D17A2B /* 80*80@2x.png */,
+				CE303989199F35F500D17A2B /* 120*120@2x.png */,
 				CE84C1F51962D83800A351FF /* Supporting Files */,
 			);
 			path = MobileCollegeAdmin;
@@ -465,7 +478,6 @@
 			children = (
 				CE84C2321962DDB600A351FF /* accountLogin/Register */,
 				CE6E7D1A1990A8F6005470BC /* tabBar */,
-				CE84C2341962DDDD00A351FF /* tutorial */,
 			);
 			name = AppController;
 			path = AppUI/AppController;
@@ -498,11 +510,14 @@
 			name = accountLogin/Register;
 			sourceTree = "<group>";
 		};
-		CE84C2341962DDDD00A351FF /* tutorial */ = {
+		CE84C2341962DDDD00A351FF /* more */ = {
 			isa = PBXGroup;
 			children = (
+				CE303984199F230D00D17A2B /* MCAMoreViewController.h */,
+				CE303985199F230D00D17A2B /* MCAMoreViewController.m */,
 			);
-			name = tutorial;
+			name = more;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		CEEDCAA3197F8B810088511D /* JSON */ = {
@@ -618,6 +633,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = arya;
 				TargetAttributes = {
+					CE84C1EA1962D83800A351FF = {
+						DevelopmentTeam = 952ZU65CH6;
+					};
 					CE84C20B1962D83800A351FF = {
 						TestTargetID = CE84C1EA1962D83800A351FF;
 					};
@@ -650,6 +668,9 @@
 				CE17F560199C75F90027251A /* Images.xcassets in Resources */,
 				CED96799199CC2EC0028EC32 /* MobileCollegeAdmin.sqlite in Resources */,
 				CE84C1F91962D83800A351FF /* InfoPlist.strings in Resources */,
+				CE30398C199F35F500D17A2B /* 120*120@2x.png in Resources */,
+				CE30398B199F35F500D17A2B /* 80*80@2x.png in Resources */,
+				CE30398A199F35F500D17A2B /* 58*58@2x.png in Resources */,
 				CE84C2241962D88700A351FF /* Main_Iphone.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -713,6 +734,7 @@
 				CEEDCAD1197F8BF30088511D /* NSString+SBJSON.m in Sources */,
 				CE278A1A19920D6700783592 /* SWCellScrollView.m in Sources */,
 				CE278A1919920D6700783592 /* NSMutableArray+SWUtilityButtons.m in Sources */,
+				CE303986199F230D00D17A2B /* MCAMoreViewController.m in Sources */,
 				CE2AE6301998881100B23FFF /* FMDatabaseQueue.m in Sources */,
 				CE2AE62D1998881100B23FFF /* FMDatabase.m in Sources */,
 				CE84C1FB1962D83800A351FF /* main.m in Sources */,
@@ -773,7 +795,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -791,6 +814,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
+				PROVISIONING_PROFILE = "d205700b-e2ed-49fd-afab-0542cce92cae";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -811,7 +835,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -823,6 +848,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
+				PROVISIONING_PROFILE = "d205700b-e2ed-49fd-afab-0542cce92cae";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -831,14 +857,16 @@
 		CE84C21E1962D83800A351FF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobileCollegeAdmin/MobileCollegeAdmin-Prefix.pch";
 				INFOPLIST_FILE = "MobileCollegeAdmin/MobileCollegeAdmin-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d205700b-e2ed-49fd-afab-0542cce92cae";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -847,14 +875,16 @@
 		CE84C21F1962D83800A351FF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobileCollegeAdmin/MobileCollegeAdmin-Prefix.pch";
 				INFOPLIST_FILE = "MobileCollegeAdmin/MobileCollegeAdmin-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "d205700b-e2ed-49fd-afab-0542cce92cae";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};

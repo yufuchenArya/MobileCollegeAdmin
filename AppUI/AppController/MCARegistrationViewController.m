@@ -82,8 +82,8 @@
     
     [view_AddStudent removeFromSuperview];
     
-    isParentNotifyEmail = NO;
-    isParentNotifyPush = NO;
+    isParentNotifyPush = YES;
+    isStudNotifyPush = YES;
     
     HUD=[AryaHUD new];
 //    [self.view addSubview:HUD];
@@ -133,7 +133,10 @@
     [tbl_StudList removeFromSuperview];
     [tbl_SelectPerson removeFromSuperview];
     [view_StudListBg removeFromSuperview];
- 
+    
+    [tx_addStudName resignFirstResponder];
+    [tx_addStudEmail resignFirstResponder];
+    
     if(segControl_UserType.selectedSegmentIndex == 1){
         
         [view_Bg removeFromSuperview];
@@ -270,8 +273,6 @@
 }
 -(IBAction)btnParentSignUpDidClicked:(id)sender{
     
-    [btn_keyboardDone removeFromSuperview];
-    
     tx_parentName.text = [tx_parentName.text stringByTrimmingCharactersInSet:
                            [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     tx_parentPwd.text = [tx_parentPwd.text stringByTrimmingCharactersInSet:
@@ -287,9 +288,7 @@
         {
             if (![tx_parentPwd.text isEqualToString:@""])
             {
-          
-            if (isParentAcceptTerms)
-             {
+            
                 NSMutableDictionary *info=[NSMutableDictionary new];
                 [info setValue:tx_parentEmail.text forKey:@"signin_id"];
                 [info setValue:tx_parentPwd.text forKey:@"pwd"];
@@ -302,7 +301,7 @@
                  }
                 [info setValue:tx_parentName.text forKey:@"username"];
                  
-                 if (tx_parentZipCode) {
+                 if (tx_parentZipCode.text.length != 0) {
                      if (tx_parentZipCode.text.length == 5) {
                          [info setValue:tx_parentZipCode.text forKey:@"zipcode"];
                      }else{
@@ -334,6 +333,9 @@
                 [info setValue:@"" forKey:@"user_id"];
                 [info setValue:@"1.0" forKey:@"app_ver"];
                 
+                if (isParentAcceptTerms)
+                {
+                
                 NSError* error;
                 NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
                                                                    options:NSJSONWritingPrettyPrinted
@@ -350,20 +352,18 @@
                  
                [HUD show];
                [self.view addSubview:HUD];
+               [btn_keyboardDone removeFromSuperview];
                [self requestParentSignUp:jsonParentData];
             
-            }else{
+              }else{
                  [MCAGlobalFunction showAlert:ACCEPT_TERM_MESSAGE];
              }
-           
         }else{
             
             [MCAGlobalFunction showAlert:INVALID_PWD];
         }
-        }else{
-            
+      }else{
              [MCAGlobalFunction showAlert:EMAIL_MESSAGE];
-           
         }
     }else{
         
@@ -389,15 +389,13 @@
           {
            if (![tx_studGrade.text isEqualToString:@""] && ![tx_studSelectPerson.text isEqualToString:@""])
            {
-            if (isStudAcceptTerms)
-            {
                 NSMutableDictionary *info=[NSMutableDictionary new];
                 [info setValue:tx_studEmail.text forKey:@"signin_id"];
                 [info setValue:tx_studPwd.text forKey:@"pwd"];
                 [info setValue:tx_studSelectPerson.text forKey:@"family"];
                 [info setValue:tx_studName.text forKey:@"username"];
               
-                if (tx_studZipCode) {
+                if (tx_studZipCode.text.length != 0) {
                     if (tx_studZipCode.text.length == 5) {
                         [info setValue:tx_studZipCode.text forKey:@"zipcode"];
                     }else{
@@ -430,7 +428,10 @@
                 [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
                 [info setValue:@"" forKey:@"user_id"];
                 [info setValue:@"1.0" forKey:@"app_ver"];
-                
+               
+               if (isStudAcceptTerms)
+               {
+               
                 NSError* error;
                 NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
                                                                    options:NSJSONWritingPrettyPrinted
@@ -446,6 +447,7 @@
                 [HUD show];
 //                [HUD setHUDText:@"loading"];
                 [self.view addSubview:HUD];
+                [btn_keyboardDone removeFromSuperview];
                 [self requestStudentSignUp:jsonStudData];
                 
             }else{
@@ -980,7 +982,6 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
     tx_addStudName.text = @"";
 
 }
-
 -(void)addStudentFailed:(NSNotification*)notification{
     
     [MCAGlobalFunction showAlert:notification.object];

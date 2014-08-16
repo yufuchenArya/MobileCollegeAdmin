@@ -262,5 +262,27 @@ MCADBIntraction *databaseManager = nil;
     }
     return arr_dbStudList;
 }
+-(void)deleteStudList:(id)sender{
+    
+    NSString *query=[NSString stringWithFormat:@"delete from tbl_studentlist"];
+    
+    @try
+    {
+        [dBCollgeAdmin open];
+        if ([dBCollgeAdmin executeUpdate:query])
+        {
+            NSLog(@"succesfully deleted");
+            
+        }else
+        {
+            NSLog(@"error in deletion");
+        }
+        [dBCollgeAdmin close];
+    }
+    @catch (NSException *e)
+    {
+        NSLog(@"%@",e);
+    }
+}
 
 @end

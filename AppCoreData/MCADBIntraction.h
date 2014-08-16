@@ -20,4 +20,5 @@
 
 -(void)insertStudList:(NSMutableArray*)arr_studList;
 -(NSMutableArray*)retrieveStudList:(id)sender;
+-(void)deleteStudList:(id)sender;
 @end
