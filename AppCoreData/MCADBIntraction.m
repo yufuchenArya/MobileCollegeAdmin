@@ -173,7 +173,7 @@ MCADBIntraction *databaseManager = nil;
    
    for (int i=0; i<arr_task.count;i++)
    {
-        MCATaskDetailDHolder *taskDHoler=[arr_task objectAtIndex:i];
+    MCATaskDetailDHolder *taskDHoler=[arr_task objectAtIndex:i];
     
     NSString *query=[NSString stringWithFormat:@"delete from tbl_tasklist where userId=\'%@\' and taskId=\'%@\'",taskDHoler.str_userId,taskDHoler.str_taskId];
     

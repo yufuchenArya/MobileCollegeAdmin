@@ -53,6 +53,9 @@
     [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_TASK_GRADE_INDEX];
     [[NSUserDefaults standardUserDefaults]synchronize];
     
+    [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_TASK_STUD_INDEX];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     
     [navigationBar setBackgroundImage:[[UIImage alloc] init]
@@ -104,7 +107,7 @@
             UIBarButtonItem *btnBar_add =[[UIBarButtonItem alloc] initWithCustomView:btn_add];
             UIBarButtonItem *btnBar_grade =[[UIBarButtonItem alloc] initWithCustomView:btn_grade];
             
-            self.navigationItem.title = @"Task";
+            self.navigationItem.title = @"Tasks";
             [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:btnBar_add,btnBar_grade, nil]];
             
         }else{
@@ -119,13 +122,13 @@
             [btn_add setShowsTouchWhenHighlighted:YES];
             
             UIBarButtonItem *btnBar_add =[[UIBarButtonItem alloc] initWithCustomView:btn_add];
-            self.navigationItem.title = @"Task";
+            self.navigationItem.title = @"Tasks";
             [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:btnBar_add,nil]];
 //            [nav_TaskBar setItems:[NSArray arrayWithObject:self.navigationItem]];
         }
     }
     
-    [self performSelector:@selector(apiCalling:) withObject:nil afterDelay:1];
+//    [self performSelector:@selector(apiCalling:) withObject:nil afterDelay:1];
 }
 -(void)apiCalling:(id)sender{
     
@@ -150,6 +153,11 @@
     [tbl_gradeList removeFromSuperview];
     [tbl_studentList removeFromSuperview];
     self.navigationController.navigationBar.userInteractionEnabled = YES;
+    
+}
+-(void)viewWillAppear:(BOOL)animated{
+   
+     [self getTaskList:nil];
     
 }
 -(void)getTaskList:(id)sender{
@@ -187,7 +195,7 @@
     jsonTaskData = [jsonTaskData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     
     [HUD show];
-    [HUD setHUDText:@"Loading"];
+    [self.view bringSubviewToFront:HUD];
     [self requestTaskList:jsonTaskData];
     
 }
@@ -216,8 +224,8 @@
     jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@": \"\[" withString:@":["];
     jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
     
-    [HUD show];
-    [HUD setHUDText:@"Loading"];
+//    [HUD show];
+//    [self.view bringSubviewToFront:HUD];
     [self requestConfirmation:jsonConfirmationData];
     
 }
@@ -312,6 +320,7 @@
     [view_transBg removeFromSuperview];
     [tbl_gradeList removeFromSuperview];
     [HUD show];
+    [self.view bringSubviewToFront:HUD];
     [self createTaskList:str_selectedGrade];
     self.navigationController.navigationBar.userInteractionEnabled = YES;
     
@@ -328,7 +337,7 @@
     view_transBg.layer.opacity = 0.6f;
     [self.view addSubview:view_transBg];
     
-    tbl_studentList = [[UITableView alloc]initWithFrame:CGRectMake(20, 160, 282, 210)];
+    tbl_studentList = [[UITableView alloc]initWithFrame:CGRectMake(20, 160, 282, arr_studentList.count * 32 + 64)];
     tbl_studentList.dataSource = self;
     tbl_studentList.delegate = self;
     [tbl_studentList reloadData];
@@ -359,6 +368,7 @@
     [view_transBg removeFromSuperview];
     [tbl_gradeList removeFromSuperview];
     [HUD show];
+    [self.view bringSubviewToFront:HUD];
     [self createTaskList:str_userId];
     self.navigationController.navigationBar.userInteractionEnabled = YES;
     
@@ -537,8 +547,8 @@
         CustomTableViewCell *cell;
         MCATaskDetailDHolder *taskDHolder;
         
-        if (tableView == tbl_taskCurrent) {
-            
+        if (tableView == tbl_taskCurrent)
+        {
             static NSString *cellIdentifier = @"Cell";
             taskDHolder = (MCATaskDetailDHolder *)[arr_currentTaskList objectAtIndex:indexPath.row];
             cell  = (CustomTableViewCell *)[tableView dequeueReusableCellWithIdentifier:                                                 cellIdentifier forIndexPath:indexPath];
@@ -555,19 +565,12 @@
             }
             
             if ([taskDHolder.str_taskPriority isEqualToString:@"h"]) {
-                
-                cell.lbl_taskPriority.text = @"Higher";
-                cell.lbl_taskPriority.textColor = [UIColor colorWithRed:251.0/255.0 green:0.0/255.0 blue:71.0/255.0 alpha:1.0];
-                cell.lbl_taskColor.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:0.0/255.0 blue:71.0/255.0 alpha:1.0];
-                [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:251.0/255.0 green:0.0/255.0 blue:71.0/255.0 alpha:1.0]icon:[UIImage imageNamed:@"taskSelect.png"]];
+             
+                [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:252.0/255.0 green:109.0/255.0 blue:36.0/255.0  alpha:1.0]icon:[UIImage imageNamed:@"taskSelect.png"]];
                 
             }else{
-                
-                cell.lbl_taskPriority.text = @"Regular";
-                cell.lbl_taskPriority.textColor = [UIColor colorWithRed:254.0/255.0 green:206.0/255.0 blue:36.0/255.0 alpha:1.0];
-                cell.lbl_taskColor.backgroundColor = [UIColor colorWithRed:254.0/255.0 green:206.0/255.0 blue:36.0/255.0 alpha:1.0];
-                [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:254.0/255.0 green:206.0/255.0 blue:36.0/255.0 alpha:1.0]icon:[UIImage imageNamed:@"taskSelect.png"]];
-                
+          
+                [leftUtilityButtons sw_addUtilityButtonWithColor:[UIColor colorWithRed:39.0/255.0 green:166.0/255.0 blue:213.0/255.0 alpha:1.0]icon:[UIImage imageNamed:@"taskSelect.png"]];
             }
             
             [rightUtilityButtons sw_addUtilityButtonWithColor:[UIColor redColor]
@@ -582,40 +585,13 @@
             taskDHolder = (MCATaskDetailDHolder *)[arr_completedTaskList objectAtIndex:indexPath.row];
             cell = (CustomTableViewCell *)[tableView dequeueReusableCellWithIdentifier:                                                 cellIdentifier forIndexPath:indexPath];
             
-            if ([taskDHolder.str_taskPriority isEqualToString:@"h"]) {
-                
-                cell.lbl_taskPriority.text = @"Higher";
-                cell.lbl_taskPriority.textColor = [UIColor colorWithRed:251.0/255.0 green:0.0/255.0 blue:71.0/255.0 alpha:1.0];
-                cell.lbl_taskColor.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:0.0/255.0 blue:71.0/255.0 alpha:1.0];
-                
-            }else{
-                
-                cell.lbl_taskPriority.text = @"Regular";
-                cell.lbl_taskPriority.textColor = [UIColor colorWithRed:254.0/255.0 green:206.0/255.0 blue:36.0/255.0 alpha:1.0];
-                cell.lbl_taskColor.backgroundColor = [UIColor colorWithRed:254.0/255.0 green:206.0/255.0 blue:36.0/255.0 alpha:1.0];
-                
-            }
-
         }else{
             
             static NSString *cellIdentifier = @"Cell";
             taskDHolder = (MCATaskDetailDHolder *)[arr_deletedTaskList objectAtIndex:indexPath.row];
             cell = (CustomTableViewCell *)[tableView dequeueReusableCellWithIdentifier:                                                 cellIdentifier forIndexPath:indexPath];
             
-            if ([taskDHolder.str_taskPriority isEqualToString:@"h"]) {
-                
-                cell.lbl_taskPriority.text = @"Higher";
-                cell.lbl_taskPriority.textColor = [UIColor colorWithRed:251.0/255.0 green:0.0/255.0 blue:71.0/255.0 alpha:1.0];
-                cell.lbl_taskColor.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:0.0/255.0 blue:71.0/255.0 alpha:1.0];
-                
-            }else{
-                
-                cell.lbl_taskPriority.text = @"Regular";
-                cell.lbl_taskPriority.textColor = [UIColor colorWithRed:254.0/255.0 green:206.0/255.0 blue:36.0/255.0 alpha:1.0];
-                cell.lbl_taskColor.backgroundColor = [UIColor colorWithRed:254.0/255.0 green:206.0/255.0 blue:36.0/255.0 alpha:1.0];
-                
-            }
-        }
+           }
         
         // Configure the cell
         cell.lbl_taskName.text = taskDHolder.str_taskName;
@@ -629,31 +605,45 @@
         NSString *strDate = [dateFormatter1 stringFromDate:dateTemp];
         cell.lbl_taskStartDate.text = strDate;
         
-         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if ([taskDHolder.str_taskPriority isEqualToString:@"h"]) {
+            
+            cell.lbl_taskPriority.text = @"High";
+            cell.lbl_taskPriority.textColor = [UIColor colorWithRed:252.0/255.0 green:109.0/255.0 blue:36.0/255.0 alpha:1.0];
+            cell.lbl_taskColor.backgroundColor = [UIColor colorWithRed:252.0/255.0 green:109.0/255.0 blue:36.0/255.0  alpha:1.0];
+            
+        }else{
+            
+            cell.lbl_taskPriority.text = @"Regular";
+            cell.lbl_taskPriority.textColor = [UIColor colorWithRed:39.0/255.0 green:166.0/255.0 blue:213.0/255.0 alpha:1.0];
+            cell.lbl_taskColor.backgroundColor = [UIColor colorWithRed:39.0/255.0 green:166.0/255.0 blue:213.0/255.0 alpha:1.0];
+            
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.delegate = self;
         return cell;
     }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    MCATaskDetailDHolder *taskDetailDHolder;
-   
-        if (tableView == tbl_taskCurrent) {
-            
-            taskDetailDHolder  = [arr_currentTaskList objectAtIndex:indexPath.row];
-        }else if(tableView == tbl_taskCompleted){
-            
-            taskDetailDHolder = [arr_completedTaskList objectAtIndex:indexPath.row];
-        }else if (tableView == tbl_taskDeleted){
-            
-            taskDetailDHolder = [arr_deletedTaskList objectAtIndex:indexPath.row];
-        }
-    
-    if (tableView == tbl_gradeList || tableView == tbl_studentList) {
+    if (![tableView isEqual: tbl_gradeList])
+    {
+        if (![tableView isEqual:tbl_studentList])
+        {
+            MCATaskDetailDHolder *taskDetailDHolder;
+            if (tableView == tbl_taskCurrent) {
                 
-    }else{
-        
-        [self performSegueWithIdentifier:@"segue_taskDetail" sender:taskDetailDHolder];
+                taskDetailDHolder  = [arr_currentTaskList objectAtIndex:indexPath.row];
+            }else if(tableView == tbl_taskCompleted){
+                
+                taskDetailDHolder = [arr_completedTaskList objectAtIndex:indexPath.row];
+            }else if (tableView == tbl_taskDeleted){
+                
+                taskDetailDHolder = [arr_deletedTaskList objectAtIndex:indexPath.row];
+            }
+            
+            [self performSegueWithIdentifier:@"segue_taskDetail" sender:taskDetailDHolder];
+        }
     }
 }
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerLeftUtilityButtonWithIndex:(NSInteger)index {
@@ -688,14 +678,15 @@
             NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
                                                                options:NSJSONWritingPrettyPrinted
                                                                  error:&error];
-            NSString* jsonDeleteTaskData=  [[NSString alloc] initWithData:jsonData
+            NSString* jsonCompleteTaskData=  [[NSString alloc] initWithData:jsonData
                                                                  encoding:NSUTF8StringEncoding];
-            jsonDeleteTaskData = [jsonDeleteTaskData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            jsonDeleteTaskData = [jsonDeleteTaskData stringByReplacingOccurrencesOfString:@" " withString:@""];
-            jsonDeleteTaskData = [jsonDeleteTaskData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+            jsonCompleteTaskData = [jsonCompleteTaskData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            jsonCompleteTaskData = [jsonCompleteTaskData stringByReplacingOccurrencesOfString:@" " withString:@""];
+            jsonCompleteTaskData = [jsonCompleteTaskData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
             
             [HUD show];
-            [self requestDeleteOrCompleteTask:jsonDeleteTaskData];
+            [self.view bringSubviewToFront:HUD];
+            [self requestDeleteOrCompleteTask:jsonCompleteTaskData];
             [cell hideUtilityButtonsAnimated:YES];
             break;
         }
@@ -709,47 +700,21 @@
     switch (index) {
       case 0:
       {
-            NSIndexPath *cellIndexPath = [tbl_taskCurrent indexPathForCell:cell];
-            MCATaskDetailDHolder *taskDHolder  = [arr_currentTaskList objectAtIndex:cellIndexPath.row];
-        
-            NSDateFormatter *dateFormatterTime = [[NSDateFormatter alloc]init];
-            [dateFormatterTime setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
-            NSString *str_dateTime = [dateFormatterTime stringFromDate:[NSDate date]];
-         
-            arr_deletedTaskDetail = [NSMutableArray new];
-            taskDHolder.str_taskStatus = @"d";
-            [arr_deletedTaskDetail addObject:taskDHolder];
+           NSIndexPath *cellIndexPath = [tbl_taskCurrent indexPathForCell:cell];
           
-            NSMutableDictionary *info=[NSMutableDictionary new];
-            [info setValue:str_dateTime forKey:@"updated_at"];
-            [info setValue:@"d" forKey:@"task_status"];
-            [info setValue:taskDHolder.str_taskId forKey:@"task_id"];
-            
-            [info setValue:@"task_status" forKey:@"cmd"];
-            [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TOKEN] forKey:@"user_token"];
-            [info setValue:@"" forKey:@"app_token"];
-            [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-            [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID] forKey:@"user_id"];
-            [info setValue:@"1.0" forKey:@"app_ver"];
-            
-            NSError* error;
-            NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                               options:NSJSONWritingPrettyPrinted
-                                                                 error:&error];
-            NSString* jsonDeleteTaskData=  [[NSString alloc] initWithData:jsonData
-                                                           encoding:NSUTF8StringEncoding];
-            jsonDeleteTaskData = [jsonDeleteTaskData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            jsonDeleteTaskData = [jsonDeleteTaskData stringByReplacingOccurrencesOfString:@" " withString:@""];
-            jsonDeleteTaskData = [jsonDeleteTaskData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-            
-            [HUD show];
-            [self requestDeleteOrCompleteTask:jsonDeleteTaskData];
-            [cell hideUtilityButtonsAnimated:YES];
-            break;
+           MCAAlertView *alertView = [MCAGlobalFunction showAlert:@"Do you want to delete the task."
+                                             delegate:self
+                                                btnOk:@"Delete"
+                                            btnCancel:@"Cancel"];
+          
+          alertView.index = cellIndexPath.row;
+          [cell hideUtilityButtonsAnimated:YES];
+          
+           break;
         }
            default:
-            break;
-    }
+           break;
+     }
 }
 #pragma mark - API CALLING
 
@@ -799,13 +764,16 @@
     }
     
     [self confirmationApi:nil];
-    [self createTaskList:@"My Task"];
-    [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_TASK_GRADE_INDEX];
-    [[NSUserDefaults standardUserDefaults]synchronize];
-    
-    [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_TASK_STUD_INDEX];
-    [[NSUserDefaults standardUserDefaults]synchronize];
-    [tbl_gradeList reloadData];
+    NSString *str_selectedGrade = [arr_gradeList objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_GRADE_INDEX]];
+    str_selectedGrade = [str_selectedGrade stringByReplacingOccurrencesOfString:@"th" withString:@""];
+
+    [self createTaskList:str_selectedGrade];
+//    [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_TASK_GRADE_INDEX];
+//    [[NSUserDefaults standardUserDefaults]synchronize];
+//    
+//    [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_TASK_STUD_INDEX];
+//    [[NSUserDefaults standardUserDefaults]synchronize];
+//    [tbl_gradeList reloadData];
     
 }
 -(void)taskListFailed:(NSNotification*)notification{
@@ -816,13 +784,52 @@
 
 //    [self getTaskList:nil];
     [[MCADBIntraction databaseInteractionManager]updateTaskList:arr_deletedTaskDetail];
-    [self createTaskList:@"My Task"];
+  
+    NSString *str_selectedGrade = [arr_gradeList objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_GRADE_INDEX]];
+    str_selectedGrade = [str_selectedGrade stringByReplacingOccurrencesOfString:@"th" withString:@""];
+    
+    [self createTaskList:str_selectedGrade];
 }
 -(void)completeTaskSuccess:(NSNotification*)notification{
     
     [[MCADBIntraction databaseInteractionManager]updateTaskList:arr_completedTaskDetail];
-    [self createTaskList:@"My Task"];
-}
+    
+    NSString *str_selectedGrade = [arr_gradeList objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_GRADE_INDEX]];
+    str_selectedGrade = [str_selectedGrade stringByReplacingOccurrencesOfString:@"th" withString:@""];
+    [self createTaskList:str_selectedGrade];
+
+    
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"ducksmall" withExtension:@"mp4"];
+    
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:url options:nil];
+    
+    // Create an AVPlayerItem using the asset
+    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
+ 
+    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+    self.videoPlayer = player;
+    
+    // Create an AVPlayerLayer using the player
+    player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+    
+    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
+    playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+    view = [[UIView alloc]initWithFrame:self.view.bounds];
+    view.backgroundColor = [UIColor blackColor];
+    playerLayer.frame = view_transBg.bounds;
+    // Add it to your view's sublayers
+    [view.layer addSublayer:playerLayer];
+    [self.view addSubview:view];
+    
+    [self.view bringSubviewToFront:view];
+    [player play];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playerItemDidReachEnd:)
+                                                 name:AVPlayerItemDidPlayToEndTimeNotification
+                                               object:[player currentItem]];
+    
+ }
 -(void)deleteOrCompleteTaskFailed:(NSNotification*)notification{
     
     [HUD hide];
@@ -842,8 +849,6 @@
 #pragma mark - OTHER_METHODS
 
 -(void)createTaskList:(id)sender{
-    
-    [HUD show];
     
     arr_taskList = [NSMutableArray new];
     arr_currentTaskList  = [NSMutableArray new];
@@ -868,10 +873,12 @@
                     if ([taskDHolder.str_taskStatus isEqualToString:@"o"]) {
                         
                         [arr_currentTaskList addObject:taskDHolder];
+                        
                     }else if([taskDHolder.str_taskStatus isEqualToString:@"c"]){
                         
                         [arr_completedTaskList addObject:taskDHolder];
-                    }else{
+                        
+                    }else if([taskDHolder.str_taskStatus isEqualToString:@"d"]){
                         
                         [arr_deletedTaskList addObject:taskDHolder];
                     }
@@ -879,10 +886,12 @@
                     if ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_userId isEqualToString:sender]) {
                         
                         [arr_currentTaskList addObject:taskDHolder];
+                        
                     }else if([taskDHolder.str_taskStatus isEqualToString:@"c"] && [taskDHolder.str_userId isEqualToString:sender]){
                         
                         [arr_completedTaskList addObject:taskDHolder];
-                    }else{
+                        
+                    }else if([taskDHolder.str_taskStatus isEqualToString:@"d"] && [taskDHolder.str_userId isEqualToString:sender]){
                         
                         [arr_deletedTaskList addObject:taskDHolder];
                     }
@@ -943,6 +952,54 @@
     [HUD hide];
     [self btnSegControl_taskDidClicked:nil];
 
+}
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    MCAAlertView *mcaAlert = (MCAAlertView*)alertView;
+
+    if (buttonIndex == 1)
+    {
+        MCATaskDetailDHolder *taskDHolder  = [arr_currentTaskList objectAtIndex:mcaAlert.index];
+        
+        NSDateFormatter *dateFormatterTime = [[NSDateFormatter alloc]init];
+        [dateFormatterTime setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+        NSString *str_dateTime = [dateFormatterTime stringFromDate:[NSDate date]];
+        
+        arr_deletedTaskDetail = [NSMutableArray new];
+        taskDHolder.str_taskStatus = @"d";
+        [arr_deletedTaskDetail addObject:taskDHolder];
+        
+        NSMutableDictionary *info=[NSMutableDictionary new];
+        [info setValue:str_dateTime forKey:@"updated_at"];
+        [info setValue:@"d" forKey:@"task_status"];
+        [info setValue:taskDHolder.str_taskId forKey:@"task_id"];
+        
+        [info setValue:@"task_status" forKey:@"cmd"];
+        [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TOKEN] forKey:@"user_token"];
+        [info setValue:@"" forKey:@"app_token"];
+        [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
+        [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID] forKey:@"user_id"];
+        [info setValue:@"1.0" forKey:@"app_ver"];
+        
+        NSError* error;
+        NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
+                                                           options:NSJSONWritingPrettyPrinted
+                                                             error:&error];
+        NSString* jsonDeleteTaskData=  [[NSString alloc] initWithData:jsonData
+                                                             encoding:NSUTF8StringEncoding];
+        jsonDeleteTaskData = [jsonDeleteTaskData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        jsonDeleteTaskData = [jsonDeleteTaskData stringByReplacingOccurrencesOfString:@" " withString:@""];
+        jsonDeleteTaskData = [jsonDeleteTaskData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        
+        [HUD show];
+        [self.view bringSubviewToFront:HUD];
+        [self requestDeleteOrCompleteTask:jsonDeleteTaskData];
+  
+    }
+}
+- (void)playerItemDidReachEnd:(NSNotification *)notification {
+  
+    [view removeFromSuperview];
 }
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     

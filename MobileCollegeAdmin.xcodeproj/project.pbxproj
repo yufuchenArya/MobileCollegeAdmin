@@ -35,6 +35,14 @@
 		CE30398C199F35F500D17A2B /* 120*120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE303989199F35F500D17A2B /* 120*120@2x.png */; };
 		CE394C3619938D300080B5B8 /* MCACustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE394C3519938D300080B5B8 /* MCACustomButton.m */; };
 		CE6E7D1E1990A963005470BC /* MCATaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6E7D1D1990A963005470BC /* MCATaskViewController.m */; };
+		CE7E430719A1F6D400A8652F /* MCAAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7E430619A1F6D400A8652F /* MCAAlertView.m */; };
+		CE7E431F19A22B4C00A8652F /* ducksmall.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CE7E431B19A22B4C00A8652F /* ducksmall.mp4 */; };
+		CE7E432019A22B4C00A8652F /* mousesmall.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CE7E431C19A22B4C00A8652F /* mousesmall.mp4 */; };
+		CE7E432119A22B4C00A8652F /* pigsmall.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CE7E431D19A22B4C00A8652F /* pigsmall.mp4 */; };
+		CE7E432219A22B4C00A8652F /* rabbitsmall.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CE7E431E19A22B4C00A8652F /* rabbitsmall.mp4 */; };
+		CE7E432419A22BD900A8652F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7E432319A22BD900A8652F /* AVFoundation.framework */; };
+		CE7E432619A22BE200A8652F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7E432519A22BE100A8652F /* MediaPlayer.framework */; };
+		CE7E432819A22C2E00A8652F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7E432719A22C2E00A8652F /* QuartzCore.framework */; };
 		CE84C1EF1962D83800A351FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE84C1EE1962D83800A351FF /* Foundation.framework */; };
 		CE84C1F11962D83800A351FF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE84C1F01962D83800A351FF /* CoreGraphics.framework */; };
 		CE84C1F31962D83800A351FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE84C1F21962D83800A351FF /* UIKit.framework */; };
@@ -140,6 +148,15 @@
 		CE394C3519938D300080B5B8 /* MCACustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCACustomButton.m; sourceTree = "<group>"; };
 		CE6E7D1C1990A963005470BC /* MCATaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCATaskViewController.h; sourceTree = "<group>"; };
 		CE6E7D1D1990A963005470BC /* MCATaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCATaskViewController.m; sourceTree = "<group>"; };
+		CE7E430519A1F6D400A8652F /* MCAAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAAlertView.h; sourceTree = "<group>"; };
+		CE7E430619A1F6D400A8652F /* MCAAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAAlertView.m; sourceTree = "<group>"; };
+		CE7E431B19A22B4C00A8652F /* ducksmall.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ducksmall.mp4; sourceTree = "<group>"; };
+		CE7E431C19A22B4C00A8652F /* mousesmall.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mousesmall.mp4; sourceTree = "<group>"; };
+		CE7E431D19A22B4C00A8652F /* pigsmall.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = pigsmall.mp4; sourceTree = "<group>"; };
+		CE7E431E19A22B4C00A8652F /* rabbitsmall.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = rabbitsmall.mp4; sourceTree = "<group>"; };
+		CE7E432319A22BD900A8652F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		CE7E432519A22BE100A8652F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		CE7E432719A22C2E00A8652F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CE84C1EB1962D83800A351FF /* MobileCollegeAdmin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileCollegeAdmin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE84C1EE1962D83800A351FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CE84C1F01962D83800A351FF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -219,6 +236,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE7E432819A22C2E00A8652F /* QuartzCore.framework in Frameworks */,
+				CE7E432619A22BE200A8652F /* MediaPlayer.framework in Frameworks */,
+				CE7E432419A22BD900A8652F /* AVFoundation.framework in Frameworks */,
 				CE2AE636199890AF00B23FFF /* libsqlite3.0.dylib in Frameworks */,
 				CEEDCADB197F8E3B0088511D /* CFNetwork.framework in Frameworks */,
 				CEEDCAD9197F8E180088511D /* MobileCoreServices.framework in Frameworks */,
@@ -308,13 +328,15 @@
 			name = FMDataBase;
 			sourceTree = "<group>";
 		};
-		CE394C3319938D0C0080B5B8 /* MCACustomButton */ = {
+		CE394C3319938D0C0080B5B8 /* MCACustomController */ = {
 			isa = PBXGroup;
 			children = (
 				CE394C3419938D300080B5B8 /* MCACustomButton.h */,
 				CE394C3519938D300080B5B8 /* MCACustomButton.m */,
+				CE7E430519A1F6D400A8652F /* MCAAlertView.h */,
+				CE7E430619A1F6D400A8652F /* MCAAlertView.m */,
 			);
-			name = MCACustomButton;
+			name = MCACustomController;
 			sourceTree = "<group>";
 		};
 		CE6E7D1A1990A8F6005470BC /* tabBar */ = {
@@ -339,6 +361,18 @@
 			name = tasks;
 			sourceTree = "<group>";
 		};
+		CE7E431A19A22B3200A8652F /* AppResources */ = {
+			isa = PBXGroup;
+			children = (
+				CE7E431B19A22B4C00A8652F /* ducksmall.mp4 */,
+				CE7E431C19A22B4C00A8652F /* mousesmall.mp4 */,
+				CE7E431D19A22B4C00A8652F /* pigsmall.mp4 */,
+				CE7E431E19A22B4C00A8652F /* rabbitsmall.mp4 */,
+				CE17F55F199C75F90027251A /* Images.xcassets */,
+			);
+			path = AppResources;
+			sourceTree = "<group>";
+		};
 		CE84C1E21962D83800A351FF = {
 			isa = PBXGroup;
 			children = (
@@ -347,6 +381,7 @@
 				CE84C2291962D97E00A351FF /* AppDB */,
 				CE84C22F1962DA1600A351FF /* AppController */,
 				CE84C2251962D8BA00A351FF /* AppUI */,
+				CE7E431A19A22B3200A8652F /* AppResources */,
 				CE84C22A1962D98900A351FF /* AppModel */,
 				CE84C2311962DB6200A351FF /* AppExternal */,
 				CEEDCADD197F8EB10088511D /* AppRestIntraction */,
@@ -369,6 +404,9 @@
 		CE84C1ED1962D83800A351FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE7E432719A22C2E00A8652F /* QuartzCore.framework */,
+				CE7E432519A22BE100A8652F /* MediaPlayer.framework */,
+				CE7E432319A22BD900A8652F /* AVFoundation.framework */,
 				CE2AE635199890AF00B23FFF /* libsqlite3.0.dylib */,
 				CEEDCADA197F8E3B0088511D /* CFNetwork.framework */,
 				CEEDCAD8197F8E180088511D /* MobileCoreServices.framework */,
@@ -426,7 +464,6 @@
 		CE84C2251962D8BA00A351FF /* AppUI */ = {
 			isa = PBXGroup;
 			children = (
-				CE17F55F199C75F90027251A /* Images.xcassets */,
 				CE84C2231962D88700A351FF /* Main_Iphone.storyboard */,
 			);
 			path = AppUI;
@@ -486,9 +523,9 @@
 		CE84C2311962DB6200A351FF /* AppExternal */ = {
 			isa = PBXGroup;
 			children = (
-				CE2AE6221998880000B23FFF /* FMDataBase */,
-				CE394C3319938D0C0080B5B8 /* MCACustomButton */,
+				CE394C3319938D0C0080B5B8 /* MCACustomController */,
 				CE278A0C19920D4000783592 /* MCATableViewCell */,
+				CE2AE6221998880000B23FFF /* FMDataBase */,
 				CE174990198D19A100F61135 /* HUD */,
 				CEEDCAA6197F8BA60088511D /* Reachability */,
 				CEEDCAA4197F8B8D0088511D /* ASIHTTPRequest */,
@@ -669,7 +706,11 @@
 				CED96799199CC2EC0028EC32 /* MobileCollegeAdmin.sqlite in Resources */,
 				CE84C1F91962D83800A351FF /* InfoPlist.strings in Resources */,
 				CE30398C199F35F500D17A2B /* 120*120@2x.png in Resources */,
+				CE7E432119A22B4C00A8652F /* pigsmall.mp4 in Resources */,
+				CE7E431F19A22B4C00A8652F /* ducksmall.mp4 in Resources */,
+				CE7E432219A22B4C00A8652F /* rabbitsmall.mp4 in Resources */,
 				CE30398B199F35F500D17A2B /* 80*80@2x.png in Resources */,
+				CE7E432019A22B4C00A8652F /* mousesmall.mp4 in Resources */,
 				CE30398A199F35F500D17A2B /* 58*58@2x.png in Resources */,
 				CE84C2241962D88700A351FF /* Main_Iphone.storyboard in Resources */,
 			);
@@ -736,6 +777,7 @@
 				CE278A1919920D6700783592 /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				CE303986199F230D00D17A2B /* MCAMoreViewController.m in Sources */,
 				CE2AE6301998881100B23FFF /* FMDatabaseQueue.m in Sources */,
+				CE7E430719A1F6D400A8652F /* MCAAlertView.m in Sources */,
 				CE2AE62D1998881100B23FFF /* FMDatabase.m in Sources */,
 				CE84C1FB1962D83800A351FF /* main.m in Sources */,
 			);
@@ -795,8 +837,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -814,7 +856,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "d205700b-e2ed-49fd-afab-0542cce92cae";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -835,8 +877,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -848,7 +890,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "d205700b-e2ed-49fd-afab-0542cce92cae";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -858,15 +900,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobileCollegeAdmin/MobileCollegeAdmin-Prefix.pch";
 				INFOPLIST_FILE = "MobileCollegeAdmin/MobileCollegeAdmin-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d205700b-e2ed-49fd-afab-0542cce92cae";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -876,15 +918,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobileCollegeAdmin/MobileCollegeAdmin-Prefix.pch";
 				INFOPLIST_FILE = "MobileCollegeAdmin/MobileCollegeAdmin-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d205700b-e2ed-49fd-afab-0542cce92cae";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};

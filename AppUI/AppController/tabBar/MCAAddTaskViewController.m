@@ -39,7 +39,7 @@
     tv_description.layer.cornerRadius = 3.0f;
     tv_description.layer.masksToBounds = YES;
     
-    arr_priority = [[NSMutableArray alloc]initWithObjects:@"Higher",@"Regular", nil];
+    arr_priority = [[NSMutableArray alloc]initWithObjects:@"High",@"Regular", nil];
    
 }
 - (void)didReceiveMemoryWarning
@@ -183,7 +183,7 @@
         [self keyboardDisappeared];
         NSMutableDictionary *dict_addTask =[NSMutableDictionary new];
         [dict_addTask setValue:str_dateSelected forKey:@"task_start_date"];
-        if ([tx_priority.text isEqualToString:@"Higher"]) {
+        if ([tx_priority.text isEqualToString:@"High"]) {
              [dict_addTask setValue:@"h" forKey:@"task_priority"];
         }else{
              [dict_addTask setValue:@"r" forKey:@"task_priority"];
@@ -237,6 +237,7 @@
         jsonAddTaskData = [jsonAddTaskData stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
         
         [HUD show];
+        [self.view bringSubviewToFront:HUD];
         [self requestAddTask:jsonAddTaskData];
         
         

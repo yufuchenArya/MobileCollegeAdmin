@@ -40,7 +40,7 @@
     // Do any additional setup after loading the view.
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addStudentSuccess:) name:NOTIFICATION_ADD_STUDENT_SUCCESS object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addStudentSuccess:) name:NOTIFICATION_ADD_STUDENT_FAILED object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addStudentFailed:) name:NOTIFICATION_ADD_STUDENT_FAILED object:nil];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(parentSignUpSuccess:) name:NOTIFICATION_PARENT_SIGNUP_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(parentSignUpFailed:) name:NOTIFICATION_PARENT_SIGNUP_FAILED object:nil];
@@ -86,7 +86,7 @@
     isStudNotifyPush = YES;
     
     HUD=[AryaHUD new];
-//    [self.view addSubview:HUD];
+    [self.view addSubview:HUD];
 //    [HUD show];
     
 }
@@ -282,95 +282,100 @@
     tx_parentConfirmPwd.text = [tx_parentConfirmPwd.text stringByTrimmingCharactersInSet:
                           [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
-    if (![tx_parentName.text isEqualToString:@""]) {
-        
-        if ([MCAValidation isValidEmailId:tx_parentEmail.text]&& ![tx_parentEmail.text isEqualToString:@""])
+    if (![tx_parentName.text isEqualToString:@""])
+    {
+       if ([MCAValidation isValidEmailId:tx_parentEmail.text]&& ![tx_parentEmail.text isEqualToString:@""])
         {
-            if (![tx_parentPwd.text isEqualToString:@""])
+           if (![tx_parentPwd.text isEqualToString:@""])
             {
-            
-                NSMutableDictionary *info=[NSMutableDictionary new];
-                [info setValue:tx_parentEmail.text forKey:@"signin_id"];
-                [info setValue:tx_parentPwd.text forKey:@"pwd"];
-                
-                 if (json_StudString) {
-                     
-                     [info setValue:json_StudString forKey:@"students"];
-                 }else{
-                     [info setValue:@"[]" forKey:@"students"];
-                 }
-                [info setValue:tx_parentName.text forKey:@"username"];
-                 
-                 if (tx_parentZipCode.text.length != 0) {
-                     if (tx_parentZipCode.text.length == 5) {
-                         [info setValue:tx_parentZipCode.text forKey:@"zipcode"];
-                     }else{
-                         [MCAGlobalFunction showAlert:@"Zipcode should be 5 digits."];
-                         return;
-                     }
-                 }else{
-                    [info setValue:@"" forKey:@"zipcode"];
-                 }
-                
-                [info setValue:@"p" forKey:@"user_type"];
-                
-                if (isParentNotifyPush) {
-                    [info setValue:@"1" forKeyPath:@"notify_by_push"];
-                }else{
-                    [info setValue:@"0" forKeyPath:@"notify_by_push"];
-                }
-                
-                if (isParentNotifyEmail) {
-                    [info setValue:@"1" forKeyPath:@"notify_by_email"];
-                }else{
-                    [info setValue:@"0" forKeyPath:@"notify_by_email"];
-                }
-                
-                [info setValue:@"user_register" forKey:@"cmd"];
-                [info setValue:@"" forKey:@"user_token"];
-                [info setValue:@"" forKey:@"app_token"];
-                [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-                [info setValue:@"" forKey:@"user_id"];
-                [info setValue:@"1.0" forKey:@"app_ver"];
-                
                 if (isParentAcceptTerms)
-                {
-                
-                NSError* error;
-                NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                                   options:NSJSONWritingPrettyPrinted
-                                                                     error:&error];
-                NSString* jsonParentData =  [[NSString alloc] initWithData:jsonData
-                                                         encoding:NSUTF8StringEncoding];
-                jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-                jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@" " withString:@""];
-                jsonParentData = [jsonParentData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-                
-               jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-               jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@":\"\[" withString:@":["];
-               jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
-                 
-               [HUD show];
-               [self.view addSubview:HUD];
-               [btn_keyboardDone removeFromSuperview];
-               [self requestParentSignUp:jsonParentData];
+               {
+                   NSMutableDictionary *info=[NSMutableDictionary new];
+                   if (tx_parentZipCode.text.length != 0)
+                   {
+                       if (tx_parentZipCode.text.length == 5)
+                       {
+                           [info setValue:tx_parentZipCode.text forKey:@"zipcode"];
+                           
+                       }else{
+                           
+                           [MCAGlobalFunction showAlert:@"Zipcode should be 5 digits."];
+                           return;
+                       }
+                   }else{
+                       [info setValue:@"" forKey:@"zipcode"];
+                       
+                   }
+
+                    [info setValue:tx_parentEmail.text forKey:@"signin_id"];
+                    [info setValue:tx_parentPwd.text forKey:@"pwd"];
+                    
+                     if (json_StudString) {
+                         
+                         [info setValue:json_StudString forKey:@"students"];
+                     }else{
+                         [info setValue:@"[]" forKey:@"students"];
+                     }
+                    [info setValue:tx_parentName.text forKey:@"username"];
+                     
+                   
+                    [info setValue:@"p" forKey:@"user_type"];
+                    
+                    if (isParentNotifyPush) {
+                        [info setValue:@"1" forKeyPath:@"notify_by_push"];
+                    }else{
+                        [info setValue:@"0" forKeyPath:@"notify_by_push"];
+                    }
+                    
+                    if (isParentNotifyEmail) {
+                        [info setValue:@"1" forKeyPath:@"notify_by_email"];
+                    }else{
+                        [info setValue:@"0" forKeyPath:@"notify_by_email"];
+                    }
+                    
+                    [info setValue:@"user_register" forKey:@"cmd"];
+                    [info setValue:@"" forKey:@"user_token"];
+                    [info setValue:@"" forKey:@"app_token"];
+                    [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
+                    [info setValue:@"" forKey:@"user_id"];
+                    [info setValue:@"1.0" forKey:@"app_ver"];
+                   
+                    NSError* error;
+                    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
+                                                                       options:NSJSONWritingPrettyPrinted
+                                                                         error:&error];
+                    NSString* jsonParentData =  [[NSString alloc] initWithData:jsonData
+                                                             encoding:NSUTF8StringEncoding];
+                    jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                    jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@" " withString:@""];
+                    jsonParentData = [jsonParentData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+                    
+                   jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+                   jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@":\"\[" withString:@":["];
+                   jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
+                     
+                   [HUD show];
+                   [self.view bringSubviewToFront:HUD];
+                   btn_keyboardDone = nil;
+                   [btn_keyboardDone removeFromSuperview];
+                   [self requestParentSignUp:jsonParentData];
             
               }else{
-                 [MCAGlobalFunction showAlert:ACCEPT_TERM_MESSAGE];
+                [MCAGlobalFunction showAlert:ACCEPT_TERM_MESSAGE];
              }
         }else{
-            
             [MCAGlobalFunction showAlert:INVALID_PWD];
         }
       }else{
-             [MCAGlobalFunction showAlert:EMAIL_MESSAGE];
-        }
+         [MCAGlobalFunction showAlert:EMAIL_MESSAGE];
+       }
     }else{
-        
-        [MCAGlobalFunction showAlert:INVALID_USERNAME];
+       [MCAGlobalFunction showAlert:INVALID_USERNAME];
     }
 }
 -(IBAction)btnStudSignUpDidClicked:(id)sender{
+    
+    [self.view addSubview:HUD];
     
     tx_studName.text = [tx_studName.text stringByTrimmingCharactersInSet:
                                 [NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -383,88 +388,86 @@
     
     if (![tx_studName.text isEqualToString:@""])
     {
-       if ([MCAValidation isValidEmailId:tx_studEmail.text]&&![tx_studEmail.text isEqualToString:@""])
-        {
-         if (![tx_studPwd.text isEqualToString:@""])
+      if ([MCAValidation isValidEmailId:tx_studEmail.text]&&![tx_studEmail.text isEqualToString:@""])
+       {
+        if (![tx_studPwd.text isEqualToString:@""])
           {
            if (![tx_studGrade.text isEqualToString:@""] && ![tx_studSelectPerson.text isEqualToString:@""])
-           {
-                NSMutableDictionary *info=[NSMutableDictionary new];
-                [info setValue:tx_studEmail.text forKey:@"signin_id"];
-                [info setValue:tx_studPwd.text forKey:@"pwd"];
-                [info setValue:tx_studSelectPerson.text forKey:@"family"];
-                [info setValue:tx_studName.text forKey:@"username"];
-              
-                if (tx_studZipCode.text.length != 0) {
-                    if (tx_studZipCode.text.length == 5) {
-                        [info setValue:tx_studZipCode.text forKey:@"zipcode"];
-                    }else{
-                        [MCAGlobalFunction showAlert:@"Zipcode should be 5 digits."];
-                        return;
-                    }
-                }else{
-                    [info setValue:@"" forKey:@"zipcode"];
-                }
-
-                tx_studGrade.text = [tx_studGrade.text stringByReplacingOccurrencesOfString:@"th" withString:@""];
-                [info setValue:tx_studGrade.text forKey:@"grade"];
-                [info setValue:@"s" forKey:@"user_type"];
-                
-                if (isStudNotifyPush) {
-                    [info setValue:@"1" forKeyPath:@"notify_by_push"];
-                }else{
-                    [info setValue:@"0" forKeyPath:@"notify_by_push"];
-                }
-                
-                if (isStudNotifyEmail) {
-                    [info setValue:@"1" forKeyPath:@"notify_by_email"];
-                }else{
-                    [info setValue:@"0" forKeyPath:@"notify_by_email"];
-                }
-                
-                [info setValue:@"user_register" forKey:@"cmd"];
-                [info setValue:@"" forKey:@"user_token"];
-                [info setValue:@"" forKey:@"app_token"];
-                [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-                [info setValue:@"" forKey:@"user_id"];
-                [info setValue:@"1.0" forKey:@"app_ver"];
-               
-               if (isStudAcceptTerms)
+            {
+              if (isStudAcceptTerms)
                {
-               
-                NSError* error;
-                NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                                   options:NSJSONWritingPrettyPrinted
-                                                                     error:&error];
-                NSString* jsonStudData =  [[NSString alloc] initWithData:jsonData
-                                                                  encoding:NSUTF8StringEncoding];
-                jsonStudData = [jsonStudData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-                jsonStudData = [jsonStudData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+                   NSMutableDictionary *info=[NSMutableDictionary new];
+                   if (tx_studZipCode.text.length != 0)
+                   {
+                      if (tx_studZipCode.text.length == 5)
+                      {
+                            [info setValue:tx_studZipCode.text forKey:@"zipcode"];
+                          
+                       }else{
+                           
+                           [MCAGlobalFunction showAlert:@"Zipcode should be 5 digits."];
+                            return;
+                        }
+                    }else{
+                        [info setValue:@"" forKey:@"zipcode"];
+                    }
+                   
+                    [info setValue:tx_studEmail.text forKey:@"signin_id"];
+                    [info setValue:tx_studPwd.text forKey:@"pwd"];
+                    [info setValue:tx_studSelectPerson.text forKey:@"family"];
+                    [info setValue:tx_studName.text forKey:@"username"];
+                    tx_studGrade.text = [tx_studGrade.text stringByReplacingOccurrencesOfString:@"th" withString:@""];
+                    [info setValue:tx_studGrade.text forKey:@"grade"];
+                    [info setValue:@"s" forKey:@"user_type"];
+                    
+                    if (isStudNotifyPush) {
+                        [info setValue:@"1" forKeyPath:@"notify_by_push"];
+                    }else{
+                        [info setValue:@"0" forKeyPath:@"notify_by_push"];
+                    }
+                    
+                    if (isStudNotifyEmail) {
+                        [info setValue:@"1" forKeyPath:@"notify_by_email"];
+                    }else{
+                        [info setValue:@"0" forKeyPath:@"notify_by_email"];
+                    }
+                    
+                    [info setValue:@"user_register" forKey:@"cmd"];
+                    [info setValue:@"" forKey:@"user_token"];
+                    [info setValue:@"" forKey:@"app_token"];
+                    [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
+                    [info setValue:@"" forKey:@"user_id"];
+                    [info setValue:@"1.0" forKey:@"app_ver"];
+                   
+                    NSError* error;
+                    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
+                                                                       options:NSJSONWritingPrettyPrinted
+                                                                         error:&error];
+                    NSString* jsonStudData =  [[NSString alloc] initWithData:jsonData
+                                                                      encoding:NSUTF8StringEncoding];
+                    jsonStudData = [jsonStudData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+                    jsonStudData = [jsonStudData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+                    
+                    [HUD show];
+                    [self.view bringSubviewToFront:HUD];
+                    [self resignTextField];
+                    [btn_keyboardDone removeFromSuperview];
+                    [self requestStudentSignUp:jsonStudData];
                 
-                [btn_keyboardDone removeFromSuperview];
-                [self resignTextField];
-                
-                [HUD show];
-//                [HUD setHUDText:@"loading"];
-                [self.view addSubview:HUD];
-                [btn_keyboardDone removeFromSuperview];
-                [self requestStudentSignUp:jsonStudData];
-                
-            }else{
+              }else{
                 [MCAGlobalFunction showAlert:ACCEPT_TERM_MESSAGE];
             }
           }else{
               [MCAGlobalFunction showAlert:@"Please select Grade and Person."];
           }
         }else{
-              [MCAGlobalFunction showAlert:INVALID_PWD];
+             [MCAGlobalFunction showAlert:INVALID_PWD];
         }
     }else{            
-            [MCAGlobalFunction showAlert:EMAIL_MESSAGE];
-        }
+          [MCAGlobalFunction showAlert:EMAIL_MESSAGE];
+      }
     }else{
-        
-        [MCAGlobalFunction showAlert:INVALID_USERNAME];
+       [MCAGlobalFunction showAlert:INVALID_USERNAME];
     }
 }
 -(IBAction)btnCancelStudDetailDidClicked:(id)sender{
@@ -588,7 +591,8 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
                                                      encoding:NSUTF8StringEncoding];
             jsonAddStudentData = [jsonAddStudentData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
             jsonAddStudentData = [jsonAddStudentData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-            
+            [HUD show];
+            [self.view bringSubviewToFront:HUD];
             [self requestAddStudent:jsonAddStudentData];
     }else{
         
@@ -946,6 +950,7 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
 
 -(void)addStudentSuccess:(NSNotification*)notification{
     
+    [HUD hide];
     NSMutableDictionary *dict_Student =[NSMutableDictionary new];
     
     [dict_Student setValue:tx_addStudEmail.text forKey:@"signin_id"];
@@ -984,12 +989,12 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
 }
 -(void)addStudentFailed:(NSNotification*)notification{
     
+    [HUD hide];
     [MCAGlobalFunction showAlert:notification.object];
 }
 -(void)parentSignUpSuccess:(NSNotification*)notification{
     
     [HUD hide];
-    [HUD removeFromSuperview];
     MCASignUpDHolder *signUpDHolder = notification.object;
     [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_userId forKey:KEY_USER_ID];
     [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_signinId forKey:KEY_SIGNIN_ID];
@@ -1007,13 +1012,11 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
 -(void)parentSignUpFailed:(NSNotification*)notification{
     
     [HUD hide];
-    [HUD removeFromSuperview];
     [MCAGlobalFunction showAlert:notification.object];
 }
 -(void)studSignUpSuccess:(NSNotification*)notification{
    
     [HUD hide];
-    [HUD removeFromSuperview];
     MCASignUpDHolder *signUpDHolder = notification.object;
     [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_userId forKey:KEY_USER_ID];
     [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_signinId forKey:KEY_SIGNIN_ID];
@@ -1030,7 +1033,6 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
 -(void)studSignUpFailed:(NSNotification*)notification{
     
     [HUD hide];
-    [HUD removeFromSuperview];
     [MCAGlobalFunction showAlert:notification.object];
     
 }

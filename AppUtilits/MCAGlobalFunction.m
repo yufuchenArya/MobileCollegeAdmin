@@ -13,7 +13,22 @@
 
 +(void)showAlert:(NSString*)msg{
     
-    [[[UIAlertView alloc]initWithTitle:@"Message" message:msg delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil]show];
+    [[[UIAlertView alloc]initWithTitle:@"Message"
+                               message:msg
+                              delegate:self
+                     cancelButtonTitle:@"Ok"
+                     otherButtonTitles:nil]show];
+}
++(MCAAlertView*)showAlert:(NSString*)msg delegate:(id)delegate btnOk:(NSString*)btnOk btnCancel:(NSString*)btnCancel{
+    
+    MCAAlertView *alertView = [[MCAAlertView alloc]initWithTitle:@"Message"
+                                                         message:msg
+                                                        delegate:delegate
+                                               cancelButtonTitle:btnCancel
+                                               otherButtonTitles:btnOk,nil];
+    
+    [alertView show];
+    return alertView;
 }
 +(BOOL)isConnectedToInternet
 {

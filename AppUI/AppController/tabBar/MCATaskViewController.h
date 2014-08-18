@@ -10,6 +10,9 @@
 #import "CustomTableViewCell.h"
 #import "SWTableViewCell.h"
 #import "MCATaskDetailViewController.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import "AVFoundation/AVFoundation.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface MCATaskViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,SWTableViewCellDelegate>{
     
@@ -21,6 +24,7 @@
     IBOutlet UITableView *tbl_gradeList;
     IBOutlet UITableView *tbl_studentList;
                   UIView *view_transBg;
+    UIView *view;
     
     NSMutableArray *arr_taskList;
     NSMutableArray *arr_currentTaskList;
@@ -35,5 +39,5 @@
     AryaHUD *HUD;
 }
 -(IBAction)btnSegControl_taskDidClicked:(id)sender;
-
+@property AVPlayer *videoPlayer;
 @end

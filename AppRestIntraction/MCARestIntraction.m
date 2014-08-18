@@ -51,8 +51,8 @@
     
     NSDictionary *results = [parser objectWithString:responseString error:nil];
     NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
-    NSMutableArray *arr_studList = [NSMutableArray new];
     NSString *status_code = [results valueForKey:@"status_code"];
+    NSMutableArray *arr_studList = [NSMutableArray new];
     
     if ([status_code isEqualToString:@"S1002"]){
         
@@ -183,21 +183,24 @@
     
     NSDictionary *results = [parser objectWithString:responseString error:nil];
     NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
-    NSString *error_code = [results valueForKey:@"err_code"];
+    NSString *status_code = [results valueForKey:@"status_code"];
     
-    if ([error_code isEqualToString:@"E1034"]) {
+    if ([status_code isEqualToString:@"E1024"]) {
+        
+        NSString *errMsg = [results objectForKey:@"msg"];
+        dispatch_async(dispatch_get_main_queue(), ^
+                       {
+                           [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_ADD_STUDENT_FAILED object:errMsg];
+                       });
+        
+       
+    }else{
         
         dispatch_async(dispatch_get_main_queue(), ^
                        {
                            [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_ADD_STUDENT_SUCCESS object:nil];
                        });
-    }else{
-        
-        NSString *errMsg = [responseDict objectForKey:@"error_msg"];
-        dispatch_async(dispatch_get_main_queue(), ^
-                       {
-                           [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_ADD_STUDENT_FAILED object:errMsg];
-                       });
+      
       }
 }
 #pragma mark - PARENT_SIGN_UP
@@ -231,6 +234,7 @@
     NSDictionary *results = [parser objectWithString:responseString error:nil];
     NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
     NSString *status_code = [results valueForKey:@"status_code"];
+    NSMutableArray *arr_studList = [NSMutableArray new];
     
     if ([status_code isEqualToString:@"S1019"]){
         
@@ -251,6 +255,26 @@
         signUpDHolder.str_userType = [responseDict valueForKey:@"user_type"];
         signUpDHolder.str_userName = [responseDict valueForKey:@"username"];
         signUpDHolder.str_zipCode = [responseDict valueForKey:@"zipcode"];
+        
+        for (int i = 0; i < signUpDHolder.arr_StudentData.count; i++)
+        {
+            MCASignUpDHolder *studDHolder = [MCASignUpDHolder new];
+            studDHolder.str_userId = [[signUpDHolder.arr_StudentData valueForKey:@"user_id"]objectAtIndex:i];
+            studDHolder.str_userType = [[signUpDHolder.arr_StudentData valueForKey:@"user_type"]objectAtIndex:i];
+            studDHolder.str_userName = [[signUpDHolder.arr_StudentData valueForKey:@"username"]objectAtIndex:i];
+            studDHolder.str_signinId = [[signUpDHolder.arr_StudentData valueForKey:@"signin_id"]objectAtIndex:i];
+            studDHolder.str_lang = [[signUpDHolder.arr_StudentData valueForKey:@"language"]objectAtIndex:i];
+            studDHolder.str_zipCode = [[signUpDHolder.arr_StudentData valueForKey:@"zipcode"]objectAtIndex:i];
+            studDHolder.str_grade = [[signUpDHolder.arr_StudentData valueForKey:@"grade"]objectAtIndex:i];
+            studDHolder.str_family = [[signUpDHolder.arr_StudentData valueForKey:@"family"]objectAtIndex:i];
+            studDHolder.str_notifyByPush = [[signUpDHolder.arr_StudentData valueForKey:@"notify_by_push"]objectAtIndex:i];
+            studDHolder.str_notifyByMail = [[signUpDHolder.arr_StudentData valueForKey:@"notify_by_email"]objectAtIndex:i];
+            
+            [arr_studList addObject:studDHolder];
+            
+        }
+        
+        [[MCADBIntraction databaseInteractionManager]insertStudList:arr_studList];
         
         dispatch_async(dispatch_get_main_queue(), ^
                        {

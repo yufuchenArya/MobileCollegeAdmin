@@ -18,7 +18,7 @@
     aIndicatorView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     lblHUDText = [[UILabel alloc]init];
     
-    self = [super initWithFrame:CGRectMake(0,0, 64, 60)];
+    self = [super initWithFrame:CGRectMake(0,0, 60, 60)];
     if (self) {
         
         [self addSubview:aIndicatorView];

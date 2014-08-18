@@ -27,7 +27,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    arr_moreOptionList = [[NSMutableArray alloc]initWithObjects:@"Setting",@"Share",@"Feedback",@"Logout", nil];
+    arr_moreOptionList = [[NSMutableArray alloc]initWithObjects:@"Settings",@"Share",@"Feedback",@"Logout", nil];
     arr_moreImageList = [[NSMutableArray alloc]initWithObjects:@"setting.png",@"share.png",@"feedback.png",@"list.png", nil];
 }
 

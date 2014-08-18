@@ -41,15 +41,15 @@
     
     if ([taskDetailDHolder.str_taskPriority isEqualToString:@"h"]) {
         
-       lbl_taskPriority.text = @"Higher";
-       lbl_taskPriority.textColor = [UIColor colorWithRed:251.0/255.0 green:0.0/255.0 blue:71.0/255.0 alpha:1.0];
-       lbl_taskColor.backgroundColor = [UIColor colorWithRed:251.0/255.0 green:0.0/255.0 blue:71.0/255.0 alpha:1.0];
+       lbl_taskPriority.text = @"High";
+       lbl_taskPriority.textColor = [UIColor colorWithRed:252.0/255.0 green:109.0/255.0 blue:36.0/255.0 alpha:1.0];
+       lbl_taskColor.backgroundColor = [UIColor colorWithRed:252.0/255.0 green:109.0/255.0 blue:36.0/255.0 alpha:1.0];
         
     }else{
         
         lbl_taskPriority.text = @"Regular";
-        lbl_taskPriority.textColor = [UIColor colorWithRed:254.0/255.0 green:206.0/255.0 blue:36.0/255.0 alpha:1.0];
-        lbl_taskColor.backgroundColor = [UIColor colorWithRed:254.0/255.0 green:206.0/255.0 blue:36.0/255.0 alpha:1.0];
+        lbl_taskPriority.textColor = [UIColor colorWithRed:39.0/255.0 green:166.0/255.0 blue:213.0/255.0 alpha:1.0];
+        lbl_taskColor.backgroundColor = [UIColor colorWithRed:39.0/255.0 green:166.0/255.0 blue:213.0/255.0 alpha:1.0];
     }
     tv_taskDetail.text = taskDetailDHolder.str_taskDetail;
 }

@@ -56,6 +56,7 @@
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:KEY_USER_TOKEN];
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:KEY_USER_TYPE];
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:KEY_TASK_GRADE_INDEX];
+    [[NSUserDefaults standardUserDefaults]removeObjectForKey:KEY_TASK_STUD_INDEX];
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:KEY_STUDENT_COUNT];
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:KEY_SIGNIN_ID];
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:KEY_LANGUAGE_CODE];

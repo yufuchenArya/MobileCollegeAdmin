@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MCALoginDHolder.h"
+#import "MCACustomButton.h"
+#import "MCAAlertView.h"
 #import "FMDatabase.h"
 
 UITabBarController *tabBarMCACtr;
