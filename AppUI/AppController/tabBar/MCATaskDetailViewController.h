@@ -7,17 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomTableViewCell.h"
+#import "SWTableViewCell.h"
 #import "MCATaskDetailDHolder.h"
+@protocol TaskDetailDelegate <NSObject>
+-(void)deleteTaskDetail:(MCATaskDetailDHolder*)taskDHolder;
+@end
 
-@interface MCATaskDetailViewController : UIViewController{
-        
-    IBOutlet UILabel *lbl_taskName;
-    IBOutlet UILabel *lbl_taskColor;
-    IBOutlet UILabel *lbl_taskStartDate;
-    IBOutlet UILabel *lbl_taskPriority;
+@interface MCATaskDetailViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
+    
+    IBOutlet UITableView *tbl_taskDetail;
+    
+    IBOutlet UIButton *btn_complete;
     IBOutlet UITextView *tv_taskDetail;
     
+    AryaHUD *HUD;
+    
 }
+-(IBAction)btnCompleteDidClicked:(id)sender;
+@property(nonatomic,assign)id<TaskDetailDelegate> delegate;
 @property(nonatomic,strong)MCATaskDetailDHolder *taskDetailDHolder;
 
 @end

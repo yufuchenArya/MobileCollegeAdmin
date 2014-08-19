@@ -14,7 +14,7 @@
 #import "AVFoundation/AVFoundation.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface MCATaskViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,SWTableViewCellDelegate>{
+@interface MCATaskViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,SWTableViewCellDelegate,TaskDetailDelegate>{
     
     IBOutlet UISegmentedControl *segControl_task;
    

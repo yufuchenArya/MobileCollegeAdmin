@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MCATaskViewController.h"
 
 @interface MCAAddTaskViewController : UIViewController<UITextFieldDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate>{
     

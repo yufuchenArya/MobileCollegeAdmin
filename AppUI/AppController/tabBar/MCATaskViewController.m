@@ -45,8 +45,8 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(completeTaskSuccess:) name:NOTIFICATION_COMPLETE_TASK_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteOrCompleteTaskFailed:) name:NOTIFICATION_DELETE_COMPLETE_TASK_FAILED object:nil];
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addTaskSuccess:) name:NOTIFICATION_ADD_TASK_SUCCESS object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addTaskFailed:) name:NOTIFICATION_ADD_TASK_FAILED object:nil];
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addTaskSuccess:) name:NOTIFICATION_ADD_TASK_SUCCESS object:nil];
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addTaskFailed:) name:NOTIFICATION_ADD_TASK_FAILED object:nil];
     
     segControl_task.tintColor=[UIColor whiteColor];
     arr_gradeList = [[NSArray alloc]initWithObjects:@"My Task",@"12th",@"11th",@"10th", nil];
@@ -54,6 +54,9 @@
     [[NSUserDefaults standardUserDefaults]synchronize];
     
     [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_TASK_STUD_INDEX];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    
+    [[NSUserDefaults standardUserDefaults]setInteger:2 forKey:KEY_ANIMATION_FILE_RAND_NO];
     [[NSUserDefaults standardUserDefaults]synchronize];
     
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
@@ -153,6 +156,7 @@
     [tbl_gradeList removeFromSuperview];
     [tbl_studentList removeFromSuperview];
     self.navigationController.navigationBar.userInteractionEnabled = YES;
+    tabBarMCACtr.tabBar.userInteractionEnabled = YES;
     
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -284,7 +288,7 @@
 }
 -(void)btnBar_addDidClicked:(id)sender{
     
-    [self performSegueWithIdentifier:@"segue_AddTask" sender:nil];
+    [self performSegueWithIdentifier:@"segue_addTask" sender:nil];
 }
 -(void)btnBar_gradeDidClicked:(id)sender{
     
@@ -306,6 +310,7 @@
     [self.view bringSubviewToFront:tbl_gradeList];
     
     self.navigationController.navigationBar.userInteractionEnabled = NO;
+    tabBarMCACtr.tabBar.userInteractionEnabled = NO;
 }
 -(void)btn_selectGradeDidClicked:(id)sender{
     
@@ -538,7 +543,6 @@
                     forControlEvents:UIControlEventTouchUpInside];
         btn_selectStudent.index = indexPath.row;
         [cell addSubview:btn_selectStudent];
-
         
         tbl_studentList.separatorInset=UIEdgeInsetsMake(0.0, 0 + 1.0, 0.0, 0.0);
         return cell;
@@ -595,6 +599,9 @@
         
         // Configure the cell
         cell.lbl_taskName.text = taskDHolder.str_taskName;
+        [cell.lbl_taskName setFont:[UIFont systemFontOfSize:16]];
+        cell.lbl_taskName.adjustsFontSizeToFitWidth = YES;
+        cell.lbl_taskName.minimumScaleFactor = 0.8;
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
         NSDateFormatter *dateFormatter1 = [[NSDateFormatter alloc]init];
@@ -704,7 +711,7 @@
           
            MCAAlertView *alertView = [MCAGlobalFunction showAlert:@"Do you want to delete the task."
                                              delegate:self
-                                                btnOk:@"Delete"
+                                                btnOk:@"Confirm Action"
                                             btnCancel:@"Cancel"];
           
           alertView.index = cellIndexPath.row;
@@ -741,7 +748,7 @@
 -(void)requestDeleteOrCompleteTask:(NSString*)info{
     
     if ([MCAGlobalFunction isConnectedToInternet]) {
-        [[MCARestIntraction sharedManager]requestForDeleteOrCompleteTask:info];
+        [[MCARestIntraction sharedManager]requestForDeleteOrCompleteTask:info :@"task"];
     }else{
         [HUD hide];
          [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
@@ -797,9 +804,12 @@
     NSString *str_selectedGrade = [arr_gradeList objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_GRADE_INDEX]];
     str_selectedGrade = [str_selectedGrade stringByReplacingOccurrencesOfString:@"th" withString:@""];
     [self createTaskList:str_selectedGrade];
-
     
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"ducksmall" withExtension:@"mp4"];
+    NSMutableArray *arr_animationVideo = [[NSMutableArray alloc]initWithObjects:@"ducksmall",
+                                                                 @"mousesmall",@"pigsmall",
+                                                                      @"rabbitsmall", nil];
+    
+    NSURL *url = [[NSBundle mainBundle] URLForResource:[arr_animationVideo objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_ANIMATION_FILE_RAND_NO]] withExtension:@"mp4"];
     
     AVURLAsset *asset = [AVURLAsset URLAssetWithURL:url options:nil];
     
@@ -814,20 +824,28 @@
     
     AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
     playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-    view = [[UIView alloc]initWithFrame:self.view.bounds];
+    if (IS_IPHONE_5) {
+        view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 568)];
+    }else{
+        view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 480)];
+    }
+    
     view.backgroundColor = [UIColor blackColor];
-    playerLayer.frame = view_transBg.bounds;
+    playerLayer.frame = view.bounds;
     // Add it to your view's sublayers
     [view.layer addSublayer:playerLayer];
     [self.view addSubview:view];
     
-    [self.view bringSubviewToFront:view];
+//    [self.view bringSubviewToFront:view];
     [player play];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerItemDidReachEnd:)
                                                  name:AVPlayerItemDidPlayToEndTimeNotification
                                                object:[player currentItem]];
+    
+    tabBarMCACtr.tabBar.hidden = YES;
+    self.navigationController.navigationBarHidden = YES;
     
  }
 -(void)deleteOrCompleteTaskFailed:(NSNotification*)notification{
@@ -839,12 +857,16 @@
     
     [HUD hide];
     [self getTaskList:nil];
-    
 }
 -(void)addTaskFailed:(NSNotification*)notification{
     
     [HUD hide];
     [MCAGlobalFunction showAlert:notification.object];
+}
+-(void)deleteTaskDetail:(MCATaskDetailDHolder *)taskDHolder{
+    
+    
+    
 }
 #pragma mark - OTHER_METHODS
 
@@ -999,6 +1021,9 @@
 }
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
   
+    self.navigationController.navigationBarHidden = NO;
+    tabBarMCACtr.tabBar.hidden = NO;
+    
     [view removeFromSuperview];
 }
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
@@ -1006,7 +1031,7 @@
     if ([segue.identifier isEqualToString:@"segue_taskDetail"]) {
         
         MCATaskDetailViewController *taskDetailViewCtr = (MCATaskDetailViewController*)[segue destinationViewController];
-        
+        taskDetailViewCtr.delegate = self;
         taskDetailViewCtr.taskDetailDHolder = (MCATaskDetailDHolder*)sender;
     }
 }

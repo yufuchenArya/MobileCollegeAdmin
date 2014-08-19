@@ -85,7 +85,7 @@ MCADBIntraction *databaseManager = nil;
     
     NSMutableArray *arr_dbTaskList=[[NSMutableArray alloc]init];
     
-    NSString *query=@"Select * from tbl_tasklist";
+    NSString *query=@"Select * from tbl_tasklist order by taskStartDate";
     @try
     {
         [dBCollgeAdmin open];

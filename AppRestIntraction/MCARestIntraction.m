@@ -427,13 +427,14 @@
 
 #pragma mark - DELETE/COMPLETE_TASK
 
--(void)requestForDeleteOrCompleteTask:(NSString *)info{
+-(void)requestForDeleteOrCompleteTask:(NSString *)info :(NSString*)controller{
     
     NSURL *url = [NSURL URLWithString:URL_MAIN];
     ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:url];
     
     [request setPostValue:info forKey:@"data"];
     
+    [request setUserInfo:[NSDictionary dictionaryWithObjectsAndKeys:controller,@"controller", nil]];
     [request setDelegate:self];
     [request setDidFailSelector:@selector(requestDeleteOrCompleteTaskFail:)];
     [request setDidFinishSelector:@selector(requestDeleteOrCompleteTaskSuccess:)];
@@ -457,30 +458,57 @@
     NSDictionary *results = [parser objectWithString:responseString error:nil];
     NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
     NSString *status_code = [results valueForKey:@"status_code"];
+    NSString *str_viewCntr=[request.userInfo valueForKey:@"controller"];
     
      if ([status_code isEqualToString:@"S1023"]){
          
          NSString *errMsg = [results valueForKey:@"msg"];
-         dispatch_async(dispatch_get_main_queue(), ^
-                {
-                    [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_DELETE_TASK_SUCCESS object:errMsg];
-                });
          
+         if ([str_viewCntr isEqualToString:@"task"]) {
+             
+             dispatch_async(dispatch_get_main_queue(), ^
+                            {
+                                [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_DELETE_TASK_SUCCESS object:errMsg];
+                            });
+         }else{
+             dispatch_async(dispatch_get_main_queue(), ^
+                            {
+                                [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_DELETE_TASK_DETAIL_SUCCESS object:errMsg];
+                            });
+         }
      }else if ([status_code isEqualToString:@"S1027"]){
          
          NSString *errMsg = [results valueForKey:@"msg"];
-         dispatch_async(dispatch_get_main_queue(), ^
-                {
-                    [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_COMPLETE_TASK_SUCCESS object:errMsg];
-                });
+         
+         if ([str_viewCntr isEqualToString:@"task"]) {
+             
+             dispatch_async(dispatch_get_main_queue(), ^
+                            {
+                                [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_COMPLETE_TASK_SUCCESS object:errMsg];
+                            });
+         }else{
+             dispatch_async(dispatch_get_main_queue(), ^
+                            {
+                                [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_COMPLETE_TASK_DETAIL_SUCCESS object:errMsg];
+                            });
+         }
      } else{
          
          NSString *errMsg = [results valueForKey:@"msg"];
-         dispatch_async(dispatch_get_main_queue(), ^
-                {
-                    [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_DELETE_COMPLETE_TASK_FAILED object:errMsg];
-                });
-        }
+         
+         if ([str_viewCntr isEqualToString:@"task"]) {
+             
+             dispatch_async(dispatch_get_main_queue(), ^
+                            {
+                                [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_DELETE_COMPLETE_TASK_FAILED object:errMsg];
+                            });
+         }else{
+             dispatch_async(dispatch_get_main_queue(), ^
+                            {
+                                [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_DELETE_COMPLETE_TASK_DETAIL_FAILED object:errMsg];
+                            });
+         }
+     }
 }
 
 #pragma mark - ADD_TASK

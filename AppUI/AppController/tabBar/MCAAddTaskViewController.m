@@ -40,7 +40,19 @@
     tv_description.layer.masksToBounds = YES;
     
     arr_priority = [[NSMutableArray alloc]initWithObjects:@"High",@"Regular", nil];
-   
+    
+    NSUInteger numberOfViewControllersOnStack = [self.navigationController.viewControllers count];
+    UIViewController *parentViewController = self.navigationController.viewControllers[numberOfViewControllersOnStack - 2];
+    Class parentVCClass = [parentViewController class];
+    NSString *className = NSStringFromClass(parentVCClass);
+    
+    if ([self.navigationController.viewControllers[numberOfViewControllersOnStack - 2] isKindOfClass:[MCATaskViewController class]])
+    {
+        self.navigationItem.title = @"New Task";
+        
+    }else{
+        self.navigationItem.title = @"Edit Task";
+    }
 }
 - (void)didReceiveMemoryWarning
 {

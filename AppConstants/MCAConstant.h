@@ -32,7 +32,7 @@
 #define KEY_STUDENT_COUNT @"stud_count"
 #define KEY_TASK_GRADE_INDEX @"taskGradeIndex"
 #define KEY_TASK_STUD_INDEX @"taskStudIndex"
-
+#define KEY_ANIMATION_FILE_RAND_NO @"animationRandNo"
 
 //Notification
 #define NOTIFICATION_LOGIN_SUCCESS @"notificationLoginSuccess"
@@ -59,5 +59,11 @@
 #define NOTIFICATION_DELETE_TASK_SUCCESS @"notificationDeleteTaskSuccess"
 #define NOTIFICATION_COMPLETE_TASK_SUCCESS @"notificationCompleteTaskSuccess"
 #define NOTIFICATION_DELETE_COMPLETE_TASK_FAILED @"notificationDeleteCompleteTaskFailed"
+
+#define NOTIFICATION_DELETE_TASK_DETAIL_SUCCESS @"notificationDeleteTaskDetailSuccess"
+#define NOTIFICATION_COMPLETE_TASK_DETAIL_SUCCESS @"notificationCompleteTaskDetailSuccess"
+#define NOTIFICATION_DELETE_COMPLETE_TASK_DETAIL_FAILED @"notificationDeleteCompleteTaskDetailFailed"
+
+
 
 
