@@ -9,10 +9,10 @@
 #import "MCAAddTaskViewController.h"
 
 @interface MCAAddTaskViewController ()
-
 @end
 
 @implementation MCAAddTaskViewController
+@synthesize taskEditDHolder;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -46,12 +46,31 @@
     Class parentVCClass = [parentViewController class];
     NSString *className = NSStringFromClass(parentVCClass);
     
-    if ([self.navigationController.viewControllers[numberOfViewControllersOnStack - 2] isKindOfClass:[MCATaskViewController class]])
-    {
+    if ([self.navigationController.viewControllers[numberOfViewControllersOnStack - 2] isKindOfClass:[MCATaskViewController class]]){
+        
         self.navigationItem.title = @"New Task";
         
     }else{
+        
         self.navigationItem.title = @"Edit Task";
+        tx_taskNAme.text = taskEditDHolder.str_taskName;
+        
+          if ([taskEditDHolder.str_taskPriority isEqualToString:@"h"]) {
+              tx_priority.text = @"High";
+              
+          }else{
+              tx_priority.text = @"Regular";
+          }
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+        NSDateFormatter *dateFormatter1 = [[NSDateFormatter alloc]init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [dateFormatter1 setDateFormat:@"yyyy/MM/dd"];
+        NSDate *date_Temp =[dateFormatter dateFromString:taskEditDHolder.str_taskStartDate];
+        NSString *str_date = [dateFormatter1 stringFromDate:date_Temp];
+        
+        tx_chooseDate.text = str_date;
+        tv_description.text = taskEditDHolder.str_taskDetail;
     }
 }
 - (void)didReceiveMemoryWarning

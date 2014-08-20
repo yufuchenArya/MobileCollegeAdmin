@@ -1,4 +1,4 @@
-//
+ //
 //  MCATaskViewController.m
 //  MobileCollegeAdmin
 //
@@ -207,6 +207,8 @@
 -(void)confirmationApi:(id)sender{
     
     NSMutableDictionary *info=[NSMutableDictionary new];
+    
+    arr_taskDeletedList = [dict_taskList valueForKey:KEY_TASK_DELETED_DATA];
     
     [info setValue:@"[]" forKey:@"deleted_task"];
     
@@ -758,9 +760,16 @@
 
 -(void)taskListSuccess:(NSNotification*)notification{
 
-    arr_taskList = notification.object;
-   
+    dict_taskList  = (NSMutableDictionary*)notification.object;
+    
+    arr_taskList = [dict_taskList valueForKey:KEY_TASK_ALL_DATA];
+    arr_taskDeletedList = [dict_taskList valueForKey:KEY_TASK_DELETED_DATA];
+    
     if ([[NSUserDefaults standardUserDefaults]valueForKey:KEY_NOW_DATE]) {
+        
+        if (arr_taskDeletedList.count>0) {
+             [[MCADBIntraction databaseInteractionManager]deleteTask:arr_taskDeletedList];
+        }
         
         [[MCADBIntraction databaseInteractionManager]deleteTask:arr_taskList];
         [[MCADBIntraction databaseInteractionManager]insertTaskList:arr_taskList];
@@ -936,7 +945,6 @@
                         
                         [arr_deletedTaskList addObject:taskDHolder];
                     }
-                    
                 }else{
                     if ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_grade isEqualToString:sender]){
                         
@@ -1021,10 +1029,14 @@
 }
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
   
-    self.navigationController.navigationBarHidden = NO;
-    tabBarMCACtr.tabBar.hidden = NO;
-    
-    [view removeFromSuperview];
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(),^ {
+        
+        self.navigationController.navigationBarHidden = NO;
+        tabBarMCACtr.tabBar.hidden = NO;
+        [view removeFromSuperview];
+    });
 }
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     

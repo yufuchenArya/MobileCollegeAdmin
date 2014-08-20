@@ -29,6 +29,7 @@
     
     AryaHUD *HUD;
 }
+@property(nonatomic,strong)MCATaskDetailDHolder *taskEditDHolder;
 -(IBAction)chooseDateDidClicked:(id)sender;
 -(IBAction)selectPriorityDidClicked:(id)sender;
 -(IBAction)btnBarDoneDidClicked:(id)sender;

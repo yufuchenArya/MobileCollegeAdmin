@@ -376,18 +376,33 @@
     
     NSString *responseString = [request responseString];
     responseString = [[responseString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@""];
+    
     responseString = [responseString stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+   
+    NSString *expression=@"/\"deleted_task\":\\[.*\\]/";
+    
+//    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@""deleted_task\":\[.*\]" options:NSRegularExpressionCaseInsensitive error:NULL];
+    
+    NSArray *arr = [responseString componentsSeparatedByString:expression];
+   
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"/\"deleted_task\":\\[.*\\]/" options:NSRegularExpressionCaseInsensitive error:NULL];
+    
+   
+    NSArray *myArray = [regex matchesInString:responseString options:1 range:NSMakeRange(0, [responseString length])] ;
+    
     SBJSON *parser=[[SBJSON alloc]init];
     
     NSDictionary *results = [parser objectWithString:responseString error:nil];
     NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
     NSMutableArray *arr_taskDetail = (NSMutableArray*)[responseDict objectForKey:@"alldata"];
+    NSMutableArray *arr_taskDeleted = (NSMutableArray*)[responseDict objectForKey:@"deleted_task"];
     NSString *status_code = [results valueForKey:@"status_code"];
-  
     
     if ([status_code isEqualToString:@"S1001"]){
         
+        NSMutableDictionary *dict_task = [NSMutableDictionary new];
         NSMutableArray *arr_taskDetailList = [NSMutableArray new];
+        NSMutableArray *arr_taskDeletedList = [NSMutableArray new];
         
         for (int i = 0;i < arr_taskDetail.count;i++) {
            
@@ -410,10 +425,23 @@
                         
             [arr_taskDetailList addObject:taskDHolder];
         }
+        
+        for (int i = 0; i < arr_taskDeleted.count; i++) {
+            
+            MCATaskDetailDHolder *taskDeletedDHolder = [MCATaskDetailDHolder new];
+            
+            taskDeletedDHolder.str_taskId = [[arr_taskDeleted valueForKey:@"task_id"]objectAtIndex:i];
+            taskDeletedDHolder.str_userId = [[arr_taskDeleted valueForKey:@"user_id"]objectAtIndex:i];
+            
+            [arr_taskDeletedList addObject:taskDeletedDHolder];
+        }
+        
+        [dict_task setValue:arr_taskDetailList forKey:KEY_TASK_ALL_DATA];
+        [dict_task setValue:arr_taskDeletedList forKey:KEY_TASK_DELETED_DATA];
       
         dispatch_async(dispatch_get_main_queue(), ^
                        {
-                           [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_TASK_LIST_SUCCESS object:arr_taskDetailList];
+                           [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_TASK_LIST_SUCCESS object:dict_task];
                        });
     }else{
         

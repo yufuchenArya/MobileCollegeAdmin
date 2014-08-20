@@ -33,6 +33,8 @@
 #define KEY_TASK_GRADE_INDEX @"taskGradeIndex"
 #define KEY_TASK_STUD_INDEX @"taskStudIndex"
 #define KEY_ANIMATION_FILE_RAND_NO @"animationRandNo"
+#define KEY_TASK_ALL_DATA @"task_allData"
+#define KEY_TASK_DELETED_DATA @"task_deleted"
 
 //Notification
 #define NOTIFICATION_LOGIN_SUCCESS @"notificationLoginSuccess"

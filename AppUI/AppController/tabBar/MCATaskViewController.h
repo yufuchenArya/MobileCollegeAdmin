@@ -26,7 +26,10 @@
                   UIView *view_transBg;
     UIView *view;
     
+    NSMutableDictionary *dict_taskList;
+    
     NSMutableArray *arr_taskList;
+    NSMutableArray *arr_taskDeletedList;
     NSMutableArray *arr_currentTaskList;
     NSMutableArray *arr_completedTaskList;
     NSMutableArray *arr_deletedTaskList;

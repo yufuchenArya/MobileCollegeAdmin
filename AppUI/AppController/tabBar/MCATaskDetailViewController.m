@@ -7,6 +7,7 @@
 //
 
 #import "MCATaskDetailViewController.h"
+#import "MCAAddTaskViewController.h"
 
 @interface MCATaskDetailViewController ()
 
@@ -35,9 +36,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteTaskDetailSuccess:) name:NOTIFICATION_DELETE_TASK_DETAIL_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(completeTaskDetailSuccess:) name:NOTIFICATION_COMPLETE_TASK_DETAIL_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteOrCompleteTaskDetailFailed:) name:NOTIFICATION_DELETE_COMPLETE_TASK_DETAIL_FAILED object:nil];
-    
-   
-  
+ 
     
      tv_taskDetail.text = taskDetailDHolder.str_taskDetail;
     
@@ -69,6 +68,8 @@
     }
     
     btn_complete.layer.cornerRadius = 3.0f;
+    tbl_taskDetail.scrollEnabled = NO;
+    tv_taskDetail.editable = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -91,7 +92,7 @@
 }
 -(void)btnBar_editDidClicked:(id)sender{
     
-    [self performSegueWithIdentifier:@"segue_editTask" sender:nil];
+    [self performSegueWithIdentifier:@"segue_editTask" sender:taskDetailDHolder];
 }
 -(IBAction)btnCompleteDidClicked:(id)sender{
     
@@ -183,6 +184,11 @@
        }
     }
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+  
+    return 72;
+ 
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     return 1;
@@ -191,8 +197,12 @@
 {
      static NSString *cellIdentifier = @"Cell";
      CustomTableViewCell *cell  = (CustomTableViewCell *)[tableView dequeueReusableCellWithIdentifier:                                                 cellIdentifier forIndexPath:indexPath];
-        
-     NSMutableArray *leftUtilityButtons = [NSMutableArray new];
+    NSMutableArray *leftUtilityButtons;
+  
+    if([taskDetailDHolder.str_taskStatus isEqualToString:@"o"]){
+       
+         leftUtilityButtons  = [NSMutableArray new];
+    }
     
         if ([taskDetailDHolder.str_taskPriority isEqualToString:@"h"]) {
             
@@ -219,6 +229,7 @@
     NSDate *date_Temp =[dateFormatter dateFromString:taskDetailDHolder.str_taskStartDate];
     NSString *str_date = [dateFormatter1 stringFromDate:date_Temp];
     cell.lbl_taskStartDate.text = str_date;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.delegate = self;
     return cell;
     
@@ -242,6 +253,9 @@
         break;
     }
 }
+
+#pragma mark - API CALLING
+
 -(void)requestDeleteOrCompleteTask:(NSString*)info{
     
     if ([MCAGlobalFunction isConnectedToInternet]) {
@@ -269,5 +283,12 @@
     [MCAGlobalFunction showAlert:notification.object];
     
 }
-
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    if ([segue.identifier isEqualToString:@"segue_editTask"]) {
+        
+        MCAAddTaskViewController *editTaskViewCtr = (MCAAddTaskViewController*)[segue destinationViewController];
+        editTaskViewCtr.taskEditDHolder = (MCATaskDetailDHolder*)sender;
+    }
+}
 @end

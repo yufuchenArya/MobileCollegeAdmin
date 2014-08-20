@@ -14,7 +14,7 @@
 -(void)deleteTaskDetail:(MCATaskDetailDHolder*)taskDHolder;
 @end
 
-@interface MCATaskDetailViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
+@interface MCATaskDetailViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,SWTableViewCellDelegate>{
     
     IBOutlet UITableView *tbl_taskDetail;
     
