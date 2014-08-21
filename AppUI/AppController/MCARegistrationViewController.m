@@ -272,7 +272,7 @@
     [self resignTextField];
 }
 -(IBAction)btnParentSignUpDidClicked:(id)sender{
-    
+        
     tx_parentName.text = [tx_parentName.text stringByTrimmingCharactersInSet:
                            [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     tx_parentPwd.text = [tx_parentPwd.text stringByTrimmingCharactersInSet:
@@ -316,7 +316,7 @@
                      }else{
                          [info setValue:@"[]" forKey:@"students"];
                      }
-                    [info setValue:tx_parentName.text forKey:@"username"];
+                    [info setValue:tx_parentName.text forKey:@"user_name"];
                      
                    
                     [info setValue:@"p" forKey:@"user_type"];
@@ -353,11 +353,16 @@
                    jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
                    jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@":\"\[" withString:@":["];
                    jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
-                     
+                   
+                   for (UIView* subV in tempWindow.subviews) {
+                       if ([subV isKindOfClass:[UIButton class]])
+                           [subV removeFromSuperview];
+                   }
+                   
+                   [self resignTextField];
+                   
                    [HUD show];
                    [self.view bringSubviewToFront:HUD];
-                   btn_keyboardDone = nil;
-                   [btn_keyboardDone removeFromSuperview];
                    [self requestParentSignUp:jsonParentData];
             
               }else{
@@ -415,7 +420,7 @@
                     [info setValue:tx_studEmail.text forKey:@"signin_id"];
                     [info setValue:tx_studPwd.text forKey:@"pwd"];
                     [info setValue:tx_studSelectPerson.text forKey:@"family"];
-                    [info setValue:tx_studName.text forKey:@"username"];
+                    [info setValue:tx_studName.text forKey:@"user_name"];
                     tx_studGrade.text = [tx_studGrade.text stringByReplacingOccurrencesOfString:@"th" withString:@""];
                     [info setValue:tx_studGrade.text forKey:@"grade"];
                     [info setValue:@"s" forKey:@"user_type"];
@@ -849,7 +854,7 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
                     reuseIdentifier:cellIdentifier];
         
         cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
-        cell.textLabel.text = [[arr_StudentList valueForKey:@"username"] objectAtIndex:indexPath.row];
+        cell.textLabel.text = [[arr_StudentList valueForKey:@"user_name"] objectAtIndex:indexPath.row];
      
 //         MCACustomButton *btn_studDelete = [MCACustomButton buttonWithType:UIButtonTypeCustom];
 //         btn_studDelete.frame = CGRectMake(260, 2, 22, 22);
@@ -956,7 +961,7 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
     [dict_Student setValue:tx_addStudEmail.text forKey:@"signin_id"];
     tx_addStudGrade.text = [tx_addStudGrade.text stringByReplacingOccurrencesOfString:@"th" withString:@""];
     [dict_Student setValue:tx_addStudGrade.text forKey:@"grade"];
-    [dict_Student setValue:tx_addStudName.text forKey:@"username"];
+    [dict_Student setValue:tx_addStudName.text forKey:@"user_name"];
     [dict_Student setValue:@"" forKey:@"user_id"];
     [dict_Student setValue:@"s" forKey:@"user_type"];
     
@@ -1047,6 +1052,7 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
     // create custom button
     
     if (!notification) {
+        
         [btn_keyboardDone removeFromSuperview];
         
         btn_keyboardDone = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -1063,6 +1069,7 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
                              action:@selector(btn_keyBoardDoneDidClicked:)
                    forControlEvents:UIControlEventTouchUpInside];
         
+        btn_keyboardDone.tag = 3;
         // locate keyboard view
         tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
         [tempWindow addSubview:btn_keyboardDone];

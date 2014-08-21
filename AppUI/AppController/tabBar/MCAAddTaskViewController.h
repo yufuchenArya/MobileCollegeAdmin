@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MCATaskViewController.h"
+#import "MCATaskDetailDHolder.h"
+
+@protocol TaskDetailEditDelegate <NSObject>
+-(void)editTaskDetail:(MCATaskDetailDHolder*)taskDHolder;
+@end
 
 @interface MCAAddTaskViewController : UIViewController<UITextFieldDelegate,UIActionSheetDelegate,UITableViewDataSource,UITableViewDelegate>{
     
-    IBOutlet UITextField *tx_taskNAme;
+    IBOutlet UITextField *tx_taskName;
     IBOutlet UITextField *tx_chooseDate;
     IBOutlet UITextField *tx_priority;
     IBOutlet UITextView  *tv_description;
@@ -29,8 +33,11 @@
     
     AryaHUD *HUD;
 }
+
 @property(nonatomic,strong)MCATaskDetailDHolder *taskEditDHolder;
--(IBAction)chooseDateDidClicked:(id)sender;
 -(IBAction)selectPriorityDidClicked:(id)sender;
+-(IBAction)chooseDateDidClicked:(id)sender;
 -(IBAction)btnBarDoneDidClicked:(id)sender;
+
+@property(nonatomic,assign)id<TaskDetailEditDelegate> delegate;
 @end

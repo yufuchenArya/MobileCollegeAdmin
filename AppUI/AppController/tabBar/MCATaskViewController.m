@@ -7,7 +7,7 @@
 //
 
 #import "MCATaskViewController.h"
-
+#import "MCATaskDetailViewController.h"
 @interface MCATaskViewController ()
 
 @end
@@ -49,14 +49,14 @@
 //    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addTaskFailed:) name:NOTIFICATION_ADD_TASK_FAILED object:nil];
     
     segControl_task.tintColor=[UIColor whiteColor];
-    arr_gradeList = [[NSArray alloc]initWithObjects:@"My Task",@"12th",@"11th",@"10th", nil];
+    arr_gradeList = [[NSArray alloc]initWithObjects:@"12th",@"11th",@"10th", nil];
     [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_TASK_GRADE_INDEX];
     [[NSUserDefaults standardUserDefaults]synchronize];
     
     [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_TASK_STUD_INDEX];
     [[NSUserDefaults standardUserDefaults]synchronize];
     
-    [[NSUserDefaults standardUserDefaults]setInteger:2 forKey:KEY_ANIMATION_FILE_RAND_NO];
+    [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_ANIMATION_FILE_RAND_NO];
     [[NSUserDefaults standardUserDefaults]synchronize];
     
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
@@ -142,7 +142,7 @@
         arr_taskList = [NSMutableArray new];
         [self getTaskList:nil];
     }else{
-        [self createTaskList:@"My Task"];
+        [self createTaskList:@"12"];
     }
 }
 - (void)didReceiveMemoryWarning
@@ -208,9 +208,28 @@
     
     NSMutableDictionary *info=[NSMutableDictionary new];
     
-    arr_taskDeletedList = [dict_taskList valueForKey:KEY_TASK_DELETED_DATA];
+    NSMutableArray *arr_Temp = [dict_taskList valueForKey:KEY_TASK_DELETED_ARRAY];
     
-    [info setValue:@"[]" forKey:@"deleted_task"];
+    if(arr_Temp){
+        
+        NSError* error;
+        NSData *jsonData1 = [NSJSONSerialization dataWithJSONObject:arr_Temp
+                                                            options:NSJSONWritingPrettyPrinted
+                                                              error:&error];
+        
+        NSString *json_String = [[NSString alloc] initWithData:jsonData1
+                                                          encoding:NSUTF8StringEncoding];
+        json_String = [json_String stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        
+        json_String = [json_String stringByReplacingOccurrencesOfString:@" " withString:@""];
+        json_String = [json_String stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        
+        [info setValue:json_String forKey:@"deleted_task"];
+        
+    }else{
+        
+       [info setValue:@"[]" forKey:@"deleted_task"];
+    }
     
     [info setValue:@"conform" forKey:@"cmd"];
     [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TOKEN] forKey:@"user_token"];
@@ -227,6 +246,7 @@
                                                    encoding:NSUTF8StringEncoding];
     jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
     jsonConfirmationData = [jsonConfirmationData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
     jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@": \"\[" withString:@":["];
     jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
     
@@ -304,7 +324,7 @@
     view_transBg.layer.opacity = 0.6f;
     [self.view addSubview:view_transBg];
     
-    tbl_gradeList = [[UITableView alloc]initWithFrame:CGRectMake(20, 160, 282, 160)];
+    tbl_gradeList = [[UITableView alloc]initWithFrame:CGRectMake(20, 160, 282, 128)];
     tbl_gradeList.dataSource = self;
     tbl_gradeList.delegate = self;
     [tbl_gradeList reloadData];
@@ -734,7 +754,7 @@
     }else{
         [HUD hide];
 //        arr_taskList = [[MCADBIntraction databaseInteractionManager]retrieveTaskList:nil];
-        [self createTaskList:@"My Task"];
+        [self createTaskList:@"12"];
 //        [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
     }
 }
@@ -814,49 +834,62 @@
     str_selectedGrade = [str_selectedGrade stringByReplacingOccurrencesOfString:@"th" withString:@""];
     [self createTaskList:str_selectedGrade];
     
-    NSMutableArray *arr_animationVideo = [[NSMutableArray alloc]initWithObjects:@"ducksmall",
-                                                                 @"mousesmall",@"pigsmall",
-                                                                      @"rabbitsmall", nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Message"
+                                                   message:notification.object delegate:nil
+                                         cancelButtonTitle:nil
+                                         otherButtonTitles:nil, nil];
     
-    NSURL *url = [[NSBundle mainBundle] URLForResource:[arr_animationVideo objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_ANIMATION_FILE_RAND_NO]] withExtension:@"mp4"];
+    [alert show];
     
-    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:url options:nil];
-    
-    // Create an AVPlayerItem using the asset
-    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
- 
-    AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
-    self.videoPlayer = player;
-    
-    // Create an AVPlayerLayer using the player
-    player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
-    
-    AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
-    playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
-    if (IS_IPHONE_5) {
-        view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 568)];
-    }else{
-        view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 480)];
-    }
-    
-    view.backgroundColor = [UIColor blackColor];
-    playerLayer.frame = view.bounds;
-    // Add it to your view's sublayers
-    [view.layer addSublayer:playerLayer];
-    [self.view addSubview:view];
-    
-//    [self.view bringSubviewToFront:view];
-    [player play];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(playerItemDidReachEnd:)
-                                                 name:AVPlayerItemDidPlayToEndTimeNotification
-                                               object:[player currentItem]];
-    
-    tabBarMCACtr.tabBar.hidden = YES;
-    self.navigationController.navigationBarHidden = YES;
-    
- }
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(),^ {
+        
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+        
+        NSMutableArray *arr_animationVideo = [[NSMutableArray alloc]initWithObjects:@"ducksmall",
+                                              @"mousesmall",@"pigsmall",
+                                              @"rabbitsmall", nil];
+        
+        NSURL *url = [[NSBundle mainBundle] URLForResource:[arr_animationVideo objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_ANIMATION_FILE_RAND_NO]] withExtension:@"mp4"];
+        
+        AVURLAsset *asset = [AVURLAsset URLAssetWithURL:url options:nil];
+        
+        // Create an AVPlayerItem using the asset
+        AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
+        
+        AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+        self.videoPlayer = player;
+        
+        // Create an AVPlayerLayer using the player
+        player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+        
+        AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
+        playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+        if (IS_IPHONE_5) {
+            view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 568)];
+        }else{
+            view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 480)];
+        }
+        
+        view.backgroundColor = [UIColor whiteColor];
+        playerLayer.frame = view.bounds;
+        // Add it to your view's sublayers
+        [view.layer addSublayer:playerLayer];
+        [self.view addSubview:view];
+        
+        //    [self.view bringSubviewToFront:view];
+        [player play];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(playerItemDidReachEnd:)
+                                                     name:AVPlayerItemDidPlayToEndTimeNotification
+                                                   object:[player currentItem]];
+        
+        tabBarMCACtr.tabBar.hidden = YES;
+        self.navigationController.navigationBarHidden = YES;
+    });
+}
 -(void)deleteOrCompleteTaskFailed:(NSNotification*)notification{
     
     [HUD hide];
@@ -899,7 +932,7 @@
         {
             if ([[NSUserDefaults standardUserDefaults]integerForKey:KEY_STUDENT_COUNT] > 0){
                 
-                if ([sender isEqualToString:@"All"] || [sender isEqualToString:@"My Task"]) {
+                if ([sender isEqualToString:@"All"] || [sender isEqualToString:@"12"]) {
                     
                     if ([taskDHolder.str_taskStatus isEqualToString:@"o"]) {
                         
@@ -931,34 +964,35 @@
                 
             if ([[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] isEqualToString:@"p"])
             {
-                if ([sender isEqualToString:@"My Task"]) {
-                    
-                    if ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"] ){
+//                if ([sender isEqualToString:@"My Task"]) {
+//                    
+//                    if ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"] ){
+//                        
+//                        [arr_currentTaskList addObject:taskDHolder];
+//                        
+//                    }else if ([taskDHolder.str_taskStatus isEqualToString:@"c"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"]){
+//                        
+//                        [arr_completedTaskList addObject:taskDHolder];
+//                        
+//                    }else if([taskDHolder.str_taskStatus isEqualToString:@"d"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"]){
+//                        
+//                        [arr_deletedTaskList addObject:taskDHolder];
+//                    }
+//                }else{
+                
+                    if (([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_grade isEqualToString:sender]) || ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"])){
                         
                         [arr_currentTaskList addObject:taskDHolder];
                         
-                    }else if ([taskDHolder.str_taskStatus isEqualToString:@"c"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"]){
+                    }else if (([taskDHolder.str_taskStatus isEqualToString:@"c"] && [taskDHolder.str_grade isEqualToString:sender])||([taskDHolder.str_taskStatus isEqualToString:@"c"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"])){
                         
                         [arr_completedTaskList addObject:taskDHolder];
                         
-                    }else if([taskDHolder.str_taskStatus isEqualToString:@"d"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"]){
+                    }else if(([taskDHolder.str_taskStatus isEqualToString:@"d"] && [taskDHolder.str_grade isEqualToString:sender]) || ([taskDHolder.str_taskStatus isEqualToString:@"d"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"])){
                         
                         [arr_deletedTaskList addObject:taskDHolder];
                     }
-                }else{
-                    if ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_grade isEqualToString:sender]){
-                        
-                        [arr_currentTaskList addObject:taskDHolder];
-                        
-                    }else if ([taskDHolder.str_taskStatus isEqualToString:@"c"] && [taskDHolder.str_grade isEqualToString:sender]){
-                        
-                        [arr_completedTaskList addObject:taskDHolder];
-                        
-                    }else if([taskDHolder.str_taskStatus isEqualToString:@"d"] && [taskDHolder.str_grade isEqualToString:sender]){
-                        
-                        [arr_deletedTaskList addObject:taskDHolder];
-                    }
-                }
+//                }
             }else{
                 
                 if ([taskDHolder.str_taskStatus isEqualToString:@"o"]){
@@ -1043,7 +1077,7 @@
     if ([segue.identifier isEqualToString:@"segue_taskDetail"]) {
         
         MCATaskDetailViewController *taskDetailViewCtr = (MCATaskDetailViewController*)[segue destinationViewController];
-        taskDetailViewCtr.delegate = self;
+        
         taskDetailViewCtr.taskDetailDHolder = (MCATaskDetailDHolder*)sender;
     }
 }

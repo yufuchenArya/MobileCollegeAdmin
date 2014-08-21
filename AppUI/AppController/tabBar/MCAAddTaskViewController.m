@@ -12,7 +12,7 @@
 @end
 
 @implementation MCAAddTaskViewController
-@synthesize taskEditDHolder;
+@synthesize taskEditDHolder,delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,6 +31,9 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addTaskSuccess:) name:NOTIFICATION_ADD_TASK_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addTaskFailed:) name:NOTIFICATION_ADD_TASK_FAILED object:nil];
     
+    [[NSUserDefaults standardUserDefaults]setInteger:3 forKey:KEY_ANIMATION_FILE_RAND_NO];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    
     //Arya HUD
     HUD=[AryaHUD new];
     [self.view addSubview:HUD];
@@ -46,14 +49,14 @@
     Class parentVCClass = [parentViewController class];
     NSString *className = NSStringFromClass(parentVCClass);
     
-    if ([self.navigationController.viewControllers[numberOfViewControllersOnStack - 2] isKindOfClass:[MCATaskViewController class]]){
+    if (!taskEditDHolder){
         
         self.navigationItem.title = @"New Task";
         
     }else{
         
         self.navigationItem.title = @"Edit Task";
-        tx_taskNAme.text = taskEditDHolder.str_taskName;
+        tx_taskName.text = taskEditDHolder.str_taskName;
         
           if ([taskEditDHolder.str_taskPriority isEqualToString:@"h"]) {
               tx_priority.text = @"High";
@@ -82,7 +85,7 @@
     
     [tx_priority resignFirstResponder];
     [tx_chooseDate resignFirstResponder];
-    [tx_taskNAme resignFirstResponder];
+    [tx_taskName resignFirstResponder];
     
     [view_transBg removeFromSuperview];
     [tbl_priority removeFromSuperview];
@@ -132,7 +135,7 @@
 
 -(IBAction)selectPriorityDidClicked:(id)sender{
     
-    [tx_taskNAme resignFirstResponder];
+    [tx_taskName resignFirstResponder];
     
     if (IS_IPHONE_5) {
         view_transBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 568)];
@@ -157,7 +160,7 @@
 }
 -(IBAction)chooseDateDidClicked:(id)sender{
     
-    [tx_taskNAme resignFirstResponder];
+    [tx_taskName resignFirstResponder];
     
     sheet_datePicker = [[UIActionSheet alloc]
                         initWithTitle:@""
@@ -197,7 +200,7 @@
     lblPickerTitle.font=[UIFont boldSystemFontOfSize:14];
     
     datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0,0, 320, 200)];
-    datePicker.tintAdjustmentMode = UIDatePickerModeDate;
+    datePicker.datePickerMode = UIDatePickerModeDate;
     [datePicker setMinimumDate: [NSDate date]];
     [sheet_datePicker addSubview:datePicker];
     
@@ -209,20 +212,36 @@
 }
 -(IBAction)btnBarDoneDidClicked:(id)sender{
     
-    if (![tx_taskNAme.text isEqualToString:@""] && ![tx_priority.text isEqualToString:@""] && ![tx_chooseDate.text isEqualToString:@""] && ![tv_description.text isEqualToString:@""])
+    if (![tx_taskName.text isEqualToString:@""] && ![tx_priority.text isEqualToString:@""] && ![tx_chooseDate.text isEqualToString:@""] && ![tv_description.text isEqualToString:@""])
     {
         [self keyboardDisappeared];
         NSMutableDictionary *dict_addTask =[NSMutableDictionary new];
-        [dict_addTask setValue:str_dateSelected forKey:@"task_start_date"];
+        
+        if (taskEditDHolder) {
+            
+            if (str_dateSelected) {
+                [dict_addTask setValue:str_dateSelected forKey:@"task_start_date"];
+            }else{
+                [dict_addTask setValue:taskEditDHolder.str_taskStartDate forKey:@"task_start_date"];
+            }
+            
+            [dict_addTask setValue:taskEditDHolder.str_taskId forKey:@"task_id"];
+            
+        }else{
+            
+            [dict_addTask setValue:str_dateSelected forKey:@"task_start_date"];
+            [dict_addTask setValue:@"" forKey:@"task_id"];
+        }
+        
         if ([tx_priority.text isEqualToString:@"High"]) {
              [dict_addTask setValue:@"h" forKey:@"task_priority"];
         }else{
              [dict_addTask setValue:@"r" forKey:@"task_priority"];
         }
        
-        [dict_addTask setValue:tx_taskNAme.text forKey:@"task_name"];
+        [dict_addTask setValue:tx_taskName.text forKey:@"task_name"];
         [dict_addTask setValue:tv_description.text forKey:@"task_detail"];
-        [dict_addTask setValue:@"" forKey:@"task_id"];
+       
     
         if ([[NSUserDefaults standardUserDefaults]valueForKey:KEY_LANGUAGE_CODE]) {
             [dict_addTask setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_LANGUAGE_CODE] forKey:@"language_code"];
@@ -361,6 +380,24 @@
 -(void)addTaskSuccess:(NSNotification*)notification{
     
     [HUD hide];
+    
+    if (taskEditDHolder) {
+        taskEditDHolder.str_taskDetail = tv_description.text;
+        taskEditDHolder.str_taskName  = tx_taskName.text;
+        
+        if ([tx_priority.text isEqualToString:@"High"]) {
+            taskEditDHolder.str_taskPriority = @"h";
+        }else{
+            taskEditDHolder.str_taskPriority = @"r";
+        }
+             
+        if (str_dateSelected) {
+            taskEditDHolder.str_taskStartDate = str_dateSelected;
+        }
+        
+        [delegate editTaskDetail:taskEditDHolder];
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

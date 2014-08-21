@@ -14,7 +14,7 @@
 }
 +(void)showAlert:(NSString*)msg;
 +(MCAAlertView*)showAlert:(NSString*)msg delegate:(id)delegate btnOk:(NSString*)btnOk btnCancel:(NSString*)btnCancel;
-
++(void)showCustomizeAlert:(NSString*)msg;
 +(BOOL)isConnectedToInternet;
 +(BOOL)isConnectedToHost;
 

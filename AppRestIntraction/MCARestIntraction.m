@@ -64,13 +64,18 @@
         loginDHolder.str_userToken = [responseDict valueForKey:@"user_token"];
         loginDHolder.str_userIsApproved = [responseDict valueForKey:@"user_is_approved"];
         loginDHolder.arr_StudentData = [responseDict valueForKey:@"student"];
+        loginDHolder.str_userName = [responseDict valueForKey:@"user_name"];
+        loginDHolder.str_zipCode = [responseDict valueForKey:@"zipcode"];
+        loginDHolder.str_notifyByPush = [responseDict valueForKey:@"notify_by_push"];
+        loginDHolder.str_notifyByMail = [responseDict valueForKey:@"notify_by_email"];
+        loginDHolder.str_family = [responseDict valueForKey:@"family"];
         
         for (int i = 0; i < loginDHolder.arr_StudentData.count; i++)
         {
             MCASignUpDHolder *studDHolder = [MCASignUpDHolder new];
             studDHolder.str_userId = [[loginDHolder.arr_StudentData valueForKey:@"user_id"]objectAtIndex:i];
             studDHolder.str_userType = [[loginDHolder.arr_StudentData valueForKey:@"user_type"]objectAtIndex:i];
-            studDHolder.str_userName = [[loginDHolder.arr_StudentData valueForKey:@"username"]objectAtIndex:i];
+            studDHolder.str_userName = [[loginDHolder.arr_StudentData valueForKey:@"user_name"]objectAtIndex:i];
             studDHolder.str_signinId = [[loginDHolder.arr_StudentData valueForKey:@"signin_id"]objectAtIndex:i];
             studDHolder.str_lang = [[loginDHolder.arr_StudentData valueForKey:@"language"]objectAtIndex:i];
             studDHolder.str_zipCode = [[loginDHolder.arr_StudentData valueForKey:@"zipcode"]objectAtIndex:i];
@@ -253,7 +258,7 @@
         signUpDHolder.str_userIsApproved = [responseDict valueForKey:@"user_is_approved"];
         signUpDHolder.str_userToken = [responseDict valueForKey:@"user_token"];
         signUpDHolder.str_userType = [responseDict valueForKey:@"user_type"];
-        signUpDHolder.str_userName = [responseDict valueForKey:@"username"];
+        signUpDHolder.str_userName = [responseDict valueForKey:@"user_name"];
         signUpDHolder.str_zipCode = [responseDict valueForKey:@"zipcode"];
         
         for (int i = 0; i < signUpDHolder.arr_StudentData.count; i++)
@@ -261,7 +266,7 @@
             MCASignUpDHolder *studDHolder = [MCASignUpDHolder new];
             studDHolder.str_userId = [[signUpDHolder.arr_StudentData valueForKey:@"user_id"]objectAtIndex:i];
             studDHolder.str_userType = [[signUpDHolder.arr_StudentData valueForKey:@"user_type"]objectAtIndex:i];
-            studDHolder.str_userName = [[signUpDHolder.arr_StudentData valueForKey:@"username"]objectAtIndex:i];
+            studDHolder.str_userName = [[signUpDHolder.arr_StudentData valueForKey:@"user_name"]objectAtIndex:i];
             studDHolder.str_signinId = [[signUpDHolder.arr_StudentData valueForKey:@"signin_id"]objectAtIndex:i];
             studDHolder.str_lang = [[signUpDHolder.arr_StudentData valueForKey:@"language"]objectAtIndex:i];
             studDHolder.str_zipCode = [[signUpDHolder.arr_StudentData valueForKey:@"zipcode"]objectAtIndex:i];
@@ -335,7 +340,7 @@
         signUpDHolder.str_userId = [responseDict valueForKey:@"user_id"];
         signUpDHolder.str_userToken = [responseDict valueForKey:@"user_token"];
         signUpDHolder.str_userType = [responseDict valueForKey:@"user_type"];
-        signUpDHolder.str_userName = [responseDict valueForKey:@"username"];
+        signUpDHolder.str_userName = [responseDict valueForKey:@"user_name"];
         signUpDHolder.str_zipCode = [responseDict valueForKey:@"zipcode"];
         
         dispatch_async(dispatch_get_main_queue(), ^
@@ -438,7 +443,7 @@
         
         [dict_task setValue:arr_taskDetailList forKey:KEY_TASK_ALL_DATA];
         [dict_task setValue:arr_taskDeletedList forKey:KEY_TASK_DELETED_DATA];
-      
+        [dict_task setValue:arr_taskDeleted forKey:KEY_TASK_DELETED_ARRAY];
         dispatch_async(dispatch_get_main_queue(), ^
                        {
                            [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_TASK_LIST_SUCCESS object:dict_task];
@@ -484,40 +489,39 @@
     SBJSON *parser=[[SBJSON alloc]init];
     
     NSDictionary *results = [parser objectWithString:responseString error:nil];
-    NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
     NSString *status_code = [results valueForKey:@"status_code"];
     NSString *str_viewCntr=[request.userInfo valueForKey:@"controller"];
     
      if ([status_code isEqualToString:@"S1023"]){
          
-         NSString *errMsg = [results valueForKey:@"msg"];
+         NSString *msg_success = [results valueForKey:@"msg"];
          
          if ([str_viewCntr isEqualToString:@"task"]) {
              
              dispatch_async(dispatch_get_main_queue(), ^
                             {
-                                [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_DELETE_TASK_SUCCESS object:errMsg];
+                                [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_DELETE_TASK_SUCCESS object:msg_success];
                             });
          }else{
              dispatch_async(dispatch_get_main_queue(), ^
                             {
-                                [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_DELETE_TASK_DETAIL_SUCCESS object:errMsg];
+                                [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_DELETE_TASK_DETAIL_SUCCESS object:msg_success];
                             });
          }
      }else if ([status_code isEqualToString:@"S1027"]){
          
-         NSString *errMsg = [results valueForKey:@"msg"];
+         NSString *msg_success = [results valueForKey:@"msg"];
          
          if ([str_viewCntr isEqualToString:@"task"]) {
              
              dispatch_async(dispatch_get_main_queue(), ^
                             {
-                                [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_COMPLETE_TASK_SUCCESS object:errMsg];
+                                [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_COMPLETE_TASK_SUCCESS object:msg_success];
                             });
          }else{
              dispatch_async(dispatch_get_main_queue(), ^
                             {
-                                [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_COMPLETE_TASK_DETAIL_SUCCESS object:errMsg];
+                                [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_COMPLETE_TASK_DETAIL_SUCCESS object:msg_success];
                             });
          }
      } else{
@@ -624,7 +628,6 @@
                {
                    
                });
-
-    }
+     }
 }
 @end

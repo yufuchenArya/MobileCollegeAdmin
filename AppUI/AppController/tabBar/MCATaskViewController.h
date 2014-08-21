@@ -9,12 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "CustomTableViewCell.h"
 #import "SWTableViewCell.h"
-#import "MCATaskDetailViewController.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "AVFoundation/AVFoundation.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface MCATaskViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,SWTableViewCellDelegate,TaskDetailDelegate>{
+@interface MCATaskViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,SWTableViewCellDelegate>{
     
     IBOutlet UISegmentedControl *segControl_task;
    

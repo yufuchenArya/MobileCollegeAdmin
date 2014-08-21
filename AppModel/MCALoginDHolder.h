@@ -12,11 +12,16 @@
     
     
 }
-@property(nonatomic,strong)NSString *str_signinId;
 @property(nonatomic,strong)NSString *str_grade;
 @property(nonatomic,strong)NSString *str_userId;
-@property(nonatomic,strong)NSString *str_userToken;
 @property(nonatomic,strong)NSString *str_userType;
+@property(nonatomic,strong)NSString *str_signinId;
+@property(nonatomic,strong)NSString *str_userToken;
+@property(nonatomic,strong)NSString *str_zipCode;
+@property(nonatomic,strong)NSString *str_notifyByMail;
+@property(nonatomic,strong)NSString *str_notifyByPush;
+@property(nonatomic,strong)NSString *str_userName;
+@property(nonatomic,strong)NSString *str_family;
 @property(nonatomic,strong)NSString *str_userIsApproved;
 @property(nonatomic,strong)NSMutableArray *arr_StudentData;
 

@@ -27,6 +27,9 @@
     [rootViewCtr.view addSubview:launchView];
     self.window.rootViewController = rootViewCtr;
     [self performSelector:@selector(startMCA) withObject:nil afterDelay:3];
+        
+//    [application setStatusBarHidden:NO];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     return YES;
 }

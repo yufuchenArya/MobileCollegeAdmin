@@ -19,6 +19,15 @@
                      cancelButtonTitle:@"Ok"
                      otherButtonTitles:nil]show];
 }
++(void)showCustomizeAlert:(NSString *)msg{
+    
+    [[[UIAlertView alloc]initWithTitle:@"Message"
+                               message:msg
+                              delegate:self
+                     cancelButtonTitle:nil
+                     otherButtonTitles:nil]show];
+    
+}
 +(MCAAlertView*)showAlert:(NSString*)msg delegate:(id)delegate btnOk:(NSString*)btnOk btnCancel:(NSString*)btnCancel{
     
     MCAAlertView *alertView = [[MCAAlertView alloc]initWithTitle:@"Message"

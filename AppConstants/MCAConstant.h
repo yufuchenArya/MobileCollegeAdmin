@@ -35,6 +35,7 @@
 #define KEY_ANIMATION_FILE_RAND_NO @"animationRandNo"
 #define KEY_TASK_ALL_DATA @"task_allData"
 #define KEY_TASK_DELETED_DATA @"task_deleted"
+#define KEY_TASK_DELETED_ARRAY @"task_deletedArray"
 
 //Notification
 #define NOTIFICATION_LOGIN_SUCCESS @"notificationLoginSuccess"

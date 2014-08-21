@@ -7,25 +7,27 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CustomTableViewCell.h"
 #import "SWTableViewCell.h"
+#import "CustomTableViewCell.h"
 #import "MCATaskDetailDHolder.h"
-@protocol TaskDetailDelegate <NSObject>
--(void)deleteTaskDetail:(MCATaskDetailDHolder*)taskDHolder;
-@end
+#import <QuartzCore/QuartzCore.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import "AVFoundation/AVFoundation.h"
+#import "MCAAddTaskViewController.h"
 
-@interface MCATaskDetailViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,SWTableViewCellDelegate>{
+@interface MCATaskDetailViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,SWTableViewCellDelegate,TaskDetailEditDelegate>{
     
     IBOutlet UITableView *tbl_taskDetail;
     
     IBOutlet UIButton *btn_complete;
     IBOutlet UITextView *tv_taskDetail;
+                 UIView *view_animationBg;
     
     AryaHUD *HUD;
     
 }
 -(IBAction)btnCompleteDidClicked:(id)sender;
-@property(nonatomic,assign)id<TaskDetailDelegate> delegate;
+@property AVPlayer *videoPlayer;
 @property(nonatomic,strong)MCATaskDetailDHolder *taskDetailDHolder;
 
 @end

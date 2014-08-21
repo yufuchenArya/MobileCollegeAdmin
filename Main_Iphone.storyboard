@@ -1010,7 +1010,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Bsc-SC-mBo"/>
+                    <navigationItem key="navigationItem" id="Bsc-SC-mBo">
+                        <barButtonItem key="backBarButtonItem" title=" " id="d28-bM-lux"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="segControl_task" destination="t6i-Re-bSO" id="vo5-Dn-OVe"/>
                         <outlet property="tbl_taskCompleted" destination="eOP-Wm-qKd" id="jVd-O6-Bgr"/>
@@ -1127,9 +1129,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="cV1-pF-fEM">
-                                <rect key="frame" x="9" y="180" width="304" height="264"/>
+                                <rect key="frame" x="9" y="180" width="302" height="260"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.15294117647058825" green="0.65098039215686276" blue="0.83529411764705885" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <connections>
@@ -1160,12 +1163,12 @@
                         <outlet property="tv_description" destination="cV1-pF-fEM" id="kUl-0b-o8m"/>
                         <outlet property="tx_chooseDate" destination="1Oe-Jy-z1Z" id="huC-qi-ZCW"/>
                         <outlet property="tx_priority" destination="vwK-10-dnq" id="te1-xT-HcU"/>
-                        <outlet property="tx_taskNAme" destination="ORU-xO-csg" id="6ct-OK-TfE"/>
+                        <outlet property="tx_taskName" destination="ORU-xO-csg" id="SnS-5X-lUo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZsG-HM-W84" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="945" y="-2712"/>
+            <point key="canvasLocation" x="1081" y="-2336"/>
         </scene>
         <!--Task Detail View Controller-->
         <scene sceneID="7L8-D6-lIE">
@@ -1251,7 +1254,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BQf-Ik-IKd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="449" y="-1937"/>
+            <point key="canvasLocation" x="497" y="-1577"/>
         </scene>
         <!--Forgot Pwd View Controller-->
         <scene sceneID="Gir-er-oQ8">
@@ -1337,13 +1340,13 @@
             </objects>
             <point key="canvasLocation" x="-1335" y="-741"/>
         </scene>
-        <!--Navigation Controller - Task-->
+        <!--Navigation Controller - Tasks-->
         <scene sceneID="iDo-ZS-gky">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zBg-2E-qOt" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Task" image="task" id="pwH-PO-pOB"/>
+                    <tabBarItem key="tabBarItem" title="Tasks" image="task" id="pwH-PO-pOB"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="emH-pX-kWF">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="emH-pX-kWF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1546,7 +1549,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="b9N-e4-lCM"/>
-        <segue reference="dTV-EB-axu"/>
+        <segue reference="5WI-ge-vzp"/>
+        <segue reference="BAV-Zh-z7g"/>
     </inferredMetricsTieBreakers>
 </document>

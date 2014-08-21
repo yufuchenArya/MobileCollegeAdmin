@@ -27,6 +27,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    [[NSUserDefaults standardUserDefaults]setInteger:2 forKey:KEY_ANIMATION_FILE_RAND_NO];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    
     arr_moreOptionList = [[NSMutableArray alloc]initWithObjects:@"Settings",@"Share",@"Feedback",@"Logout", nil];
     arr_moreImageList = [[NSMutableArray alloc]initWithObjects:@"setting.png",@"share.png",@"feedback.png",@"list.png", nil];
 }

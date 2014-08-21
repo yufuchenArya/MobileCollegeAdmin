@@ -107,6 +107,7 @@
             [info setValue:tx_email.text forKey:@"signin_id"];
             [info setValue:tx_pwd.text forKey:@"pwd"];
             
+            
             [info setValue:@"user_login" forKey:@"cmd"];
             [info setValue:@"" forKey:@"user_token"];
             [info setValue:@"" forKey:@"app_token"];

@@ -7,14 +7,13 @@
 //
 
 #import "MCATaskDetailViewController.h"
-#import "MCAAddTaskViewController.h"
 
 @interface MCATaskDetailViewController ()
 
 @end
 
 @implementation MCATaskDetailViewController
-@synthesize taskDetailDHolder,delegate;
+@synthesize taskDetailDHolder;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,8 +35,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteTaskDetailSuccess:) name:NOTIFICATION_DELETE_TASK_DETAIL_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(completeTaskDetailSuccess:) name:NOTIFICATION_COMPLETE_TASK_DETAIL_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteOrCompleteTaskDetailFailed:) name:NOTIFICATION_DELETE_COMPLETE_TASK_DETAIL_FAILED object:nil];
- 
-    
+     
      tv_taskDetail.text = taskDetailDHolder.str_taskDetail;
     
     //code for navigation bar
@@ -184,6 +182,9 @@
        }
     }
 }
+
+#pragma mark -  UITABLEVIEW DELEGATE AND DATASOURCE METHODS
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
   
     return 72;
@@ -269,13 +270,79 @@
 -(void)deleteTaskDetailSuccess:(NSNotification*)notification
 {
     [HUD hide];
-    [delegate deleteTaskDetail:taskDetailDHolder];
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)completeTaskDetailSuccess:(NSNotification*)notification{
     
     [HUD hide];
-    [self.navigationController popViewControllerAnimated:YES];
+        
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Message"
+                                                   message:notification.object delegate:nil
+                                         cancelButtonTitle:nil
+                                         otherButtonTitles:nil, nil];
+    
+    [alert show];
+    
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(),^ {
+        
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+        
+        NSMutableArray *arr_animationVideo = [[NSMutableArray alloc]initWithObjects:@"ducksmall",
+                                              @"mousesmall",@"pigsmall",
+                                              @"rabbitsmall", nil];
+        
+        NSURL *url = [[NSBundle mainBundle] URLForResource:[arr_animationVideo objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_ANIMATION_FILE_RAND_NO]] withExtension:@"mp4"];
+        
+        AVURLAsset *asset = [AVURLAsset URLAssetWithURL:url options:nil];
+        
+        // Create an AVPlayerItem using the asset
+        AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
+        
+        AVPlayer *player = [AVPlayer playerWithPlayerItem:playerItem];
+        self.videoPlayer = player;
+        
+        // Create an AVPlayerLayer using the player
+        player.actionAtItemEnd = AVPlayerActionAtItemEndNone;
+        
+        AVPlayerLayer *playerLayer = [AVPlayerLayer playerLayerWithPlayer:player];
+        playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+        if (IS_IPHONE_5) {
+            view_animationBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 568)];
+        }else{
+            view_animationBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 480)];
+        }
+        
+        view_animationBg.backgroundColor = [UIColor whiteColor];
+        playerLayer.frame = view_animationBg.bounds;
+        // Add it to your view's sublayers
+        [view_animationBg.layer addSublayer:playerLayer];
+        [self.view addSubview:view_animationBg];
+        
+        [player play];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(playerItemDidReachEnd:)
+                                                     name:AVPlayerItemDidPlayToEndTimeNotification
+                                                   object:[player currentItem]];
+        
+        tabBarMCACtr.tabBar.hidden = YES;
+        self.navigationController.navigationBarHidden = YES;
+    });
+   
+}
+- (void)playerItemDidReachEnd:(NSNotification *)notification {
+    
+    double delayInSeconds = 1.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(),^ {
+        
+        self.navigationController.navigationBarHidden = NO;
+        tabBarMCACtr.tabBar.hidden = NO;
+        [view_animationBg removeFromSuperview];
+        [self.navigationController popViewControllerAnimated:YES];
+    });
 }
 -(void)deleteOrCompleteTaskDetailFailed:(NSNotification*)notification{
     
@@ -289,6 +356,14 @@
         
         MCAAddTaskViewController *editTaskViewCtr = (MCAAddTaskViewController*)[segue destinationViewController];
         editTaskViewCtr.taskEditDHolder = (MCATaskDetailDHolder*)sender;
+        editTaskViewCtr.delegate = self;
     }
+}
+-(void)editTaskDetail:(MCATaskDetailDHolder *)taskDHolder{
+    
+    taskDetailDHolder = taskDHolder;
+    tv_taskDetail.text = taskDetailDHolder.str_taskDetail;
+    [tbl_taskDetail reloadData];
+    
 }
 @end
