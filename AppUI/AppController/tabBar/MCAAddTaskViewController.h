@@ -30,7 +30,7 @@
     UIBarButtonItem *btnBar_cancel;
     
     NSMutableArray  *arr_priority;
-    
+    NSString*json_TaskString;
     AryaHUD *HUD;
 }
 

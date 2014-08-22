@@ -102,8 +102,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 	BOOL localWiFiRef;
 	SCNetworkReachabilityRef reachabilityRef;
 }
-
-
 + (instancetype)reachabilityWithHostName:(NSString *)hostName;
 {
 	Reachability* returnValue = NULL;

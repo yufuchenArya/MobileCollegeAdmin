@@ -84,6 +84,9 @@
             studDHolder.str_notifyByPush = [[loginDHolder.arr_StudentData valueForKey:@"notify_by_push"]objectAtIndex:i];
             studDHolder.str_notifyByMail = [[loginDHolder.arr_StudentData valueForKey:@"notify_by_email"]objectAtIndex:i];
             
+            [[NSUserDefaults standardUserDefaults]setValue:studDHolder.str_lang forKey:KEY_LANGUAGE_CODE];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+            
             [arr_studList addObject:studDHolder];
         
         }

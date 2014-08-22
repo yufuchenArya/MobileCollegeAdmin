@@ -1168,7 +1168,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZsG-HM-W84" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1081" y="-2336"/>
+            <point key="canvasLocation" x="1037" y="-2328"/>
         </scene>
         <!--Task Detail View Controller-->
         <scene sceneID="7L8-D6-lIE">
@@ -1201,7 +1201,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Cz-Fw-tcR">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" id="1Cz-Fw-tcR">
                                                     <rect key="frame" x="26" y="6" width="280" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -1254,7 +1254,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BQf-Ik-IKd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="497" y="-1577"/>
+            <point key="canvasLocation" x="513" y="-1753"/>
         </scene>
         <!--Forgot Pwd View Controller-->
         <scene sceneID="Gir-er-oQ8">
@@ -1364,16 +1364,16 @@
             </objects>
             <point key="canvasLocation" x="-615" y="-2302"/>
         </scene>
-        <!--View Controller-->
+        <!--Calendar View Controller - Calendar-->
         <scene sceneID="uv7-CO-nb1">
             <objects>
-                <viewController id="TeJ-cs-3H5" sceneMemberID="viewController">
+                <viewController id="TeJ-cs-3H5" customClass="MCACalendarViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CCI-Ty-n3k">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="vBN-KX-mlw"/>
+                    <navigationItem key="navigationItem" title="Calendar" id="vBN-KX-mlw"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hPg-cN-zkU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1385,7 +1385,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mJd-U6-qQT" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Calendar" image="calendar" id="qVi-eJ-1ZX"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ckQ-h0-ZDQ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="ckQ-h0-ZDQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.1529411765" green="0.65098039220000004" blue="0.83529411760000005" alpha="1" colorSpace="deviceRGB"/>
@@ -1399,7 +1399,7 @@
             </objects>
             <point key="canvasLocation" x="-627" y="-1226"/>
         </scene>
-        <!--View Controller-->
+        <!--View Controller - Notes-->
         <scene sceneID="N2M-bp-xJ7">
             <objects>
                 <viewController id="XCm-BC-1Ry" sceneMemberID="viewController">
@@ -1408,7 +1408,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Mx0-hg-GrD"/>
+                    <navigationItem key="navigationItem" title="Notes" id="Mx0-hg-GrD"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wnw-cI-55g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1420,7 +1420,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gm5-mP-YJN" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Notes" image="notes" id="8rX-lE-rlF"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="9DN-MD-GAh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="9DN-MD-GAh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.15294117647058825" green="0.65098039215686276" blue="0.83529411764705885" alpha="1" colorSpace="deviceRGB"/>
@@ -1434,7 +1434,7 @@
             </objects>
             <point key="canvasLocation" x="-635" y="-362"/>
         </scene>
-        <!--View Controller-->
+        <!--View Controller - Resources-->
         <scene sceneID="7ls-jA-QcH">
             <objects>
                 <viewController id="StU-J4-dKu" sceneMemberID="viewController">
@@ -1443,7 +1443,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Dn6-wu-iy5"/>
+                    <navigationItem key="navigationItem" title="Resources" id="Dn6-wu-iy5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rOK-JF-COz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1455,7 +1455,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CDw-pB-L8I" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Resources" image="resources" id="9CG-Oo-bNv"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="F89-ri-SAR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="F89-ri-SAR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.1529411765" green="0.65098039220000004" blue="0.83529411760000005" alpha="1" colorSpace="deviceRGB"/>
@@ -1469,7 +1469,7 @@
             </objects>
             <point key="canvasLocation" x="-603" y="566"/>
         </scene>
-        <!--More View Controller-->
+        <!--More View Controller - More-->
         <scene sceneID="g97-R4-gct">
             <objects>
                 <viewController id="leD-94-scX" customClass="MCAMoreViewController" sceneMemberID="viewController">
@@ -1478,7 +1478,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="52" sectionHeaderHeight="22" sectionFooterHeight="22" id="JgO-wp-7xO">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="454"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="452"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -1499,7 +1499,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="38l-K0-hOP"/>
+                    <navigationItem key="navigationItem" title="More" id="38l-K0-hOP"/>
                     <connections>
                         <outlet property="tbl_moreOption" destination="JgO-wp-7xO" id="SuS-7T-nl6"/>
                     </connections>
@@ -1514,7 +1514,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="TaD-HC-qUv" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="More" image="more" id="6PW-3Z-Nvw"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="TeY-n6-WNJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="TeY-n6-WNJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.1529411765" green="0.65098039220000004" blue="0.83529411760000005" alpha="1" colorSpace="deviceRGB"/>
@@ -1550,6 +1550,6 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="5WI-ge-vzp"/>
-        <segue reference="BAV-Zh-z7g"/>
+        <segue reference="dTV-EB-axu"/>
     </inferredMetricsTieBreakers>
 </document>

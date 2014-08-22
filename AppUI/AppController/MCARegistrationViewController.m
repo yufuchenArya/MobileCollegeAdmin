@@ -489,7 +489,7 @@
     
     if(segControl_UserType.selectedSegmentIndex == 0) {
         
-        tbl_StudGradeList = [[UITableView alloc]initWithFrame:CGRectMake(12, 228, 298, 96)];
+        tbl_StudGradeList = [[UITableView alloc]initWithFrame:CGRectMake(12, 228, 298, 110)];
         [tx_addStudName resignFirstResponder];
         [tx_addStudEmail resignFirstResponder];
 
@@ -504,7 +504,7 @@
         view_Bg.backgroundColor = [UIColor blackColor];
         view_Bg.layer.opacity = 0.6f;
         [self.view addSubview:view_Bg];
-        tbl_StudGradeList = [[UITableView alloc]initWithFrame:CGRectMake(12, 102, 298, 96)];
+        tbl_StudGradeList = [[UITableView alloc]initWithFrame:CGRectMake(12, 102, 298, 110)];
     }
     tbl_StudGradeList.layer.borderWidth = 0.5f;
     tbl_StudGradeList.layer.cornerRadius = 3.0f;
@@ -532,7 +532,7 @@
         view_StudListBg.layer.opacity = 0.6f;
         [self.view addSubview:view_StudListBg];
         
-        tbl_StudList = [[UITableView alloc]initWithFrame:CGRectMake(10, 228, 302, 122)];
+        tbl_StudList = [[UITableView alloc]initWithFrame:CGRectMake(10, 228, 302, 138)];
         tbl_StudList.layer.borderWidth = 0.5f;
         tbl_StudList.layer.cornerRadius = 3.0f;
         [self.view addSubview:tbl_StudList];
@@ -545,7 +545,7 @@
              [tbl_StudList reloadData];
     }else{
        
-        [MCAGlobalFunction showAlert:@"no student exist."];
+        [MCAGlobalFunction showAlert:@"No Student Connected."];
         
     }
     [self resignTextField];
@@ -701,7 +701,7 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
     view_StudListBg.layer.opacity = 0.6f;
     [self.view addSubview:view_StudListBg];
     
-    tbl_SelectPerson = [[UITableView alloc]initWithFrame:CGRectMake(10, 228, 302, 144)];
+    tbl_SelectPerson = [[UITableView alloc]initWithFrame:CGRectMake(10, 228, 302, 164)];
     tbl_SelectPerson.layer.borderWidth = 0.5f;
     tbl_SelectPerson.layer.cornerRadius = 3.0f;
     [self.view addSubview:tbl_SelectPerson];
@@ -728,7 +728,7 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
         return 28;
     }else{
         
-        return 24;
+        return 28;
     }
    
 }

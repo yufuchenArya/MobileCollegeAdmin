@@ -31,7 +31,7 @@
     [[NSUserDefaults standardUserDefaults]synchronize];
     
     arr_moreOptionList = [[NSMutableArray alloc]initWithObjects:@"Settings",@"Share",@"Feedback",@"Logout", nil];
-    arr_moreImageList = [[NSMutableArray alloc]initWithObjects:@"setting.png",@"share.png",@"feedback.png",@"list.png", nil];
+    arr_moreImageList = [[NSMutableArray alloc]initWithObjects:@"setting.png",@"share.png",@"feedback.png",@"logout.png", nil];
 }
 
 - (void)didReceiveMemoryWarning

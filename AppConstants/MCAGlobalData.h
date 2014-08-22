@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "MCACustomButton.h"
+#import "Reachability.h"
 #import "MCAAlertView.h"
 #import "FMDatabase.h"
 
 UITabBarController *tabBarMCACtr;
 FMDatabase *dBCollgeAdmin;
 NSMutableArray *arr_loginData;
+Reachability *hostReachable;
 
 @interface MCAGlobalData : NSObject<UITabBarControllerDelegate>{
     

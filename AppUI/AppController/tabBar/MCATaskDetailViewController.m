@@ -39,7 +39,7 @@
      tv_taskDetail.text = taskDetailDHolder.str_taskDetail;
     
     //code for navigation bar
-    if ([taskDetailDHolder.str_taskStatus isEqualToString:@"o"])
+    if ([taskDetailDHolder.str_taskStatus isEqualToString:@"o"] && ![[NSUserDefaults standardUserDefaults]integerForKey:KEY_STUDENT_COUNT] > 0)
     {
         UIImage* img_delete = [UIImage imageNamed:@"delete.png"];
         CGRect img_deleteFrame = CGRectMake(0, 0, img_delete.size.width, img_delete.size.height);
@@ -144,43 +144,6 @@
 
         }
     }
-    else
-    {
-       if (buttonIndex == 1)
-        {       
-            NSDateFormatter *dateFormatterTime = [[NSDateFormatter alloc]init];
-            [dateFormatterTime setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
-            NSString *str_dateTime = [dateFormatterTime stringFromDate:[NSDate date]];
-            
-            taskDetailDHolder.str_taskStatus = @"c";
-            
-            NSMutableDictionary *info=[NSMutableDictionary new];
-            [info setValue:str_dateTime forKey:@"updated_at"];
-            [info setValue:@"c" forKey:@"task_status"];
-            [info setValue:taskDetailDHolder.str_taskId forKey:@"task_id"];
-            
-            [info setValue:@"task_status" forKey:@"cmd"];
-            [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TOKEN] forKey:@"user_token"];
-            [info setValue:@"" forKey:@"app_token"];
-            [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-            [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID] forKey:@"user_id"];
-            [info setValue:@"1.0" forKey:@"app_ver"];
-            
-            NSError* error;
-            NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                               options:NSJSONWritingPrettyPrinted
-                                                                 error:&error];
-            NSString* jsonCompleteTaskData=  [[NSString alloc] initWithData:jsonData
-                                                                   encoding:NSUTF8StringEncoding];
-            jsonCompleteTaskData = [jsonCompleteTaskData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            jsonCompleteTaskData = [jsonCompleteTaskData stringByReplacingOccurrencesOfString:@" " withString:@""];
-            jsonCompleteTaskData = [jsonCompleteTaskData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-            
-            [HUD show];
-            [self.view bringSubviewToFront:HUD];
-            [self requestDeleteOrCompleteTask:jsonCompleteTaskData];
-       }
-    }
 }
 
 #pragma mark -  UITABLEVIEW DELEGATE AND DATASOURCE METHODS
@@ -200,7 +163,7 @@
      CustomTableViewCell *cell  = (CustomTableViewCell *)[tableView dequeueReusableCellWithIdentifier:                                                 cellIdentifier forIndexPath:indexPath];
     NSMutableArray *leftUtilityButtons;
   
-    if([taskDetailDHolder.str_taskStatus isEqualToString:@"o"]){
+    if([taskDetailDHolder.str_taskStatus isEqualToString:@"o"] && ![[NSUserDefaults standardUserDefaults]integerForKey:KEY_STUDENT_COUNT] > 0){
        
          leftUtilityButtons  = [NSMutableArray new];
     }
@@ -240,12 +203,38 @@
     switch (index) {
         case 0:
         {
-            MCAAlertView *alertView = [MCAGlobalFunction showAlert:@"Do you want to complete the task?"
-                                                          delegate:self
-                                                             btnOk:@"Confirm Action"
-                                                         btnCancel:@"Cancel"];
             
-            alertView.tag = 2;
+            NSDateFormatter *dateFormatterTime = [[NSDateFormatter alloc]init];
+            [dateFormatterTime setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+            NSString *str_dateTime = [dateFormatterTime stringFromDate:[NSDate date]];
+            
+            taskDetailDHolder.str_taskStatus = @"c";
+            
+            NSMutableDictionary *info=[NSMutableDictionary new];
+            [info setValue:str_dateTime forKey:@"updated_at"];
+            [info setValue:@"c" forKey:@"task_status"];
+            [info setValue:taskDetailDHolder.str_taskId forKey:@"task_id"];
+            
+            [info setValue:@"task_status" forKey:@"cmd"];
+            [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TOKEN] forKey:@"user_token"];
+            [info setValue:@"" forKey:@"app_token"];
+            [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
+            [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID] forKey:@"user_id"];
+            [info setValue:@"1.0" forKey:@"app_ver"];
+            
+            NSError* error;
+            NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
+                                                               options:NSJSONWritingPrettyPrinted
+                                                                 error:&error];
+            NSString* jsonCompleteTaskData=  [[NSString alloc] initWithData:jsonData
+                                                                   encoding:NSUTF8StringEncoding];
+            jsonCompleteTaskData = [jsonCompleteTaskData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            jsonCompleteTaskData = [jsonCompleteTaskData stringByReplacingOccurrencesOfString:@" " withString:@""];
+            jsonCompleteTaskData = [jsonCompleteTaskData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+            
+            [HUD show];
+            [self.view bringSubviewToFront:HUD];
+            [self requestDeleteOrCompleteTask:jsonCompleteTaskData];
             [cell hideUtilityButtonsAnimated:YES];
             
             break;

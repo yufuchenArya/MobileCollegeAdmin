@@ -27,9 +27,9 @@
     [rootViewCtr.view addSubview:launchView];
     self.window.rootViewController = rootViewCtr;
     [self performSelector:@selector(startMCA) withObject:nil afterDelay:3];
-        
-//    [application setStatusBarHidden:NO];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    hostReachable = [Reachability reachabilityWithHostName: @"www.google.com"] ;
+    [hostReachable startNotifier];
     
     return YES;
 }
@@ -52,6 +52,8 @@
 //        UIWindow *window = [[UIApplication sharedApplication].windows objectAtIndex:0];
        self.window.rootViewController = loginViewController;
   }
+    
+   
 }
 -(void)logout
 {

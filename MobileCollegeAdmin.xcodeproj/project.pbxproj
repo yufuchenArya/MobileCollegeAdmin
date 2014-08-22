@@ -84,6 +84,7 @@
 		CEEDCADB197F8E3B0088511D /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEEDCADA197F8E3B0088511D /* CFNetwork.framework */; };
 		CEEDCAE0197F8F520088511D /* MCARestIntraction.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEDCADF197F8F520088511D /* MCARestIntraction.m */; };
 		CEEDCAE3197F962F0088511D /* MCALoginDHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEDCAE2197F962F0088511D /* MCALoginDHolder.m */; };
+		CEF5375E19A70FB700B72CD2 /* MCACalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF5375D19A70FB700B72CD2 /* MCACalendarViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -229,6 +230,8 @@
 		CEEDCADF197F8F520088511D /* MCARestIntraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCARestIntraction.m; sourceTree = "<group>"; };
 		CEEDCAE1197F962F0088511D /* MCALoginDHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCALoginDHolder.h; sourceTree = "<group>"; };
 		CEEDCAE2197F962F0088511D /* MCALoginDHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCALoginDHolder.m; sourceTree = "<group>"; };
+		CEF5375C19A70FB700B72CD2 /* MCACalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCACalendarViewController.h; sourceTree = "<group>"; };
+		CEF5375D19A70FB700B72CD2 /* MCACalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCACalendarViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -342,8 +345,9 @@
 		CE6E7D1A1990A8F6005470BC /* tabBar */ = {
 			isa = PBXGroup;
 			children = (
-				CE84C2341962DDDD00A351FF /* more */,
 				CE6E7D1B1990A90E005470BC /* tasks */,
+				CE84C2341962DDDD00A351FF /* more */,
+				CEF5375B19A70F9B00B72CD2 /* calendar */,
 			);
 			path = tabBar;
 			sourceTree = "<group>";
@@ -622,6 +626,15 @@
 			path = AppRestIntraction;
 			sourceTree = "<group>";
 		};
+		CEF5375B19A70F9B00B72CD2 /* calendar */ = {
+			isa = PBXGroup;
+			children = (
+				CEF5375C19A70FB700B72CD2 /* MCACalendarViewController.h */,
+				CEF5375D19A70FB700B72CD2 /* MCACalendarViewController.m */,
+			);
+			name = calendar;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -743,6 +756,7 @@
 				CE2AE62F1998881100B23FFF /* FMDatabasePool.m in Sources */,
 				CEEDCABC197F8BE20088511D /* ASIDataCompressor.m in Sources */,
 				CE2AA3131999DE4900D43008 /* MCATaskDetailViewController.m in Sources */,
+				CEF5375E19A70FB700B72CD2 /* MCACalendarViewController.m in Sources */,
 				CE174993198D19C200F61135 /* AryaHUD.m in Sources */,
 				CE278A2219920DEF00783592 /* CustomTableViewCell.m in Sources */,
 				CE84C23A1962DE2E00A351FF /* MCARegistrationViewController.m in Sources */,
@@ -837,8 +851,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -856,7 +870,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d205700b-e2ed-49fd-afab-0542cce92cae";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -877,8 +891,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -890,7 +904,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d205700b-e2ed-49fd-afab-0542cce92cae";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -900,15 +914,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobileCollegeAdmin/MobileCollegeAdmin-Prefix.pch";
 				INFOPLIST_FILE = "MobileCollegeAdmin/MobileCollegeAdmin-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d205700b-e2ed-49fd-afab-0542cce92cae";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -918,15 +932,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobileCollegeAdmin/MobileCollegeAdmin-Prefix.pch";
 				INFOPLIST_FILE = "MobileCollegeAdmin/MobileCollegeAdmin-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d205700b-e2ed-49fd-afab-0542cce92cae";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};

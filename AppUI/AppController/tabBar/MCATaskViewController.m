@@ -37,7 +37,7 @@
     arr_loginData = [[NSUserDefaults standardUserDefaults]objectForKey:@"test"];
     
     arr_studentList = [[MCADBIntraction databaseInteractionManager]retrieveStudList:nil];
-    
+       
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(taskListSuccess:) name:NOTIFICATION_TASK_LIST_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(taskListFailed:) name:NOTIFICATION_TASK_LIST_FAILED object:nil];
     
@@ -45,13 +45,10 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(completeTaskSuccess:) name:NOTIFICATION_COMPLETE_TASK_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteOrCompleteTaskFailed:) name:NOTIFICATION_DELETE_COMPLETE_TASK_FAILED object:nil];
     
-//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addTaskSuccess:) name:NOTIFICATION_ADD_TASK_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addTaskSuccess:) name:NOTIFICATION_ADD_TASK_SUCCESS object:nil];
 //    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addTaskFailed:) name:NOTIFICATION_ADD_TASK_FAILED object:nil];
     
     segControl_task.tintColor=[UIColor whiteColor];
-    arr_gradeList = [[NSArray alloc]initWithObjects:@"12th",@"11th",@"10th", nil];
-    [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_TASK_GRADE_INDEX];
-    [[NSUserDefaults standardUserDefaults]synchronize];
     
     [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_TASK_STUD_INDEX];
     [[NSUserDefaults standardUserDefaults]synchronize];
@@ -87,12 +84,23 @@
 //         [nav_TaskBar setItems:[NSArray arrayWithObject:self.navigationItem]];
     }else{
         
+        arr_gradeList = [[NSArray alloc]initWithObjects:@"12th",@"11th",@"10th", nil];
+        [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_TASK_GRADE_INDEX];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        
         if ([[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] isEqualToString:@"p"])
         {
             UIImage* img_add = [UIImage imageNamed:@"add.png"];
-            CGRect img_addFrame = CGRectMake(0, 0, img_add.size.width, img_add.size.height);
-            UIButton *btn_add = [[UIButton alloc] initWithFrame:img_addFrame];
-            [btn_add setBackgroundImage:img_add forState:UIControlStateNormal];
+//            CGRect img_addFrame = CGRectMake(0, 0, img_add.size.width, img_add.size.height);
+//            UIButton *btn_add = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+            UIButton*  btn_add = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            btn_add.frame = CGRectMake(0, 0, 34, 22);
+            btn_add.layer.cornerRadius = 4.0f;
+            btn_add.layer.borderWidth = 0.5f;
+            btn_add.tintColor = [UIColor colorWithRed:39.0/255.0 green:166.0/255.0 blue:213.0/255.0 alpha:1.0];
+            btn_add.backgroundColor = [UIColor whiteColor];
+            [btn_add setTitle:@" Add " forState:UIControlStateNormal];
+            btn_add.titleLabel.font = [UIFont systemFontOfSize:14.0f];
             [btn_add addTarget:self
                          action:@selector(btnBar_addDidClicked:)
                      forControlEvents:UIControlEventTouchUpInside];
@@ -116,9 +124,15 @@
         }else{
             
             UIImage* img_add = [UIImage imageNamed:@"add.png"];
-            CGRect img_addFrame = CGRectMake(0, 0, img_add.size.width, img_add.size.height);
-            UIButton *btn_add = [[UIButton alloc] initWithFrame:img_addFrame];
-            [btn_add setBackgroundImage:img_add forState:UIControlStateNormal];
+//            CGRect img_addFrame = CGRectMake(0, 0, img_add.size.width, img_add.size.height);
+            UIButton*  btn_add = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+            btn_add.frame = CGRectMake(0, 0, 34, 22);
+            btn_add.layer.cornerRadius = 4.0f;
+            btn_add.layer.borderWidth = 0.5f;
+            btn_add.tintColor = [UIColor colorWithRed:39.0/255.0 green:166.0/255.0 blue:213.0/255.0 alpha:1.0];
+            btn_add.backgroundColor = [UIColor whiteColor];
+            [btn_add setTitle:@" Add " forState:UIControlStateNormal];
+            btn_add.titleLabel.font = [UIFont systemFontOfSize:14.0f];
             [btn_add addTarget:self
                                  action:@selector(btnBar_addDidClicked:)
                      forControlEvents:UIControlEventTouchUpInside];
@@ -127,7 +141,7 @@
             UIBarButtonItem *btnBar_add =[[UIBarButtonItem alloc] initWithCustomView:btn_add];
             self.navigationItem.title = @"Tasks";
             [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:btnBar_add,nil]];
-//            [nav_TaskBar setItems:[NSArray arrayWithObject:self.navigationItem]];
+
         }
     }
     
@@ -162,6 +176,7 @@
 -(void)viewWillAppear:(BOOL)animated{
    
      [self getTaskList:nil];
+  
     
 }
 -(void)getTaskList:(id)sender{
@@ -169,12 +184,12 @@
     NSMutableDictionary *info=[NSMutableDictionary new];
     [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] forKey:@"user_type"];
     [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_LANGUAGE_CODE] forKey:@"language_code"];
-    
-    if ([[NSUserDefaults standardUserDefaults]valueForKey:KEY_LANGUAGE_CODE]) {
-        [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_LANGUAGE_CODE] forKey:@"language_code"];
-    }else{
+//    
+//    if ([[NSUserDefaults standardUserDefaults]valueForKey:KEY_LANGUAGE_CODE]) {
+//        [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_LANGUAGE_CODE] forKey:@"language_code"];
+//    }else{
         [info setValue:@"en_us" forKey:@"language_code"];
-    }
+//    }
     
     if ([[NSUserDefaults standardUserDefaults]valueForKey:KEY_NOW_DATE]) {
         [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_NOW_DATE] forKey:@"now_date"];
@@ -291,6 +306,9 @@
         [tbl_taskCompleted reloadData];
         [self.view addSubview:tbl_taskCompleted];
       
+        [[NSUserDefaults standardUserDefaults]setInteger:2 forKey:KEY_ANIMATION_FILE_RAND_NO];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+        
     }else{
         
         [tbl_taskCompleted removeFromSuperview];
@@ -303,6 +321,9 @@
         }else{
             tbl_taskDeleted.frame = CGRectMake(0, 36, 320, 332);
         }
+        
+        [[NSUserDefaults standardUserDefaults]setInteger:1 forKey:KEY_ANIMATION_FILE_RAND_NO];
+        [[NSUserDefaults standardUserDefaults]synchronize];
       
         [tbl_taskDeleted reloadData];
         [self.view addSubview:tbl_taskDeleted];
@@ -726,6 +747,9 @@
 
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
    
+    [[NSUserDefaults standardUserDefaults]setInteger:1 forKey:KEY_ANIMATION_FILE_RAND_NO];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    
     switch (index) {
       case 0:
       {
@@ -802,8 +826,25 @@
     [self confirmationApi:nil];
     NSString *str_selectedGrade = [arr_gradeList objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_GRADE_INDEX]];
     str_selectedGrade = [str_selectedGrade stringByReplacingOccurrencesOfString:@"th" withString:@""];
+    
+    NSInteger int_selectedStud = [[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_STUD_INDEX];
+    NSString *str_selectedStud;
+    
+    if (int_selectedStud == 0) {
+        
+        str_selectedStud = @"All";
+        
+    }else{
+         str_selectedStud  = [[arr_studentList valueForKey:@"str_userId"] objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_STUD_INDEX]-1];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults]integerForKey:KEY_STUDENT_COUNT] > 0) {
+        [self createTaskList:str_selectedStud];
+    }else {
+        [self createTaskList:str_selectedGrade];
+    }
 
-    [self createTaskList:str_selectedGrade];
+    
 //    [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_TASK_GRADE_INDEX];
 //    [[NSUserDefaults standardUserDefaults]synchronize];
 //    
@@ -897,8 +938,8 @@
 }
 -(void)addTaskSuccess:(NSNotification*)notification{
     
-    [HUD hide];
-    [self getTaskList:nil];
+    [segControl_task setSelectedSegmentIndex:0];
+   
 }
 -(void)addTaskFailed:(NSNotification*)notification{
     

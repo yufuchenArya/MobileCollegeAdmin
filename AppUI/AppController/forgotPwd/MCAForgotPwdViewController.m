@@ -33,8 +33,13 @@
     
     HUD = [AryaHUD new];
     [self.view addSubview:HUD];
+    
+    [self setNeedsStatusBarAppearanceUpdate];
 }
-
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    
+    return UIStatusBarStyleLightContent;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

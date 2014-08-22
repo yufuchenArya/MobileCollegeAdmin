@@ -7,7 +7,7 @@
 //
 
 #import "MCAAddTaskViewController.h"
-
+#import "Reachability.h"
 @interface MCAAddTaskViewController ()
 @end
 
@@ -49,9 +49,12 @@
     Class parentVCClass = [parentViewController class];
     NSString *className = NSStringFromClass(parentVCClass);
     
-    if (!taskEditDHolder){
+    if ([className isEqualToString:@"MCATaskViewController"]){
         
         self.navigationItem.title = @"New Task";
+        
+        tv_description.text = @"Description";
+        tv_description.textColor = [UIColor lightGrayColor];
         
     }else{
         
@@ -75,7 +78,59 @@
         tx_chooseDate.text = str_date;
         tv_description.text = taskEditDHolder.str_taskDetail;
     }
+    
+    //check for reachability change
+//    [[NSNotificationCenter defaultCenter]addObserver:self
+//                                            selector:@selector(reachabilityStatusChange:)
+//                                                name:kReachabilityChangedNotification
+//                                              object:nil];
+
 }
+-(void)reachabilityStatusChange:(NSNotification*)notification{
+    
+    if([MCAGlobalFunction isConnectedToInternet])
+    {
+        NSMutableArray *arr_taskTemp = [NSMutableArray new];
+        NSMutableArray * arr_Temp = [[MCADBIntraction databaseInteractionManager]retrieveTask:@"0"];
+       
+        if (arr_Temp.count > 0)
+        {
+            for (int i = 0; i<arr_Temp.count; i++)
+            {
+                MCATaskDetailDHolder *taskDHolder = (MCATaskDetailDHolder*)[arr_Temp objectAtIndex:i];
+                
+                NSMutableDictionary *dict_Task =[NSMutableDictionary new];
+                [dict_Task setValue:taskDHolder.str_taskStartDate forKey:@"task_start_date"];
+                [dict_Task setValue:taskDHolder.str_taskPriority forKey:@"task_priority"];
+                [dict_Task setValue:taskDHolder.str_taskName forKey:@"task_name"];
+                [dict_Task setValue:taskDHolder.str_taskDetail forKey:@"task_detail"];
+                [dict_Task setValue:taskDHolder.str_taskId forKey:@"task_id"];
+                
+                if ([[NSUserDefaults standardUserDefaults]valueForKey:KEY_LANGUAGE_CODE]) {
+                    [dict_Task setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_LANGUAGE_CODE] forKey:@"language_code"];
+                }else{
+                    [dict_Task setValue:@"en_us" forKey:@"language_code"];
+                }
+                
+                [arr_taskTemp addObject:dict_Task];
+            }
+            
+            NSError* error;
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arr_taskTemp
+                                                               options:NSJSONWritingPrettyPrinted
+                                                                 error:&error];
+            
+            json_TaskString  = [[NSString alloc] initWithData:jsonData
+                                                     encoding:NSUTF8StringEncoding];
+            json_TaskString = [json_TaskString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+            json_TaskString = [json_TaskString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+            
+            [self addOrEditTask:nil];
+
+        }
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -98,10 +153,23 @@
     
     return YES;
 }
--(BOOL)textViewShouldBeginEditing:(UITextView *)textView
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
+    if ([[textView text] isEqualToString:@"Description"]) {
+        textView.text = @"";
+        textView.textColor = [UIColor blackColor];
+    }
     [self keyboardAppeared];
     return  YES;
+}
+
+-(BOOL)textViewShouldEndEditing:(UITextView *)textView
+{
+    if ([[textView text] length] == 0) {
+        textView.text = @"Description";
+        textView.textColor = [UIColor lightGrayColor];
+    }
+    return YES;
 }
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
@@ -212,16 +280,18 @@
 }
 -(IBAction)btnBarDoneDidClicked:(id)sender{
     
-    if (![tx_taskName.text isEqualToString:@""] && ![tx_priority.text isEqualToString:@""] && ![tx_chooseDate.text isEqualToString:@""] && ![tv_description.text isEqualToString:@""])
+    if (![tx_taskName.text isEqualToString:@""] && ![tx_priority.text isEqualToString:@""] && ![tx_chooseDate.text isEqualToString:@""] && ![tv_description.text isEqualToString:@""] && ![tv_description.text isEqualToString:@"Description"])
     {
         [self keyboardDisappeared];
         NSMutableDictionary *dict_addTask =[NSMutableDictionary new];
         
         if (taskEditDHolder) {
             
-            if (str_dateSelected) {
+            if (str_dateSelected)
+            {
                 [dict_addTask setValue:str_dateSelected forKey:@"task_start_date"];
-            }else{
+            }else
+            {
                 [dict_addTask setValue:taskEditDHolder.str_taskStartDate forKey:@"task_start_date"];
             }
             
@@ -241,7 +311,6 @@
        
         [dict_addTask setValue:tx_taskName.text forKey:@"task_name"];
         [dict_addTask setValue:tv_description.text forKey:@"task_detail"];
-       
     
         if ([[NSUserDefaults standardUserDefaults]valueForKey:KEY_LANGUAGE_CODE]) {
             [dict_addTask setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_LANGUAGE_CODE] forKey:@"language_code"];
@@ -257,45 +326,51 @@
                                                            options:NSJSONWritingPrettyPrinted
                                                              error:&error];
         
-        NSString*json_AddTaskString = [[NSString alloc] initWithData:jsonData
+        json_TaskString  = [[NSString alloc] initWithData:jsonData
                                                 encoding:NSUTF8StringEncoding];
-        json_AddTaskString = [json_AddTaskString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-//        json_AddTaskString = [json_AddTaskString stringByReplacingOccurrencesOfString:@" " withString:@""];
-        json_AddTaskString = [json_AddTaskString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        json_TaskString = [json_TaskString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+        json_TaskString = [json_TaskString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
         
-        NSMutableDictionary *info=[NSMutableDictionary new];
-     
-        [info setValue:json_AddTaskString forKeyPath:@"task"];
-        [info setValue:@"add_task" forKey:@"cmd"];
-        [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TOKEN] forKey:@"user_token"];
-        [info setValue:@"" forKey:@"app_token"];
-        [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-        [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID] forKey:@"user_id"];
-        [info setValue:@"1.0" forKey:@"app_ver"];
-        
-        NSData * jsonTaskData = [NSJSONSerialization dataWithJSONObject:info
-                                                           options:NSJSONWritingPrettyPrinted
-                                                             error:&error];
-        NSString* jsonAddTaskData =  [[NSString alloc] initWithData:jsonTaskData
-                                                          encoding:NSUTF8StringEncoding];
-        jsonAddTaskData = [jsonAddTaskData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-//        jsonAddTaskData = [jsonAddTaskData stringByReplacingOccurrencesOfString:@" " withString:@""];
-        jsonAddTaskData = [jsonAddTaskData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-        
-        jsonAddTaskData = [jsonAddTaskData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-        jsonAddTaskData = [jsonAddTaskData stringByReplacingOccurrencesOfString:@": \"\[" withString:@":["];
-        jsonAddTaskData = [jsonAddTaskData stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
-        
-        [HUD show];
-        [self.view bringSubviewToFront:HUD];
-        [self requestAddTask:jsonAddTaskData];
-        
+        [self addOrEditTask:nil];
         
     }else{
         
         [MCAGlobalFunction showAlert:MANDATORY_MESSAGE];
     }
 }
+-(void)addOrEditTask:(id)sender{
+    
+    NSMutableDictionary *info=[NSMutableDictionary new];
+    
+    [info setValue:json_TaskString forKeyPath:@"task"];
+    [info setValue:@"add_task" forKey:@"cmd"];
+    [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TOKEN] forKey:@"user_token"];
+    [info setValue:@"" forKey:@"app_token"];
+    [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
+    [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID] forKey:@"user_id"];
+    [info setValue:@"1.0" forKey:@"app_ver"];
+    
+    NSError* error;
+    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:info
+                                                            options:NSJSONWritingPrettyPrinted
+                                                              error:&error];
+    
+    NSString* jsonTaskData =  [[NSString alloc] initWithData:jsonData
+                                                       encoding:NSUTF8StringEncoding];
+    jsonTaskData = [jsonTaskData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    //        jsonAddTaskData = [jsonAddTaskData stringByReplacingOccurrencesOfString:@" " withString:@""];
+    jsonTaskData = [jsonTaskData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    
+    jsonTaskData = [jsonTaskData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+    jsonTaskData = [jsonTaskData stringByReplacingOccurrencesOfString:@": \"\[" withString:@":["];
+    jsonTaskData = [jsonTaskData stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
+    
+    [HUD show];
+    [self.view bringSubviewToFront:HUD];
+    [self requestAddTask:jsonTaskData];
+
+}
+
 #pragma mark -  UITABLEVIEW DELEGATE AND DATASOURCE METHODS
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -372,7 +447,33 @@
     }else{
         
         [HUD hide];
+        
         [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
+//        MCATaskDetailDHolder *taskAddDHolder = [MCATaskDetailDHolder new];
+//        
+//        taskAddDHolder.str_userId = [[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID];
+//        taskAddDHolder.str_createdBy = @"p";
+//        taskAddDHolder.str_taskStatus = @"o";
+//        taskAddDHolder.str_status = @"1";
+//        taskAddDHolder.str_taskId = @"";
+//        taskAddDHolder.str_taskName = tx_taskName.text;
+//        taskAddDHolder.str_taskDetail = tv_description.text;
+//        taskAddDHolder.str_taskStartDate = str_dateSelected;
+//        taskAddDHolder.str_network = @"0";
+//        if ([tx_priority.text isEqualToString:@"High"]) {
+//            
+//            taskAddDHolder.str_taskPriority = @"h";
+//          
+//        }else{
+//            
+//            taskAddDHolder.str_taskPriority = @"r";
+//        }
+//        
+//        NSMutableArray *arr_offlineTask = [NSMutableArray new];
+//        [arr_offlineTask addObject:taskAddDHolder];
+//        [[MCADBIntraction databaseInteractionManager]insertTaskList:arr_offlineTask];
+//        
+//        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 #pragma mark - NSNOTIFICATION SELECTOR
@@ -381,7 +482,10 @@
     
     [HUD hide];
     
+    
+    
     if (taskEditDHolder) {
+        
         taskEditDHolder.str_taskDetail = tv_description.text;
         taskEditDHolder.str_taskName  = tx_taskName.text;
         

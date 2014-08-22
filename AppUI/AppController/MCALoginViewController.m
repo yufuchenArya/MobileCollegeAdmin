@@ -157,7 +157,6 @@
    [[NSUserDefaults standardUserDefaults]setValue:loginDHolder.str_userType forKey:KEY_USER_TYPE];
    [[NSUserDefaults standardUserDefaults]setInteger:loginDHolder.arr_StudentData.count forKey:KEY_STUDENT_COUNT];
    [[NSUserDefaults standardUserDefaults]setValue:loginDHolder.str_userToken forKey:KEY_USER_TOKEN];
-   [[NSUserDefaults standardUserDefaults]setValue:[loginDHolder.arr_StudentData valueForKey:@"language"] forKey:KEY_LANGUAGE_CODE];
    [[NSUserDefaults standardUserDefaults]synchronize];
   
    [HUD hide];
