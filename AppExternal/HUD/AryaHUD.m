@@ -61,6 +61,18 @@
 }
 -(void)show{
     
+    self.center = self.superview.center;
+    if (isSuperViewIntractionEnabled) {
+        [self.superview setUserInteractionEnabled:YES];
+    }else{
+        [self.superview setUserInteractionEnabled:NO];
+    }
+    
+    [aIndicatorView startAnimating];
+    self.hidden = NO;
+    }
+-(void)showForTabBar{
+    
     self.center = CGPointMake(160, 192);
     if (isSuperViewIntractionEnabled) {
         [self.superview setUserInteractionEnabled:YES];

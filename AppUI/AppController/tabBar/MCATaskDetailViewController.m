@@ -122,25 +122,12 @@
             [info setValue:taskDetailDHolder.str_taskId forKey:@"task_id"];
             
             [info setValue:@"task_status" forKey:@"cmd"];
-            [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TOKEN] forKey:@"user_token"];
-            [info setValue:@"" forKey:@"app_token"];
-            [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-            [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID] forKey:@"user_id"];
-            [info setValue:@"1.0" forKey:@"app_ver"];
+
+            NSString *str_jsonDeletetask = [NSString getJsonObject:info];
             
-            NSError* error;
-            NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                               options:NSJSONWritingPrettyPrinted
-                                                                 error:&error];
-            NSString* jsonDeleteTaskData=  [[NSString alloc] initWithData:jsonData
-                                                                 encoding:NSUTF8StringEncoding];
-            jsonDeleteTaskData = [jsonDeleteTaskData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            jsonDeleteTaskData = [jsonDeleteTaskData stringByReplacingOccurrencesOfString:@" " withString:@""];
-            jsonDeleteTaskData = [jsonDeleteTaskData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-            
-            [HUD show];
+            [HUD showForTabBar];
             [self.view bringSubviewToFront:HUD];
-            [self requestDeleteOrCompleteTask:jsonDeleteTaskData];
+            [self requestDeleteOrCompleteTask:str_jsonDeletetask];
 
         }
     }
@@ -202,8 +189,7 @@
     
     switch (index) {
         case 0:
-        {
-            
+        {            
             NSDateFormatter *dateFormatterTime = [[NSDateFormatter alloc]init];
             [dateFormatterTime setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
             NSString *str_dateTime = [dateFormatterTime stringFromDate:[NSDate date]];
@@ -216,25 +202,12 @@
             [info setValue:taskDetailDHolder.str_taskId forKey:@"task_id"];
             
             [info setValue:@"task_status" forKey:@"cmd"];
-            [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TOKEN] forKey:@"user_token"];
-            [info setValue:@"" forKey:@"app_token"];
-            [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-            [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID] forKey:@"user_id"];
-            [info setValue:@"1.0" forKey:@"app_ver"];
             
-            NSError* error;
-            NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                               options:NSJSONWritingPrettyPrinted
-                                                                 error:&error];
-            NSString* jsonCompleteTaskData=  [[NSString alloc] initWithData:jsonData
-                                                                   encoding:NSUTF8StringEncoding];
-            jsonCompleteTaskData = [jsonCompleteTaskData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            jsonCompleteTaskData = [jsonCompleteTaskData stringByReplacingOccurrencesOfString:@" " withString:@""];
-            jsonCompleteTaskData = [jsonCompleteTaskData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+            NSString *str_jsonCompleteTask = [NSString getJsonObject:info];
             
-            [HUD show];
+            [HUD showForTabBar];
             [self.view bringSubviewToFront:HUD];
-            [self requestDeleteOrCompleteTask:jsonCompleteTaskData];
+            [self requestDeleteOrCompleteTask:str_jsonCompleteTask];
             [cell hideUtilityButtonsAnimated:YES];
             
             break;

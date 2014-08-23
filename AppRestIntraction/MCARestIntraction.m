@@ -140,21 +140,20 @@
     NSDictionary *results = [parser objectWithString:responseString error:nil];
     NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
     NSString *status_code = [results valueForKey:@"status_code"];
-    NSString *error_code = [results valueForKey:@"err_code"];
-    
-    
-    if ([error_code isEqualToString:@"E1034"]) {
-        NSString *errMsg = [results objectForKey:@"err_msg"];
+          
+    if ([status_code isEqualToString:@"S1007"]) {
+        NSString *msg_success = [results objectForKey:@"msg"];
         dispatch_async(dispatch_get_main_queue(), ^
                        {
-                           [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_FORGOT_PWD_FAILED object:errMsg];
+                           [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_FORGOT_PWD_SUCCESS object:msg_success];
+                         
                        });
     }else{
         
-        NSString *errMsg = [responseDict objectForKey:@"err_msg"];
+        NSString *msg_fail = [responseDict objectForKey:@"msg"];
         dispatch_async(dispatch_get_main_queue(), ^
                        {
-                           [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_FORGOT_PWD_SUCCESS object:errMsg];
+                             [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_FORGOT_PWD_FAILED object:msg_fail];
                        });
     }
 }
@@ -190,7 +189,7 @@
     SBJSON *parser=[[SBJSON alloc]init];
     
     NSDictionary *results = [parser objectWithString:responseString error:nil];
-    NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
+//    NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
     NSString *status_code = [results valueForKey:@"status_code"];
     
     if ([status_code isEqualToString:@"E1024"]) {
@@ -387,16 +386,7 @@
     
     responseString = [responseString stringByReplacingOccurrencesOfString:@"\t" withString:@""];
    
-    NSString *expression=@"/\"deleted_task\":\\[.*\\]/";
-    
-//    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@""deleted_task\":\[.*\]" options:NSRegularExpressionCaseInsensitive error:NULL];
-    
-    NSArray *arr = [responseString componentsSeparatedByString:expression];
-   
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"/\"deleted_task\":\\[.*\\]/" options:NSRegularExpressionCaseInsensitive error:NULL];
-    
-   
-    NSArray *myArray = [regex matchesInString:responseString options:1 range:NSMakeRange(0, [responseString length])] ;
+//    NSString *expression=@"/\"deleted_task\":\\[.*\\]/";
     
     SBJSON *parser=[[SBJSON alloc]init];
     
@@ -428,7 +418,7 @@
             taskDHolder.str_taskStatus = [[arr_taskDetail valueForKey:@"task_status"]objectAtIndex:i];
             taskDHolder.str_updatedAt = [[arr_taskDetail valueForKey:@"updated_at"]objectAtIndex:i];
             taskDHolder.str_userId = [[arr_taskDetail valueForKey:@"user_id"]objectAtIndex:i];
-            taskDHolder.str_nowDate = [responseDict valueForKey:@"now_date"];
+//            taskDHolder.str_nowDate = [responseDict valueForKey:@"now_date"];
             taskDHolder.str_network = @"1";
                         
             [arr_taskDetailList addObject:taskDHolder];
@@ -443,6 +433,11 @@
             
             [arr_taskDeletedList addObject:taskDeletedDHolder];
         }
+        
+         NSString *str_nowDate = [responseDict valueForKey:@"now_date"];
+        
+        [[NSUserDefaults standardUserDefaults]setValue:str_nowDate forKey:KEY_NOW_DATE];
+        [[NSUserDefaults standardUserDefaults]synchronize];
         
         [dict_task setValue:arr_taskDetailList forKey:KEY_TASK_ALL_DATA];
         [dict_task setValue:arr_taskDeletedList forKey:KEY_TASK_DELETED_DATA];
@@ -576,7 +571,7 @@
     SBJSON *parser=[[SBJSON alloc]init];
     
     NSDictionary *results = [parser objectWithString:responseString error:nil];
-    NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
+//    NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
     NSString *status_code = [results valueForKey:@"status_code"];
     
     if ([status_code isEqualToString:@"S1001"]) {
@@ -623,7 +618,6 @@
     SBJSON *parser=[[SBJSON alloc]init];
     
     NSDictionary *results = [parser objectWithString:responseString error:nil];
-    NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
     NSString *status_code = [results valueForKey:@"status_code"];
     
     if ([status_code isEqualToString:@"U1001"]) {

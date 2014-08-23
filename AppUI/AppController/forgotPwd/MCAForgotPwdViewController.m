@@ -55,7 +55,7 @@
     [tx_forgotPwd resignFirstResponder];
         
 }
-#pragma mark - IBACTION
+#pragma mark - IB_ACTION
 
 -(IBAction)btnBackDidClicked:(id)sender{
     
@@ -70,23 +70,12 @@
          [info setValue:tx_forgotPwd.text forKey:@"signin_id"];
          
          [info setValue:@"forgot_password" forKey:@"cmd"];
-         [info setValue:@"" forKey:@"user_token"];
-         [info setValue:@"" forKey:@"app_token"];
-         [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-         [info setValue:@"" forKey:@"user_id"];
-         [info setValue:@"1.0" forKey:@"app_ver"];
          
-         NSError* error;
-         NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                            options:NSJSONWritingPrettyPrinted
-                                                              error:&error];
-         NSString* jsonForgotPwdData=  [[NSString alloc] initWithData:jsonData
-                                                  encoding:NSUTF8StringEncoding];
-         jsonForgotPwdData = [jsonForgotPwdData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-         jsonForgotPwdData = [jsonForgotPwdData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+         NSString *str_jsonForgotPwd = [NSString getJsonObject:info];
          
          [HUD show];
-         [self requestForgotPwd:jsonForgotPwdData];
+         [tx_forgotPwd resignFirstResponder];
+         [self requestForgotPwd:str_jsonForgotPwd];
 
      }else{
          
@@ -110,6 +99,7 @@
 -(void)forgotPwdSuccess:(NSNotification*)notification{
     
     [HUD hide];
+    [MCAGlobalFunction showAlert:notification.object];
 }
 
 -(void)forgotPwdFailed:(NSNotification*)notification{

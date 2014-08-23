@@ -51,4 +51,5 @@
     NetworkStatus networkStatus = [reachability currentReachabilityStatus];
     return !(networkStatus == NotReachable);
 }
+
 @end

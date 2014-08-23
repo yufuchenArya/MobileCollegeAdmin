@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSString+Util.h"
 #import "MCACustomButton.h"
 #import "Reachability.h"
 #import "MCAAlertView.h"

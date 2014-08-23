@@ -67,7 +67,6 @@
     AryaHUD *HUD;
 }
 -(IBAction)btnBackDidClicked:(id)sender;
--(IBAction)ReturnKeyButton:(id)sender;
 -(IBAction)btnSegControl_UserTypeDidClicked:(id)sender;
 -(IBAction)btnParentSignUpDidClicked:(id)sender;
 -(IBAction)btnAddStudDidClicked:(id)sender;

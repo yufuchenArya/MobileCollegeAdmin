@@ -64,6 +64,8 @@
     
     [navigationBar setShadowImage:[UIImage new]];
     
+     self.navigationItem.title = @"Tasks";
+    
     if ([[NSUserDefaults standardUserDefaults]integerForKey:KEY_STUDENT_COUNT] > 0) {
       
         UIImage* img_student = [UIImage imageNamed:@"student.png"];
@@ -76,8 +78,6 @@
         [btn_student setShowsTouchWhenHighlighted:YES];
         
         UIBarButtonItem *btnBar_student =[[UIBarButtonItem alloc] initWithCustomView:btn_student];
-        
-        self.navigationItem.title = @"Task";
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:btnBar_student,nil]];
         //            [nav_TaskBar setItems:[NSArray arrayWithObject:self.navigationItem]];
         
@@ -90,9 +90,6 @@
         
         if ([[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] isEqualToString:@"p"])
         {
-            UIImage* img_add = [UIImage imageNamed:@"add.png"];
-//            CGRect img_addFrame = CGRectMake(0, 0, img_add.size.width, img_add.size.height);
-//            UIButton *btn_add = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
             UIButton*  btn_add = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             btn_add.frame = CGRectMake(0, 0, 34, 22);
             btn_add.layer.cornerRadius = 4.0f;
@@ -118,13 +115,11 @@
             UIBarButtonItem *btnBar_add =[[UIBarButtonItem alloc] initWithCustomView:btn_add];
             UIBarButtonItem *btnBar_grade =[[UIBarButtonItem alloc] initWithCustomView:btn_grade];
             
-            self.navigationItem.title = @"Tasks";
+         
             [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:btnBar_add,btnBar_grade, nil]];
             
         }else{
             
-            UIImage* img_add = [UIImage imageNamed:@"add.png"];
-//            CGRect img_addFrame = CGRectMake(0, 0, img_add.size.width, img_add.size.height);
             UIButton*  btn_add = [UIButton buttonWithType:UIButtonTypeRoundedRect];
             btn_add.frame = CGRectMake(0, 0, 34, 22);
             btn_add.layer.cornerRadius = 4.0f;
@@ -139,7 +134,6 @@
             [btn_add setShowsTouchWhenHighlighted:YES];
             
             UIBarButtonItem *btnBar_add =[[UIBarButtonItem alloc] initWithCustomView:btn_add];
-            self.navigationItem.title = @"Tasks";
             [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:btnBar_add,nil]];
 
         }
@@ -179,6 +173,8 @@
   
     
 }
+#pragma mark - API CALL
+
 -(void)getTaskList:(id)sender{
     
     NSMutableDictionary *info=[NSMutableDictionary new];
@@ -198,24 +194,12 @@
     }
     
     [info setValue:@"get_task_list" forKey:@"cmd"];
-    [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TOKEN] forKey:@"user_token"];
-    [info setValue:@"" forKey:@"app_token"];
-    [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-    [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID] forKey:@"user_id"];
-    [info setValue:@"1.0" forKey:@"app_ver"];
     
-    NSError* error;
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:&error];
-    NSString* jsonTaskData=  [[NSString alloc] initWithData:jsonData
-                                                    encoding:NSUTF8StringEncoding];
-    jsonTaskData = [jsonTaskData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    jsonTaskData = [jsonTaskData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    NSString *str_jsonTask = [ NSString getJsonObject:info];
     
-    [HUD show];
+    [HUD showForTabBar];
     [self.view bringSubviewToFront:HUD];
-    [self requestTaskList:jsonTaskData];
+    [self requestTaskList:str_jsonTask];
     
 }
 
@@ -225,21 +209,10 @@
     
     NSMutableArray *arr_Temp = [dict_taskList valueForKey:KEY_TASK_DELETED_ARRAY];
     
-    if(arr_Temp){
+    if(arr_Temp.count>0){
         
-        NSError* error;
-        NSData *jsonData1 = [NSJSONSerialization dataWithJSONObject:arr_Temp
-                                                            options:NSJSONWritingPrettyPrinted
-                                                              error:&error];
-        
-        NSString *json_String = [[NSString alloc] initWithData:jsonData1
-                                                          encoding:NSUTF8StringEncoding];
-        json_String = [json_String stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        
-        json_String = [json_String stringByReplacingOccurrencesOfString:@" " withString:@""];
-        json_String = [json_String stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-        
-        [info setValue:json_String forKey:@"deleted_task"];
+       NSString *str_jsonDelete = [NSString getJsonArray:arr_Temp];
+       [info setValue:str_jsonDelete forKey:@"deleted_task"];
         
     }else{
         
@@ -247,27 +220,16 @@
     }
     
     [info setValue:@"conform" forKey:@"cmd"];
-    [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TOKEN] forKey:@"user_token"];
-    [info setValue:@"" forKey:@"app_token"];
-    [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-    [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID] forKey:@"user_id"];
-    [info setValue:@"1.0" forKey:@"app_ver"];
+   
+    NSString *str_jsonConfirmTask = [NSString getJsonObject:info];
     
-    NSError* error;
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:&error];
-    NSString* jsonConfirmationData=  [[NSString alloc] initWithData:jsonData
-                                                   encoding:NSUTF8StringEncoding];
-    jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    jsonConfirmationData = [jsonConfirmationData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-    jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-    jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@": \"\[" withString:@":["];
-    jsonConfirmationData = [jsonConfirmationData stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
+    str_jsonConfirmTask = [str_jsonConfirmTask stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+    str_jsonConfirmTask = [str_jsonConfirmTask stringByReplacingOccurrencesOfString:@": \"\[" withString:@":["];
+    str_jsonConfirmTask = [str_jsonConfirmTask stringByReplacingOccurrencesOfString:@"] \"" withString:@"]"];
     
 //    [HUD show];
 //    [self.view bringSubviewToFront:HUD];
-    [self requestConfirmation:jsonConfirmationData];
+    [self requestConfirmation:str_jsonConfirmTask];
     
 }
 #pragma mark - IB_ACTION
@@ -367,7 +329,7 @@
     
     [view_transBg removeFromSuperview];
     [tbl_gradeList removeFromSuperview];
-    [HUD show];
+    [HUD showForTabBar];
     [self.view bringSubviewToFront:HUD];
     [self createTaskList:str_selectedGrade];
     self.navigationController.navigationBar.userInteractionEnabled = YES;
@@ -415,7 +377,7 @@
     
     [view_transBg removeFromSuperview];
     [tbl_gradeList removeFromSuperview];
-    [HUD show];
+    [HUD showForTabBar];
     [self.view bringSubviewToFront:HUD];
     [self createTaskList:str_userId];
     self.navigationController.navigationBar.userInteractionEnabled = YES;
@@ -718,25 +680,12 @@
             [info setValue:taskDHolder.str_taskId forKey:@"task_id"];
             
             [info setValue:@"task_status" forKey:@"cmd"];
-            [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TOKEN] forKey:@"user_token"];
-            [info setValue:@"" forKey:@"app_token"];
-            [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-            [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID] forKey:@"user_id"];
-            [info setValue:@"1.0" forKey:@"app_ver"];
             
-            NSError* error;
-            NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                               options:NSJSONWritingPrettyPrinted
-                                                                 error:&error];
-            NSString* jsonCompleteTaskData=  [[NSString alloc] initWithData:jsonData
-                                                                 encoding:NSUTF8StringEncoding];
-            jsonCompleteTaskData = [jsonCompleteTaskData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            jsonCompleteTaskData = [jsonCompleteTaskData stringByReplacingOccurrencesOfString:@" " withString:@""];
-            jsonCompleteTaskData = [jsonCompleteTaskData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+            NSString *str_jsonCompleteTask = [NSString getJsonObject:info];
             
-            [HUD show];
+            [HUD showForTabBar];
             [self.view bringSubviewToFront:HUD];
-            [self requestDeleteOrCompleteTask:jsonCompleteTaskData];
+            [self requestDeleteOrCompleteTask:str_jsonCompleteTask];
             [cell hideUtilityButtonsAnimated:YES];
             break;
         }
@@ -946,11 +895,41 @@
     [HUD hide];
     [MCAGlobalFunction showAlert:notification.object];
 }
--(void)deleteTaskDetail:(MCATaskDetailDHolder *)taskDHolder{
+
+#pragma mark - UIALERTVIEW_METHOD
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    MCAAlertView *mcaAlert = (MCAAlertView*)alertView;
     
-    
-    
+    if (buttonIndex == 1)
+    {
+        MCATaskDetailDHolder *taskDHolder  = [arr_currentTaskList objectAtIndex:mcaAlert.index];
+        
+        NSDateFormatter *dateFormatterTime = [[NSDateFormatter alloc]init];
+        [dateFormatterTime setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
+        NSString *str_dateTime = [dateFormatterTime stringFromDate:[NSDate date]];
+        
+        arr_deletedTaskDetail = [NSMutableArray new];
+        taskDHolder.str_taskStatus = @"d";
+        [arr_deletedTaskDetail addObject:taskDHolder];
+        
+        NSMutableDictionary *info=[NSMutableDictionary new];
+        [info setValue:str_dateTime forKey:@"updated_at"];
+        [info setValue:@"d" forKey:@"task_status"];
+        [info setValue:taskDHolder.str_taskId forKey:@"task_id"];
+        
+        [info setValue:@"task_status" forKey:@"cmd"];
+        
+        NSString *str_jsonDeletetask = [NSString getJsonObject:info];
+        
+        [HUD showForTabBar];
+        [self.view bringSubviewToFront:HUD];
+        [self requestDeleteOrCompleteTask:str_jsonDeletetask];
+        
+    }
 }
+
 #pragma mark - OTHER_METHODS
 
 -(void)createTaskList:(id)sender{
@@ -966,14 +945,11 @@
     {
       MCATaskDetailDHolder *taskDHolder = (MCATaskDetailDHolder *)[arr_taskList objectAtIndex:i];
         
-      [[NSUserDefaults standardUserDefaults]setValue:taskDHolder.str_nowDate forKey:KEY_NOW_DATE];
-      [[NSUserDefaults standardUserDefaults]synchronize];
-        
         if ([taskDHolder.str_status isEqualToString:@"1"])
         {
-            if ([[NSUserDefaults standardUserDefaults]integerForKey:KEY_STUDENT_COUNT] > 0){
-                
-                if ([sender isEqualToString:@"All"] || [sender isEqualToString:@"12"]) {
+          if ([[NSUserDefaults standardUserDefaults]integerForKey:KEY_STUDENT_COUNT] > 0)
+           {
+               if ([sender isEqualToString:@"All"] || [sender isEqualToString:@"12"]) {
                     
                     if ([taskDHolder.str_taskStatus isEqualToString:@"o"]) {
                         
@@ -987,7 +963,7 @@
                         
                         [arr_deletedTaskList addObject:taskDHolder];
                     }
-                }else{
+                  }else{
                     if ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_userId isEqualToString:sender]) {
                         
                         [arr_currentTaskList addObject:taskDHolder];
@@ -1001,39 +977,22 @@
                         [arr_deletedTaskList addObject:taskDHolder];
                     }
                 }
-        }else{
-                
+         }else
+         {                
             if ([[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] isEqualToString:@"p"])
             {
-//                if ([sender isEqualToString:@"My Task"]) {
-//                    
-//                    if ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"] ){
-//                        
-//                        [arr_currentTaskList addObject:taskDHolder];
-//                        
-//                    }else if ([taskDHolder.str_taskStatus isEqualToString:@"c"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"]){
-//                        
-//                        [arr_completedTaskList addObject:taskDHolder];
-//                        
-//                    }else if([taskDHolder.str_taskStatus isEqualToString:@"d"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"]){
-//                        
-//                        [arr_deletedTaskList addObject:taskDHolder];
-//                    }
-//                }else{
-                
-                    if (([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_grade isEqualToString:sender]) || ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"])){
-                        
-                        [arr_currentTaskList addObject:taskDHolder];
-                        
-                    }else if (([taskDHolder.str_taskStatus isEqualToString:@"c"] && [taskDHolder.str_grade isEqualToString:sender])||([taskDHolder.str_taskStatus isEqualToString:@"c"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"])){
-                        
-                        [arr_completedTaskList addObject:taskDHolder];
-                        
-                    }else if(([taskDHolder.str_taskStatus isEqualToString:@"d"] && [taskDHolder.str_grade isEqualToString:sender]) || ([taskDHolder.str_taskStatus isEqualToString:@"d"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"])){
-                        
-                        [arr_deletedTaskList addObject:taskDHolder];
-                    }
-//                }
+                if (([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_grade isEqualToString:sender]) || ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"])){
+                    
+                    [arr_currentTaskList addObject:taskDHolder];
+                    
+                }else if (([taskDHolder.str_taskStatus isEqualToString:@"c"] && [taskDHolder.str_grade isEqualToString:sender])||([taskDHolder.str_taskStatus isEqualToString:@"c"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"])){
+                    
+                    [arr_completedTaskList addObject:taskDHolder];
+                    
+                }else if(([taskDHolder.str_taskStatus isEqualToString:@"d"] && [taskDHolder.str_grade isEqualToString:sender]) || ([taskDHolder.str_taskStatus isEqualToString:@"d"] && [taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"])){
+                    
+                    [arr_deletedTaskList addObject:taskDHolder];
+                }
             }else{
                 
                 if ([taskDHolder.str_taskStatus isEqualToString:@"o"]){
@@ -1057,50 +1016,6 @@
     [HUD hide];
     [self btnSegControl_taskDidClicked:nil];
 
-}
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    MCAAlertView *mcaAlert = (MCAAlertView*)alertView;
-
-    if (buttonIndex == 1)
-    {
-        MCATaskDetailDHolder *taskDHolder  = [arr_currentTaskList objectAtIndex:mcaAlert.index];
-        
-        NSDateFormatter *dateFormatterTime = [[NSDateFormatter alloc]init];
-        [dateFormatterTime setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
-        NSString *str_dateTime = [dateFormatterTime stringFromDate:[NSDate date]];
-        
-        arr_deletedTaskDetail = [NSMutableArray new];
-        taskDHolder.str_taskStatus = @"d";
-        [arr_deletedTaskDetail addObject:taskDHolder];
-        
-        NSMutableDictionary *info=[NSMutableDictionary new];
-        [info setValue:str_dateTime forKey:@"updated_at"];
-        [info setValue:@"d" forKey:@"task_status"];
-        [info setValue:taskDHolder.str_taskId forKey:@"task_id"];
-        
-        [info setValue:@"task_status" forKey:@"cmd"];
-        [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TOKEN] forKey:@"user_token"];
-        [info setValue:@"" forKey:@"app_token"];
-        [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-        [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID] forKey:@"user_id"];
-        [info setValue:@"1.0" forKey:@"app_ver"];
-        
-        NSError* error;
-        NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                           options:NSJSONWritingPrettyPrinted
-                                                             error:&error];
-        NSString* jsonDeleteTaskData=  [[NSString alloc] initWithData:jsonData
-                                                             encoding:NSUTF8StringEncoding];
-        jsonDeleteTaskData = [jsonDeleteTaskData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        jsonDeleteTaskData = [jsonDeleteTaskData stringByReplacingOccurrencesOfString:@" " withString:@""];
-        jsonDeleteTaskData = [jsonDeleteTaskData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-        
-        [HUD show];
-        [self.view bringSubviewToFront:HUD];
-        [self requestDeleteOrCompleteTask:jsonDeleteTaskData];
-  
-    }
 }
 - (void)playerItemDidReachEnd:(NSNotification *)notification {
   

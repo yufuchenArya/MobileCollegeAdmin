@@ -70,7 +70,7 @@
                                 <color key="backgroundColor" red="0.1215686275" green="0.1450980392" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" id="pRh-Sd-Ftp">
-                                <rect key="frame" x="0.0" y="600" width="320" height="472"/>
+                                <rect key="frame" x="0.0" y="500" width="320" height="472"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Parent Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mMp-GB-GXO">
@@ -86,7 +86,6 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
-                                            <action selector="ReturnKeyButton:" destination="2xv-sM-IHM" eventType="editingDidEndOnExit" id="3x5-qG-f5c"/>
                                             <outlet property="delegate" destination="2xv-sM-IHM" id="EZV-ZX-ZgS"/>
                                         </connections>
                                     </textField>
@@ -108,7 +107,6 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                         <connections>
-                                            <action selector="ReturnKeyButton:" destination="2xv-sM-IHM" eventType="editingDidEndOnExit" id="8aB-Wf-uIQ"/>
                                             <outlet property="delegate" destination="2xv-sM-IHM" id="WPb-oH-PNF"/>
                                         </connections>
                                     </textField>
@@ -147,7 +145,6 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                         <connections>
-                                            <action selector="ReturnKeyButton:" destination="2xv-sM-IHM" eventType="editingDidEndOnExit" id="9TF-by-h9m"/>
                                             <outlet property="delegate" destination="2xv-sM-IHM" id="4kh-gD-qOG"/>
                                         </connections>
                                     </textField>
@@ -191,7 +188,6 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                         <connections>
-                                            <action selector="ReturnKeyButton:" destination="2xv-sM-IHM" eventType="editingDidEndOnExit" id="Crn-Jv-QcG"/>
                                             <outlet property="delegate" destination="2xv-sM-IHM" id="Cdx-pe-aaY"/>
                                         </connections>
                                     </textField>

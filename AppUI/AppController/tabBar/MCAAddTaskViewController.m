@@ -321,15 +321,7 @@
         NSMutableArray *arr_addTask = [NSMutableArray new];
         [arr_addTask addObject:dict_addTask];
         
-        NSError* error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arr_addTask
-                                                           options:NSJSONWritingPrettyPrinted
-                                                             error:&error];
-        
-        json_TaskString  = [[NSString alloc] initWithData:jsonData
-                                                encoding:NSUTF8StringEncoding];
-        json_TaskString = [json_TaskString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-        json_TaskString = [json_TaskString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        json_TaskString = [NSString getJsonArray:arr_addTask];
         
         [self addOrEditTask:nil];
         
@@ -344,30 +336,16 @@
     
     [info setValue:json_TaskString forKeyPath:@"task"];
     [info setValue:@"add_task" forKey:@"cmd"];
-    [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TOKEN] forKey:@"user_token"];
-    [info setValue:@"" forKey:@"app_token"];
-    [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-    [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID] forKey:@"user_id"];
-    [info setValue:@"1.0" forKey:@"app_ver"];
     
-    NSError* error;
-    NSData * jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                            options:NSJSONWritingPrettyPrinted
-                                                              error:&error];
+    NSString *str_jsonAddOrEditTask = [NSString getJsonObject:info];
     
-    NSString* jsonTaskData =  [[NSString alloc] initWithData:jsonData
-                                                       encoding:NSUTF8StringEncoding];
-    jsonTaskData = [jsonTaskData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    //        jsonAddTaskData = [jsonAddTaskData stringByReplacingOccurrencesOfString:@" " withString:@""];
-    jsonTaskData = [jsonTaskData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    str_jsonAddOrEditTask = [str_jsonAddOrEditTask stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+    str_jsonAddOrEditTask = [str_jsonAddOrEditTask stringByReplacingOccurrencesOfString:@": \"\[" withString:@":["];
+    str_jsonAddOrEditTask = [str_jsonAddOrEditTask stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
     
-    jsonTaskData = [jsonTaskData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-    jsonTaskData = [jsonTaskData stringByReplacingOccurrencesOfString:@": \"\[" withString:@":["];
-    jsonTaskData = [jsonTaskData stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
-    
-    [HUD show];
+    [HUD showForTabBar];
     [self.view bringSubviewToFront:HUD];
-    [self requestAddTask:jsonTaskData];
+    [self requestAddTask:str_jsonAddOrEditTask];
 
 }
 
@@ -481,9 +459,7 @@
 -(void)addTaskSuccess:(NSNotification*)notification{
     
     [HUD hide];
-    
-    
-    
+  
     if (taskEditDHolder) {
         
         taskEditDHolder.str_taskDetail = tv_description.text;

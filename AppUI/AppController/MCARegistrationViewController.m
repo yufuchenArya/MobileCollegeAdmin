@@ -143,6 +143,8 @@
     }
 }
 
+#pragma mark - KEYBOARD_METHOD
+
 -(void)resignTextField{
     
     [btn_keyboardDone removeFromSuperview];
@@ -245,11 +247,44 @@
     return YES;
 }
 
-#pragma mark - IBACTION
--(IBAction)ReturnKeyButton:(id)sender
-{
-    [sender resignFirstResponder];
+- (void)keyboardWillShow:(NSNotification *)notification {
+    // create custom button
+    
+    if (!notification) {
+        
+        [btn_keyboardDone removeFromSuperview];
+        
+        btn_keyboardDone = [UIButton buttonWithType:UIButtonTypeCustom];
+        if (IS_IPHONE_5) {
+            btn_keyboardDone.frame = CGRectMake(0, 514, 106, 53);
+        }else{
+            btn_keyboardDone.frame = CGRectMake(0, 427, 106, 53);
+        }
+        
+        [btn_keyboardDone showsTouchWhenHighlighted];
+        [btn_keyboardDone setTitle:@"Done" forState:UIControlStateNormal];
+        [btn_keyboardDone setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [btn_keyboardDone addTarget:self
+                             action:@selector(btn_keyBoardDoneDidClicked:)
+                   forControlEvents:UIControlEventTouchUpInside];
+        
+        btn_keyboardDone.tag = 3;
+        // locate keyboard view
+        tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
+        [tempWindow addSubview:btn_keyboardDone];
+        
+    }
 }
+-(void)btn_keyBoardDoneDidClicked:(id)sender{
+    
+    UIButton *btntmp=sender;
+    [btntmp removeFromSuperview];
+    [tx_parentZipCode resignFirstResponder];
+    [tx_studZipCode resignFirstResponder];
+    
+}
+
+#pragma mark - IBACTION
 -(IBAction)btnBackDidClicked:(id)sender{
     
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -333,26 +368,12 @@
                         [info setValue:@"0" forKeyPath:@"notify_by_email"];
                     }
                     
-                    [info setValue:@"user_register" forKey:@"cmd"];
-                    [info setValue:@"" forKey:@"user_token"];
-                    [info setValue:@"" forKey:@"app_token"];
-                    [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-                    [info setValue:@"" forKey:@"user_id"];
-                    [info setValue:@"1.0" forKey:@"app_ver"];
+                  [info setValue:@"user_register" forKey:@"cmd"];
                    
-                    NSError* error;
-                    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                                       options:NSJSONWritingPrettyPrinted
-                                                                         error:&error];
-                    NSString* jsonParentData =  [[NSString alloc] initWithData:jsonData
-                                                             encoding:NSUTF8StringEncoding];
-                    jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-                    jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@" " withString:@""];
-                    jsonParentData = [jsonParentData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-                    
-                   jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@"\\" withString:@""];
-                   jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@":\"\[" withString:@":["];
-                   jsonParentData = [jsonParentData stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
+                   NSString *str_jsonParent = [NSString getJsonObject:info];
+                   str_jsonParent = [str_jsonParent stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+                   str_jsonParent = [str_jsonParent stringByReplacingOccurrencesOfString:@": \"\[" withString:@":["];
+                   str_jsonParent = [str_jsonParent stringByReplacingOccurrencesOfString:@"]\"" withString:@"]"];
                    
                    for (UIView* subV in tempWindow.subviews) {
                        if ([subV isKindOfClass:[UIButton class]])
@@ -363,7 +384,7 @@
                    
                    [HUD show];
                    [self.view bringSubviewToFront:HUD];
-                   [self requestParentSignUp:jsonParentData];
+                   [self requestParentSignUp:str_jsonParent];
             
               }else{
                 [MCAGlobalFunction showAlert:ACCEPT_TERM_MESSAGE];
@@ -438,26 +459,14 @@
                     }
                     
                     [info setValue:@"user_register" forKey:@"cmd"];
-                    [info setValue:@"" forKey:@"user_token"];
-                    [info setValue:@"" forKey:@"app_token"];
-                    [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-                    [info setValue:@"" forKey:@"user_id"];
-                    [info setValue:@"1.0" forKey:@"app_ver"];
+               
+                    NSString *str_jsonStud = [NSString getJsonObject:info];
                    
-                    NSError* error;
-                    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                                       options:NSJSONWritingPrettyPrinted
-                                                                         error:&error];
-                    NSString* jsonStudData =  [[NSString alloc] initWithData:jsonData
-                                                                      encoding:NSUTF8StringEncoding];
-                    jsonStudData = [jsonStudData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-                    jsonStudData = [jsonStudData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-                    
                     [HUD show];
                     [self.view bringSubviewToFront:HUD];
                     [self resignTextField];
                     [btn_keyboardDone removeFromSuperview];
-                    [self requestStudentSignUp:jsonStudData];
+                    [self requestStudentSignUp:str_jsonStud];
                 
               }else{
                 [MCAGlobalFunction showAlert:ACCEPT_TERM_MESSAGE];
@@ -582,23 +591,11 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
             [info setValue:tx_addStudEmail.text forKey:@"signin_id"];
             
             [info setValue:@"user_exists" forKey:@"cmd"];
-            [info setValue:@"" forKey:@"user_token"];
-            [info setValue:@"" forKey:@"app_token"];
-            [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-            [info setValue:@"" forKey:@"user_id"];
-            [info setValue:@"1.0" forKey:@"app_ver"];
-            
-            NSError* error;
-            NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                               options:NSJSONWritingPrettyPrinted
-                                                                 error:&error];
-            NSString* jsonAddStudentData=  [[NSString alloc] initWithData:jsonData
-                                                     encoding:NSUTF8StringEncoding];
-            jsonAddStudentData = [jsonAddStudentData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            jsonAddStudentData = [jsonAddStudentData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        
+            NSString *str_jsonUserExist = [NSString getJsonObject:info];
             [HUD show];
             [self.view bringSubviewToFront:HUD];
-            [self requestAddStudent:jsonAddStudentData];
+            [self requestAddStudent:str_jsonUserExist];
     }else{
         
         [MCAGlobalFunction showAlert:EMAIL_MESSAGE];
@@ -970,20 +967,20 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
          [arr_StudentList addObject:dict_Student];
     }
     
-    NSError* error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arr_StudentList
-                                                        options:NSJSONWritingPrettyPrinted
-                                                          error:&error];
-    
-    json_StudString = [[NSString alloc] initWithData:jsonData
-                                            encoding:NSUTF8StringEncoding];
-    json_StudString = [json_StudString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    
-    json_StudString = [json_StudString stringByReplacingOccurrencesOfString:@" " withString:@""];
-    json_StudString = [json_StudString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-    
-    NSLog(@"jsonData as string:\n%@",json_StudString);
-    
+//    NSError* error;
+//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:arr_StudentList
+//                                                        options:NSJSONWritingPrettyPrinted
+//                                                          error:&error];
+//    
+//    json_StudString = [[NSString alloc] initWithData:jsonData
+//                                            encoding:NSUTF8StringEncoding];
+//    json_StudString = [json_StudString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+//    
+//    json_StudString = [json_StudString stringByReplacingOccurrencesOfString:@" " withString:@""];
+//    json_StudString = [json_StudString stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+
+    json_StudString = [NSString getJsonArray:arr_StudentList];
+       
     [view_Bg removeFromSuperview];
     [view_AddStudent removeFromSuperview];
     
@@ -1041,47 +1038,12 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
     [MCAGlobalFunction showAlert:notification.object];
     
 }
+#pragma mark OTHER_METHOD
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     
     if ([segue.identifier isEqualToString:@"signUpTabBarSegue"]) {
         
         [[MCAGlobalData sharedManager]goToTabbarView:segue];
     }
-}
-- (void)keyboardWillShow:(NSNotification *)notification {
-    // create custom button
-    
-    if (!notification) {
-        
-        [btn_keyboardDone removeFromSuperview];
-        
-        btn_keyboardDone = [UIButton buttonWithType:UIButtonTypeCustom];
-        if (IS_IPHONE_5) {
-            btn_keyboardDone.frame = CGRectMake(0, 514, 106, 53);
-        }else{
-            btn_keyboardDone.frame = CGRectMake(0, 427, 106, 53);
-        }
-        
-        [btn_keyboardDone showsTouchWhenHighlighted];
-        [btn_keyboardDone setTitle:@"Done" forState:UIControlStateNormal];
-        [btn_keyboardDone setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [btn_keyboardDone addTarget:self
-                             action:@selector(btn_keyBoardDoneDidClicked:)
-                   forControlEvents:UIControlEventTouchUpInside];
-        
-        btn_keyboardDone.tag = 3;
-        // locate keyboard view
-        tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
-        [tempWindow addSubview:btn_keyboardDone];
-        
-    }
-}
--(void)btn_keyBoardDoneDidClicked:(id)sender{
-    
-    UIButton *btntmp=sender;
-    [btntmp removeFromSuperview];
-    [tx_parentZipCode resignFirstResponder];
-    [tx_studZipCode resignFirstResponder]; 
-    
 }
 @end

@@ -13,6 +13,7 @@
 		CE17F55E199C75DF0027251A /* MCAAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CE17F55D199C75DF0027251A /* MCAAppDelegate.m */; };
 		CE17F560199C75F90027251A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE17F55F199C75F90027251A /* Images.xcassets */; };
 		CE1805A0198656260087CA3D /* MCAStudentDHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = CE18059F198656260087CA3D /* MCAStudentDHolder.m */; };
+		CE207FB919A8580F00F329FC /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = CE207FB819A8580F00F329FC /* NSString+Util.m */; };
 		CE24C6011994B2A70048B85D /* MCATaskDetailDHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = CE24C6001994B2A70048B85D /* MCATaskDetailDHolder.m */; };
 		CE278A1919920D6700783592 /* NSMutableArray+SWUtilityButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = CE278A0E19920D6700783592 /* NSMutableArray+SWUtilityButtons.m */; };
 		CE278A1A19920D6700783592 /* SWCellScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE278A1019920D6700783592 /* SWCellScrollView.m */; };
@@ -109,6 +110,8 @@
 		CE17F55F199C75F90027251A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../Images.xcassets; sourceTree = "<group>"; };
 		CE18059E198656260087CA3D /* MCAStudentDHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAStudentDHolder.h; sourceTree = "<group>"; };
 		CE18059F198656260087CA3D /* MCAStudentDHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAStudentDHolder.m; sourceTree = "<group>"; };
+		CE207FB719A8580F00F329FC /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
+		CE207FB819A8580F00F329FC /* NSString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
 		CE24C5FF1994B2A70048B85D /* MCATaskDetailDHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCATaskDetailDHolder.h; sourceTree = "<group>"; };
 		CE24C6001994B2A70048B85D /* MCATaskDetailDHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCATaskDetailDHolder.m; sourceTree = "<group>"; };
 		CE278A0D19920D6700783592 /* NSMutableArray+SWUtilityButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+SWUtilityButtons.h"; sourceTree = "<group>"; };
@@ -483,6 +486,8 @@
 				CEDB9B41198F61A6006B3C9B /* MCAGlobalData.m */,
 				CE84C23F1962E46800A351FF /* MCAGlobalFunction.h */,
 				CE84C2401962E46800A351FF /* MCAGlobalFunction.m */,
+				CE207FB719A8580F00F329FC /* NSString+Util.h */,
+				CE207FB819A8580F00F329FC /* NSString+Util.m */,
 			);
 			name = AppUtilities;
 			path = AppUtilits;
@@ -782,6 +787,7 @@
 				CEA9D9D1197FEFFE009C3884 /* Reachability.m in Sources */,
 				CEEDCABB197F8BE20088511D /* ASIAuthenticationDialog.m in Sources */,
 				CE394C3619938D300080B5B8 /* MCACustomButton.m in Sources */,
+				CE207FB919A8580F00F329FC /* NSString+Util.m in Sources */,
 				CEEDCAE0197F8F520088511D /* MCARestIntraction.m in Sources */,
 				CE278A1C19920D6700783592 /* SWTableViewCell.m in Sources */,
 				CEDB9B49198FAE48006B3C9B /* MCAForgotPwdViewController.m in Sources */,
@@ -851,8 +857,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -870,7 +876,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "d205700b-e2ed-49fd-afab-0542cce92cae";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -891,8 +897,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -904,7 +910,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "d205700b-e2ed-49fd-afab-0542cce92cae";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -914,15 +920,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobileCollegeAdmin/MobileCollegeAdmin-Prefix.pch";
 				INFOPLIST_FILE = "MobileCollegeAdmin/MobileCollegeAdmin-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d205700b-e2ed-49fd-afab-0542cce92cae";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -932,15 +938,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Rashmi Singh (952ZU65CH6)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobileCollegeAdmin/MobileCollegeAdmin-Prefix.pch";
 				INFOPLIST_FILE = "MobileCollegeAdmin/MobileCollegeAdmin-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d205700b-e2ed-49fd-afab-0542cce92cae";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};

@@ -49,6 +49,9 @@
     [self keyboardDisappeared];
     
 }
+
+#pragma mark - KEYBOARD_METHOD
+
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     [self keyboardAppeared];
@@ -86,7 +89,7 @@
     [UIView commitAnimations];
 }
 
-#pragma mark - IBACTION
+#pragma mark - IB_ACTION
 -(IBAction)ReturnKeyButton:(id)sender
 {
     [sender resignFirstResponder];
@@ -103,30 +106,16 @@
         }else{
             
             [self keyboardDisappeared];
+         
             NSMutableDictionary *info=[NSMutableDictionary new];
             [info setValue:tx_email.text forKey:@"signin_id"];
             [info setValue:tx_pwd.text forKey:@"pwd"];
-            
-            
             [info setValue:@"user_login" forKey:@"cmd"];
-            [info setValue:@"" forKey:@"user_token"];
-            [info setValue:@"" forKey:@"app_token"];
-            [info setValue:@"ad607645c57ceb4" forKey:@"device_id"];
-            [info setValue:@"" forKey:@"user_id"];
-            [info setValue:@"1.0" forKey:@"app_ver"];
-          
-            NSError* error;
-            NSData* jsonData = [NSJSONSerialization dataWithJSONObject:info
-                                                               options:NSJSONWritingPrettyPrinted
-                                                                 error:&error];
-            NSString* jsonLoginData=  [[NSString alloc] initWithData:jsonData
-                                                     encoding:NSUTF8StringEncoding];
-            jsonLoginData = [jsonLoginData stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            jsonLoginData = [jsonLoginData stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+
+            NSString *str_jsonLogin = [NSString getJsonObject:info];
             
             [HUD show];
-            [HUD setHUDText:@"Loading"];
-            [self requestLogin:jsonLoginData];
+            [self requestLogin:str_jsonLogin];
         }
     }else{
         

@@ -18,6 +18,7 @@
 @property(nonatomic,assign)BOOL isSuperViewIntractionEnabled;
 -(void)hide;
 -(void)show;
+-(void)showForTabBar;
 -(void)resetFrame;
 -(void)setHUDText:(NSString*)HUDText;
 @end
