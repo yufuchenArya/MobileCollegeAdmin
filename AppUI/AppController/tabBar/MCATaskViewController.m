@@ -32,6 +32,14 @@
     HUD=[AryaHUD new];
     [self.view addSubview:HUD];
     
+    //Navigation Bar Setting
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    [navigationBar setBackgroundImage:[[UIImage alloc] init]
+                       forBarPosition:UIBarPositionAny
+                           barMetrics:UIBarMetricsDefault];
+    [navigationBar setShadowImage:[UIImage new]];
+
+    
     arr_taskList = [NSMutableArray new];
     arr_studentList = [NSMutableArray new];
     arr_loginData = [[NSUserDefaults standardUserDefaults]objectForKey:@"test"];
@@ -56,13 +64,6 @@
     [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_ANIMATION_FILE_RAND_NO];
     [[NSUserDefaults standardUserDefaults]synchronize];
     
-    UINavigationBar *navigationBar = self.navigationController.navigationBar;
-    
-    [navigationBar setBackgroundImage:[[UIImage alloc] init]
-                       forBarPosition:UIBarPositionAny
-                           barMetrics:UIBarMetricsDefault];
-    
-    [navigationBar setShadowImage:[UIImage new]];
     
      self.navigationItem.title = @"Tasks";
     
@@ -90,18 +91,28 @@
         
         if ([[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] isEqualToString:@"p"])
         {
-            UIButton*  btn_add = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            btn_add.frame = CGRectMake(0, 0, 34, 22);
-            btn_add.layer.cornerRadius = 4.0f;
-            btn_add.layer.borderWidth = 0.5f;
-            btn_add.tintColor = [UIColor colorWithRed:39.0/255.0 green:166.0/255.0 blue:213.0/255.0 alpha:1.0];
-            btn_add.backgroundColor = [UIColor whiteColor];
-            [btn_add setTitle:@" Add " forState:UIControlStateNormal];
-            btn_add.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+//            UIButton*  btn_add = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//            btn_add.frame = CGRectMake(0, 0, 34, 22);
+//            btn_add.layer.cornerRadius = 4.0f;
+//            btn_add.layer.borderWidth = 0.5f;
+//            btn_add.tintColor = [UIColor colorWithRed:39.0/255.0 green:166.0/255.0 blue:213.0/255.0 alpha:1.0];
+//            btn_add.backgroundColor = [UIColor whiteColor];
+//            [btn_add setTitle:@" Add " forState:UIControlStateNormal];
+//            btn_add.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+//            [btn_add addTarget:self
+//                         action:@selector(btnBar_addDidClicked:)
+//                     forControlEvents:UIControlEventTouchUpInside];
+//            [btn_add setShowsTouchWhenHighlighted:YES];
+            
+            UIImage* img_add = [UIImage imageNamed:@"add.png"];
+            CGRect img_addFrame = CGRectMake(0, 0, img_add.size.width, img_add.size.height);
+            UIButton *btn_add = [[UIButton alloc] initWithFrame:img_addFrame];
+            [btn_add setBackgroundImage:img_add forState:UIControlStateNormal];
             [btn_add addTarget:self
-                         action:@selector(btnBar_addDidClicked:)
-                     forControlEvents:UIControlEventTouchUpInside];
+                        action:@selector(btnBar_addDidClicked:)
+              forControlEvents:UIControlEventTouchUpInside];
             [btn_add setShowsTouchWhenHighlighted:YES];
+
             
             UIImage* img_grade = [UIImage imageNamed:@"grade.png"];
             CGRect img_gradeFrame = CGRectMake(0, 0, img_grade.size.width, img_grade.size.height);
@@ -120,17 +131,13 @@
             
         }else{
             
-            UIButton*  btn_add = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-            btn_add.frame = CGRectMake(0, 0, 34, 22);
-            btn_add.layer.cornerRadius = 4.0f;
-            btn_add.layer.borderWidth = 0.5f;
-            btn_add.tintColor = [UIColor colorWithRed:39.0/255.0 green:166.0/255.0 blue:213.0/255.0 alpha:1.0];
-            btn_add.backgroundColor = [UIColor whiteColor];
-            [btn_add setTitle:@" Add " forState:UIControlStateNormal];
-            btn_add.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+            UIImage* img_add = [UIImage imageNamed:@"add.png"];
+            CGRect img_addFrame = CGRectMake(0, 0, img_add.size.width, img_add.size.height);
+            UIButton *btn_add = [[UIButton alloc] initWithFrame:img_addFrame];
+            [btn_add setBackgroundImage:img_add forState:UIControlStateNormal];
             [btn_add addTarget:self
-                                 action:@selector(btnBar_addDidClicked:)
-                     forControlEvents:UIControlEventTouchUpInside];
+                        action:@selector(btnBar_addDidClicked:)
+              forControlEvents:UIControlEventTouchUpInside];
             [btn_add setShowsTouchWhenHighlighted:YES];
             
             UIBarButtonItem *btnBar_add =[[UIBarButtonItem alloc] initWithCustomView:btn_add];
@@ -170,7 +177,6 @@
 -(void)viewWillAppear:(BOOL)animated{
    
      [self getTaskList:nil];
-  
     
 }
 #pragma mark - API CALL

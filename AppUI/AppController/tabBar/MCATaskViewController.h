@@ -20,10 +20,10 @@
     IBOutlet UITableView *tbl_taskCurrent;
     IBOutlet UITableView *tbl_taskCompleted;
     IBOutlet UITableView *tbl_taskDeleted;
-    IBOutlet UITableView *tbl_gradeList;
-    IBOutlet UITableView *tbl_studentList;
+             UITableView *tbl_gradeList;
+             UITableView *tbl_studentList;
                   UIView *view_transBg;
-    UIView *view;
+                  UIView *view;
     
     NSMutableDictionary *dict_taskList;
     
