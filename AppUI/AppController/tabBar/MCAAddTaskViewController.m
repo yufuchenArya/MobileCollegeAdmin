@@ -215,7 +215,7 @@
     view_transBg.layer.opacity = 0.7f;
     [self.view addSubview:view_transBg];
     
-    tbl_priority = [[UITableView alloc]initWithFrame:CGRectMake(20, 160, 282, 82)];
+    tbl_priority = [[UITableView alloc]initWithFrame:CGRectMake(16, 160, 288, 98)];
     tbl_priority.scrollEnabled = NO;
     tbl_priority.dataSource = self;
     tbl_priority.delegate = self;
@@ -241,12 +241,12 @@
     tools.barTintColor=[UIColor colorWithRed:39.0/255 green:166.0/255 blue:213.0/255 alpha:1];
     tools.layer.borderWidth=1;
     tools.layer.borderColor=[[UIColor whiteColor] CGColor];
-    btnBar_done=[[UIBarButtonItem alloc]initWithTitle:@"done"
+    btnBar_done=[[UIBarButtonItem alloc]initWithTitle:@"Done"
                                                 style:UIBarButtonItemStylePlain
                                                 target:self
                                                action:@selector(btnBar_doneDidClicked:)];
     
-    btnBar_cancel=[[UIBarButtonItem alloc]initWithTitle:@"cancel"
+    btnBar_cancel=[[UIBarButtonItem alloc]initWithTitle:@"Cancel"
                                                   style:UIBarButtonItemStylePlain
                                                   target:self
                                                  action:@selector(btnBar_cancelDidClicked:)];
@@ -353,7 +353,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 26;
+    return 34;
     
 }
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -361,16 +361,16 @@
     if (tableView == tbl_priority) {
         // 1. The view for the header
         
-        UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width,30)];
+        UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 34)];
         
         // 2. Set a custom background color and a border
         headerView.backgroundColor = [UIColor colorWithRed:39.0/255 green:166.0/255 blue:213.0/255 alpha:1];
         
         // 3. Add an image
         UILabel* headerLabel = [[UILabel alloc] init];
-        headerLabel.frame = CGRectMake(0,2,282,22);
+        headerLabel.frame = CGRectMake(0, 0, tableView.frame.size.width, 34);
         headerLabel.textColor = [UIColor whiteColor];
-        headerLabel.font = [UIFont boldSystemFontOfSize:14];
+        headerLabel.font = [UIFont boldSystemFontOfSize:16];
         headerLabel.text = @"Select Priority";
         headerLabel.textAlignment = NSTextAlignmentCenter;
         
@@ -386,7 +386,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 28;
+    return 32;
     
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -402,7 +402,7 @@
                     initWithStyle:UITableViewCellStyleDefault
                     reuseIdentifier:cellIdentifier];
         
-        cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
+        cell.textLabel.font = [UIFont systemFontOfSize:14.0f];
         cell.textLabel.text = [arr_priority objectAtIndex:indexPath.row];
     
         tbl_priority.separatorInset=UIEdgeInsetsMake(0.0, 0 + 1.0, 0.0, 0.0);

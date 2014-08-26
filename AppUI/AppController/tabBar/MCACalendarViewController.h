@@ -8,15 +8,23 @@
 
 #import <UIKit/UIKit.h>
 #import "MCACalendarView.h"
+#import "SWTableViewCell.h"
+#import "CustomTableViewCell.h"
 
-@interface MCACalendarViewController : UIViewController <MCACalendarViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface MCACalendarViewController : UIViewController <MCACalendarViewDelegate,UITableViewDelegate,UITableViewDataSource,SWTableViewCellDelegate>
 {
     MCACalendarView *calendar;
     NSMutableArray  *arr_taskList;
     NSMutableArray  *arr_currentTaskList;
+    NSMutableArray  *arr_monthTask;
+    NSMutableArray  *arr_studentList;
             NSArray *arr_gradeList;
    
-    UITableView *tbl_gradeList;
+  IBOutlet UITableView *tbl_monthTask;
+           UITableView *tbl_gradeList;
+           UITableView *tbl_studentList;
+ 
          UIView *view_transBg;
+
 }
 @end

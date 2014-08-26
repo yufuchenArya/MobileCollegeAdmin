@@ -382,7 +382,7 @@
     [[NSUserDefaults standardUserDefaults]synchronize];
     
     [view_transBg removeFromSuperview];
-    [tbl_gradeList removeFromSuperview];
+    [tbl_studentList removeFromSuperview];
     [HUD showForTabBar];
     [self.view bringSubviewToFront:HUD];
     [self createTaskList:str_userId];

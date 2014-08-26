@@ -166,7 +166,48 @@ MCADBIntraction *databaseManager = nil;
     }
     return arr_dbTask;
 }
+-(NSMutableArray*)retrieveSelectedTask:(id)sender{
+    
+    NSMutableArray *arr_dbTask=[[NSMutableArray alloc]init];
+    
+    NSString *query= [NSString stringWithFormat:@"Select * from tbl_tasklist where taskStartDate = \'%@\' and taskStatus = \'%@\'",sender,@"o"];
+    @try
+    {
+        [dBCollgeAdmin open];
+        FMResultSet *resultSet=[dBCollgeAdmin executeQuery:query];
+        while ([resultSet next])
+        {
+            MCATaskDetailDHolder *taskDHolder=[MCATaskDetailDHolder new];
+            taskDHolder.str_taskId = [resultSet stringForColumn:@"taskId"];
+            taskDHolder.str_userId = [resultSet stringForColumn:@"userId"];
+            taskDHolder.str_taskName = [resultSet stringForColumn:@"taskName"];
+            taskDHolder.str_taskDetail = [resultSet stringForColumn:@"taskDetail"];
+            taskDHolder.str_taskPriority = [resultSet stringForColumn:@"taskPriority"];
+            taskDHolder.str_taskStartDate = [resultSet stringForColumn:@"taskStartDate"];
+            taskDHolder.str_taskStatus = [resultSet stringForColumn:@"taskStatus"];
+            taskDHolder.str_createdAt = [resultSet stringForColumn:@"createdAt"];
+            taskDHolder.str_createdBy = [resultSet stringForColumn:@"createdBy"];
+            taskDHolder.str_updatedAt = [resultSet stringForColumn:@"updatedAt"];
+            taskDHolder.str_grade = [resultSet stringForColumn:@"grade"];
+            taskDHolder.str_status = [resultSet stringForColumn:@"status"];
+            taskDHolder.str_nowDate = [resultSet stringForColumn:@"nowDate"];
+            taskDHolder.str_network = [resultSet stringForColumn:@"network"];
+            
+            [arr_dbTask addObject:taskDHolder];
+        }
+        [resultSet close];
+    }
+    @catch (NSException *exception)
+    {
+        NSLog(@"%@",exception);
+    }
+    @finally
+    {
+        [dBCollgeAdmin close];
+    }
+    return arr_dbTask;
 
+}
 -(void)updateTaskList:(NSMutableArray *)arr_taskList{
  
     for (int i=0; i<arr_taskList.count;i++)

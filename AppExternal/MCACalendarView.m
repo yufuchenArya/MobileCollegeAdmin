@@ -41,7 +41,9 @@
         [self setNeedsDisplay];
     }
     
-    if ([delegate respondsToSelector:@selector(calendarView:dateSelected:)]) [delegate calendarView:self dateSelected:self.selectedDate];
+    if(self.selectedDate){
+        if ([delegate respondsToSelector:@selector(calendarView:dateSelected:)]) [delegate calendarView:self dateSelected:self.selectedDate];
+    }
 }
 
 #pragma mark - Mark Dates
@@ -93,6 +95,7 @@
 #pragma mark - Next & Previous
 -(void)showNextMonth {
   
+    self.selectedDate = nil;
     if (isAnimating) return;
     self.markedDates=nil;
     isAnimating=YES;
@@ -112,6 +115,8 @@
     self.currentMonth = [currentMonth offsetMonth:1];
   
     if ([delegate respondsToSelector:@selector(calendarView:switchedToMonth:switchedToYear:targetHeight: animated:)]) [delegate calendarView:self switchedToMonth:[currentMonth month]  switchedToYear:[currentMonth year] targetHeight:self.calendarHeight animated:YES];
+    
+    
     prepAnimationNextMonth=NO;
   
     [self setNeedsDisplay];
@@ -172,6 +177,8 @@
 }
 
 -(void)showPreviousMonth {
+    
+    self.selectedDate = nil;
     if (isAnimating) return;
     isAnimating=YES;
     self.markedDates=nil;
@@ -185,6 +192,7 @@
     //Prepare next screen
     self.currentMonth = [currentMonth offsetMonth:-1];
     if ([delegate respondsToSelector:@selector(calendarView:switchedToMonth:switchedToYear:targetHeight:animated:)]) [delegate calendarView:self switchedToMonth:[currentMonth month] switchedToYear:[currentMonth year] targetHeight:self.calendarHeight animated:YES];
+   
     prepAnimationPreviousMonth=NO;
     [self setNeedsDisplay];
     UIImage *imagePreviousMonth = [self drawCurrentState];
@@ -523,7 +531,7 @@
         NSString *date = [NSString stringWithFormat:@"%i",targetDate];
         
         //draw selected date
-        if (selectedDate && i==selectedDateBlock)
+        if (selectedDate && i == selectedDateBlock)
         {
             CGRect rectangleGrid = CGRectMake(targetX,targetY,kMCACalendarViewDayWidth+2,kMCACalendarViewDayHeight+2);
             CGContextAddRect(context, rectangleGrid);
@@ -543,7 +551,7 @@
             CGContextAddRect(context, rectangleGrid);
             
             ///////////////////////////////////////current date color///////////////////////////////////////////
-            CGContextSetFillColorWithColor(context, [UIColor colorWithRed:39.0/255.0 green:166.0/255.0 blue:213.0/255.0 alpha:1.0].CGColor);
+            CGContextSetFillColorWithColor(context, [UIColor colorWithRed:32.0/255.0 green:36.0/255.0 blue:48.0/255.0 alpha:0.8].CGColor);
             CGContextFillPath(context);
             
             CGContextSetFillColorWithColor(context,

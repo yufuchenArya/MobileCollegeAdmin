@@ -18,7 +18,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
- 
+    
+    arr_monthTask = [NSMutableArray new];
+    arr_studentList = [NSMutableArray new];
+    
+    arr_studentList = [[MCADBIntraction databaseInteractionManager]retrieveStudList:nil];
     //Navigation Bar Setting
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     [navigationBar setBackgroundImage:[[UIImage alloc] init]
@@ -63,10 +67,29 @@
    
 }
 -(void)viewWillAppear:(BOOL)animated{
-  
-     [self createTaskList:@"12"];
+    
+    NSString *str_selectedGrade = [arr_gradeList objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_GRADE_INDEX]];
+    str_selectedGrade = [str_selectedGrade stringByReplacingOccurrencesOfString:@"th" withString:@""];
+    
+    NSInteger int_selectedStud = [[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_STUD_INDEX];
+    NSString *str_selectedStud;
+    
+    if (int_selectedStud == 0) {
+        
+        str_selectedStud = @"All";
+        
+    }else{
+        str_selectedStud  = [[arr_studentList valueForKey:@"str_userId"] objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_STUD_INDEX]-1];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults]integerForKey:KEY_STUDENT_COUNT] > 0) {
+        [self createTaskList:str_selectedStud];
+    }else {
+        [self createTaskList:str_selectedGrade];
+    }
+ 
      calendar = [[MCACalendarView alloc] init];
-     calendar.delegate=self;
+     calendar.delegate = self;
      [self.view addSubview:calendar];
     
 }
@@ -78,6 +101,7 @@
     
     [view_transBg removeFromSuperview];
     [tbl_gradeList removeFromSuperview];
+    [tbl_studentList removeFromSuperview];
     self.navigationController.navigationBar.userInteractionEnabled = YES;
     tabBarMCACtr.tabBar.userInteractionEnabled = YES;
     
@@ -120,29 +144,63 @@
     [tbl_gradeList removeFromSuperview];
    
     [self createTaskList:str_selectedGrade];
+    NSInteger month = [[NSUserDefaults standardUserDefaults]integerForKey:KEY_CAL_CURRENT_MONTH];
+    NSInteger year = [[NSUserDefaults standardUserDefaults]integerForKey:KEY_CAL_CURRENT_YEAR];
+    NSInteger height = [[NSUserDefaults standardUserDefaults]integerForKey:KEY_CAL_HEIGHT];
+    [self calendarView:calendar switchedToMonth:(int)month switchedToYear:(int)year targetHeight:(int)height animated:YES];
     self.navigationController.navigationBar.userInteractionEnabled = YES;
     
 }
 -(void)btnBar_studentDidClicked:(id)sender{
     
-//    if (IS_IPHONE_5) {
-//        view_transBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 568)];
-//    }else{
-//        view_transBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 480)];
-//    }
-//    
-//    view_transBg.backgroundColor = [UIColor blackColor];
-//    view_transBg.layer.opacity = 0.6f;
-//    [self.view addSubview:view_transBg];
-//    
-//    tbl_studentList = [[UITableView alloc]initWithFrame:CGRectMake(20, 160, 282, arr_studentList.count * 32 + 64)];
-//    tbl_studentList.dataSource = self;
-//    tbl_studentList.delegate = self;
-//    [tbl_studentList reloadData];
-//    [self.view addSubview:tbl_studentList];
-//    [self.view bringSubviewToFront:tbl_studentList];
-//    
-//    self.navigationController.navigationBar.userInteractionEnabled = NO;
+    if (IS_IPHONE_5) {
+        view_transBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 568)];
+    }else{
+        view_transBg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 480)];
+    }
+    
+    view_transBg.backgroundColor = [UIColor blackColor];
+    view_transBg.layer.opacity = 0.6f;
+    [self.view addSubview:view_transBg];
+    
+    tbl_studentList = [[UITableView alloc]initWithFrame:CGRectMake(20, 160, 282, arr_studentList.count * 32 + 64)];
+    tbl_studentList.delegate = self;
+    tbl_studentList.dataSource = self;
+    [tbl_studentList reloadData];
+    [self.view addSubview:tbl_studentList];
+    [self.view bringSubviewToFront:tbl_studentList];
+    
+    self.navigationController.navigationBar.userInteractionEnabled = NO;
+    
+}
+-(void)btn_selectStudDidClicked:(id)sender{
+    
+    MCACustomButton *btn_temp = (MCACustomButton*)sender;
+    MCASignUpDHolder *studDHolder;
+    NSString *str_userId;
+    if (btn_temp.index == 0) {
+        
+        str_userId = @"All";
+        
+    }else{
+        
+        studDHolder = [arr_studentList objectAtIndex:btn_temp.index-1];
+        str_userId = studDHolder.str_userId;
+    }
+    
+    [[NSUserDefaults standardUserDefaults]setInteger:btn_temp.index forKey:KEY_TASK_STUD_INDEX];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    
+    [view_transBg removeFromSuperview];
+    [tbl_studentList removeFromSuperview];
+  
+    [self createTaskList:str_userId];
+    NSInteger month = [[NSUserDefaults standardUserDefaults]integerForKey:KEY_CAL_CURRENT_MONTH];
+    NSInteger year = [[NSUserDefaults standardUserDefaults]integerForKey:KEY_CAL_CURRENT_YEAR];
+    NSInteger height = [[NSUserDefaults standardUserDefaults]integerForKey:KEY_CAL_HEIGHT];
+    [self calendarView:calendar switchedToMonth:(int)month switchedToYear:(int)year targetHeight:(int)height animated:YES];
+
+    self.navigationController.navigationBar.userInteractionEnabled = YES;
     
 }
 
@@ -150,8 +208,14 @@
 
 -(void)calendarView:(MCACalendarView *)calendarView switchedToMonth:(int)month switchedToYear:(int)year targetHeight:(float)targetHeight animated:(BOOL)animated {
     
-    NSMutableArray *arr_taskDates = [NSMutableArray new];
-    NSMutableArray  *arr_taskPriority=[NSMutableArray new];
+    [[NSUserDefaults standardUserDefaults]setInteger:month forKey:KEY_CAL_CURRENT_MONTH];
+    [[NSUserDefaults standardUserDefaults]setInteger:year forKey:KEY_CAL_CURRENT_YEAR];
+    [[NSUserDefaults standardUserDefaults]setInteger:targetHeight forKey:KEY_CAL_HEIGHT];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    
+    NSMutableArray  *arr_taskDates    = [NSMutableArray new];
+    NSMutableArray  *arr_taskPriority = [NSMutableArray new];
+                        arr_monthTask = [NSMutableArray new];
     
     for (int i=0; i<arr_currentTaskList.count; i++)
     {
@@ -176,23 +240,91 @@
             {
                 [arr_taskDates addObject:[NSNumber numberWithInt:selectedDay]];
                 [arr_taskPriority addObject:taskDHolder.str_taskPriority];
-                 [calendarView markDates:arr_taskDates priorityQueue:arr_taskPriority];
+                [calendarView markDates:arr_taskDates priorityQueue:arr_taskPriority];
+                [arr_monthTask addObject:taskDHolder];
             }
-         }
-     }
+        }
+    }
+    
+    tbl_monthTask.frame = CGRectMake(0, targetHeight, 320, tbl_monthTask.frame.size.height);
+    tbl_monthTask.delegate = self;
+    tbl_monthTask.dataSource = self;
+    [tbl_monthTask reloadData];
 }
 
 -(void)calendarView:(MCACalendarView *)calendarView dateSelected:(NSDate *)date {
     
     NSLog(@"Selected date = %@",date);
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString * str_selectedDate  = [dateFormatter stringFromDate:date];
+   
+    arr_monthTask = [NSMutableArray new];
+    NSMutableArray *arr_taskDTemp = [NSMutableArray new];
+    arr_taskDTemp = [[MCADBIntraction databaseInteractionManager]retrieveSelectedTask:str_selectedDate];
     
+    NSString *str_selectedGrade = [arr_gradeList objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_GRADE_INDEX]];
+    str_selectedGrade = [str_selectedGrade stringByReplacingOccurrencesOfString:@"th" withString:@""];
+    
+    NSInteger int_selectedStud = [[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_STUD_INDEX];
+    NSString *str_selectedStud;
+    
+    if (int_selectedStud == 0) {
+        
+        str_selectedStud = @"All";
+        
+    }else{
+        str_selectedStud  = [[arr_studentList valueForKey:@"str_userId"] objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_STUD_INDEX]-1];
+    }
+    
+    for (int i=0; i<arr_taskDTemp.count; i++)
+    {
+        MCATaskDetailDHolder *taskDHolder = (MCATaskDetailDHolder *)[arr_taskDTemp objectAtIndex:i];
+        
+        if ([taskDHolder.str_status isEqualToString:@"1"])
+        {
+           if ([[NSUserDefaults standardUserDefaults]integerForKey:KEY_STUDENT_COUNT] > 0)
+            {
+                if ([str_selectedStud isEqualToString:@"All"] || [str_selectedStud isEqualToString:@"12"])
+                {
+                    if ([taskDHolder.str_taskStatus isEqualToString:@"o"])
+                    {
+                        [arr_monthTask addObject:taskDHolder];
+                        
+                    }
+                }else
+                {
+                    if ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_userId isEqualToString:str_selectedStud]) {
+                        
+                        [arr_monthTask addObject:taskDHolder];
+                    }
+                }
+            }else
+            {
+               if ([[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] isEqualToString:@"p"])
+                {
+                    if (([taskDHolder.str_grade isEqualToString:str_selectedGrade]) || ([taskDHolder.str_userId isEqualToString:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_ID]] && [taskDHolder.str_createdBy isEqualToString:@"p"]))
+                    {
+                     
+                        [arr_monthTask addObject:taskDHolder];
+                        
+                    }
+                }else{
+                    
+                        [arr_monthTask addObject:taskDHolder];
+                     }
+               }
+          }
+    }
+    
+    [tbl_monthTask reloadData];
 }
 
 #pragma mark - UITABLEVIEW DELEGATE AND DATASOURCE METHODS
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    if (tableView == tbl_gradeList) {
+    if (tableView == tbl_gradeList || tableView == tbl_studentList) {
         return 32;
     }else{
         return 0;
@@ -219,6 +351,26 @@
         
         // 5. Finally return
         return headerView;
+    }else if (tableView == tbl_studentList)
+    {
+        // 1. The view for the header
+        UIView* headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width,30)];
+        
+        // 2. Set a custom background color and a border
+        headerView.backgroundColor = [UIColor colorWithRed:39.0/255 green:166.0/255 blue:213.0/255 alpha:1];
+        
+        // 3. Add an image
+        UILabel* headerLabel = [[UILabel alloc] init];
+        headerLabel.frame = CGRectMake(0,2,282,22);
+        headerLabel.textColor = [UIColor whiteColor];
+        headerLabel.font = [UIFont boldSystemFontOfSize:14];
+        headerLabel.text = @"Select Student";
+        headerLabel.textAlignment = NSTextAlignmentCenter;
+        
+        [headerView addSubview:headerLabel];
+        
+        // 5. Finally return
+        return headerView;
     }else {
         
         return nil;
@@ -226,7 +378,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (tableView == tbl_gradeList) {
+    if (tableView == tbl_gradeList || tableView == tbl_studentList) {
         return 32;
     }else{
         return 72;
@@ -234,10 +386,17 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return arr_gradeList.count;
+    if (tableView == tbl_gradeList) {
+        return arr_gradeList.count;
+    }else if(tableView == tbl_studentList){
+        return arr_studentList.count + 1;
+    }else{
+        return arr_monthTask.count;
+    }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (tableView == tbl_gradeList) {
         NSString *cellIdentifier =@"cell";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
         if (cell == nil)
@@ -270,10 +429,103 @@
         
         tbl_gradeList.separatorInset=UIEdgeInsetsMake(0.0, 0 + 1.0, 0.0, 0.0);
         
-   
-    return cell;
+        return cell;
 
+    }else if(tableView == tbl_studentList){
+    
+        NSString *cellIdentifier =@"cell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil)
+            cell = [[UITableViewCell alloc]
+                    initWithStyle:UITableViewCellStyleDefault
+                    reuseIdentifier:cellIdentifier];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.textLabel.font = [UIFont systemFontOfSize:12.0f];
+        
+        if (indexPath.row == 0) {
+            
+            cell.textLabel.text = @"All";
+            
+        }else{
+            
+            MCASignUpDHolder *studDHolder = [arr_studentList objectAtIndex:indexPath.row-1];
+            
+            cell.textLabel.text = studDHolder.str_userName;
+        }
+        
+        MCACustomButton *btn_selectStudent = [MCACustomButton buttonWithType:UIButtonTypeCustom];
+        btn_selectStudent.frame = CGRectMake(242, 4, 24, 24);
+        btn_selectStudent.layer.cornerRadius = 12.0f;
+        
+        if (indexPath.row == [[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_STUD_INDEX]) {
+            
+            [btn_selectStudent setBackgroundImage:[UIImage imageNamed:@"blue_checkMark.png"]
+                                         forState:UIControlStateNormal];
+            
+        }
+        
+        btn_selectStudent.layer.borderColor = [UIColor colorWithRed:39.0/255 green:166.0/255 blue:213.0/255 alpha:1].CGColor;
+        btn_selectStudent.layer.borderWidth = 1.0f;
+        [btn_selectStudent addTarget:self
+                              action:@selector(btn_selectStudDidClicked:)
+                    forControlEvents:UIControlEventTouchUpInside];
+        btn_selectStudent.index = indexPath.row;
+        [cell addSubview:btn_selectStudent];
+        
+        tbl_studentList.separatorInset=UIEdgeInsetsMake(0.0, 0 + 1.0, 0.0, 0.0);
+        return cell;
+
+    }else{
+        
+        static NSString *cellIdentifier = @"Cell";
+        CustomTableViewCell *cell  = (CustomTableViewCell *)[tableView dequeueReusableCellWithIdentifier:                                                 cellIdentifier forIndexPath:indexPath];
+        
+        MCATaskDetailDHolder *taskDetailDHolder = (MCATaskDetailDHolder *)[arr_monthTask objectAtIndex:indexPath.row];
+     
+        if ([taskDetailDHolder.str_taskPriority isEqualToString:@"h"]) {
+            
+            cell.lbl_taskPriority.text = @"High";
+            cell.lbl_taskPriority.textColor = [UIColor colorWithRed:252.0/255.0 green:109.0/255.0 blue:36.0/255.0 alpha:1.0];
+            cell.lbl_taskColor.backgroundColor = [UIColor colorWithRed:252.0/255.0 green:109.0/255.0 blue:36.0/255.0  alpha:1.0];
+            
+        }else{
+            
+            cell.lbl_taskPriority.text = @"Regular";
+            cell.lbl_taskPriority.textColor = [UIColor colorWithRed:39.0/255.0 green:166.0/255.0 blue:213.0/255.0 alpha:1.0];
+            cell.lbl_taskColor.backgroundColor = [UIColor colorWithRed:39.0/255.0 green:166.0/255.0 blue:213.0/255.0 alpha:1.0];
+        }
+        
+        cell.lbl_taskName.text =  taskDetailDHolder.str_taskName;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+        NSDateFormatter *dateFormatter1 = [[NSDateFormatter alloc]init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        [dateFormatter1 setDateFormat:@"yyyy/MM/dd"];
+        NSDate *date_Temp =[dateFormatter dateFromString:taskDetailDHolder.str_taskStartDate];
+        NSString *str_date = [dateFormatter1 stringFromDate:date_Temp];
+        cell.lbl_taskStartDate.text = str_date;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.delegate = self;
+        return cell;
+
+    }
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+//    if (![tableView isEqual: tbl_gradeList])
+//    {
+//        if (![tableView isEqual:tbl_studentList])
+//        {
+//            MCATaskDetailDHolder *taskDetailDHolder;
+//            if (tableView == tbl_monthTask) {
+//                
+//                taskDetailDHolder  = [arr_currentTaskList objectAtIndex:indexPath.row];
+//            }
+//            [self performSegueWithIdentifier:@"segue_taskDetail" sender:taskDetailDHolder];
+//        }
+//    }
+}
+
 #pragma mark - OTHER_METHOD
 
 -(void)createTaskList:(id)sender{
@@ -301,9 +553,8 @@
                     if ([taskDHolder.str_taskStatus isEqualToString:@"o"] && [taskDHolder.str_userId isEqualToString:sender]) {
                         
                         [arr_currentTaskList addObject:taskDHolder];
-                        
-                 }
-            }
+                    }
+                }
          }else{
                 if ([[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] isEqualToString:@"p"])
                 {
@@ -323,6 +574,8 @@
             }
         }
     }
+//    [calendar removeFromSuperview];
+   
 }
 
 - (void)viewDidUnload

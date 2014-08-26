@@ -36,6 +36,11 @@
 #define KEY_TASK_ALL_DATA @"task_allData"
 #define KEY_TASK_DELETED_DATA @"task_deleted"
 #define KEY_TASK_DELETED_ARRAY @"task_deletedArray"
+#define KEY_CAL_CURRENT_MONTH @"current_month"
+#define KEY_CAL_CURRENT_YEAR @"current_year"
+#define KEY_CAL_HEIGHT @"cal_height"
+
+
 
 //Notification
 #define NOTIFICATION_LOGIN_SUCCESS @"notificationLoginSuccess"
