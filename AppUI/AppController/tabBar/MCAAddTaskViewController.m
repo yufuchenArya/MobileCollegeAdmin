@@ -59,7 +59,7 @@
     }else{
         
         self.navigationItem.title = @"Edit Task";
-        tx_taskName.text = taskEditDHolder.str_taskName;
+        tx_taskName.text = taskEditDHolder.str_taskNameEng;
         
           if ([taskEditDHolder.str_taskPriority isEqualToString:@"h"]) {
               tx_priority.text = @"High";
@@ -76,7 +76,7 @@
         NSString *str_date = [dateFormatter1 stringFromDate:date_Temp];
         
         tx_chooseDate.text = str_date;
-        tv_description.text = taskEditDHolder.str_taskDetail;
+        tv_description.text = taskEditDHolder.str_taskDetailEng;
     }
     
     //check for reachability change
@@ -102,8 +102,8 @@
                 NSMutableDictionary *dict_Task =[NSMutableDictionary new];
                 [dict_Task setValue:taskDHolder.str_taskStartDate forKey:@"task_start_date"];
                 [dict_Task setValue:taskDHolder.str_taskPriority forKey:@"task_priority"];
-                [dict_Task setValue:taskDHolder.str_taskName forKey:@"task_name"];
-                [dict_Task setValue:taskDHolder.str_taskDetail forKey:@"task_detail"];
+                [dict_Task setValue:taskDHolder.str_taskNameEng forKey:@"task_name_eng"];
+                [dict_Task setValue:taskDHolder.str_taskDetailEng forKey:@"task_detail_eng"];
                 [dict_Task setValue:taskDHolder.str_taskId forKey:@"task_id"];
                 
                 if ([[NSUserDefaults standardUserDefaults]valueForKey:KEY_LANGUAGE_CODE]) {
@@ -462,8 +462,8 @@
   
     if (taskEditDHolder) {
         
-        taskEditDHolder.str_taskDetail = tv_description.text;
-        taskEditDHolder.str_taskName  = tx_taskName.text;
+        taskEditDHolder.str_taskDetailEng = tv_description.text;
+        taskEditDHolder.str_taskNameEng  = tx_taskName.text;
         
         if ([tx_priority.text isEqualToString:@"High"]) {
             taskEditDHolder.str_taskPriority = @"h";

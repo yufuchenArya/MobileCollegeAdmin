@@ -7,6 +7,7 @@
 //
 
 #import "MCACalendarViewController.h"
+#import "MCATaskDetailViewController.h"
 
 @interface MCACalendarViewController ()
 
@@ -18,6 +19,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    //Arya HUD
+    HUD=[AryaHUD new];
+    [self.view addSubview:HUD];
+    
+    lbl_noEvent.hidden = YES;
     
     arr_monthTask = [NSMutableArray new];
     arr_studentList = [NSMutableArray new];
@@ -68,34 +75,26 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     
-    NSString *str_selectedGrade = [arr_gradeList objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_GRADE_INDEX]];
-    str_selectedGrade = [str_selectedGrade stringByReplacingOccurrencesOfString:@"th" withString:@""];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(taskListSuccess:) name:NOTIFICATION_TASK_LIST_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(taskListFailed:) name:NOTIFICATION_TASK_LIST_FAILED object:nil];
     
-    NSInteger int_selectedStud = [[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_STUD_INDEX];
-    NSString *str_selectedStud;
+    lbl_noEvent.hidden = YES;
     
-    if (int_selectedStud == 0) {
-        
-        str_selectedStud = @"All";
-        
-    }else{
-        str_selectedStud  = [[arr_studentList valueForKey:@"str_userId"] objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_STUD_INDEX]-1];
-    }
-    
-    if ([[NSUserDefaults standardUserDefaults]integerForKey:KEY_STUDENT_COUNT] > 0) {
-        [self createTaskList:str_selectedStud];
-    }else {
-        [self createTaskList:str_selectedGrade];
-    }
- 
-     calendar = [[MCACalendarView alloc] init];
-     calendar.delegate = self;
-     [self.view addSubview:calendar];
+    [self getTaskList:nil];
     
 }
 -(void)viewWillDisappear:(BOOL)animated{
     
-    [calendar removeFromSuperview];
+    for (UIView* subV in self.view.subviews)
+    {
+        if ([subV isKindOfClass:[MCACalendarView class]]){
+             [subV removeFromSuperview];
+        }
+    }
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:NOTIFICATION_TASK_LIST_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:NOTIFICATION_TASK_LIST_FAILED object:nil];
+   
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     
@@ -208,6 +207,8 @@
 
 -(void)calendarView:(MCACalendarView *)calendarView switchedToMonth:(int)month switchedToYear:(int)year targetHeight:(float)targetHeight animated:(BOOL)animated {
     
+    lbl_noEvent.hidden = YES;
+    
     [[NSUserDefaults standardUserDefaults]setInteger:month forKey:KEY_CAL_CURRENT_MONTH];
     [[NSUserDefaults standardUserDefaults]setInteger:year forKey:KEY_CAL_CURRENT_YEAR];
     [[NSUserDefaults standardUserDefaults]setInteger:targetHeight forKey:KEY_CAL_HEIGHT];
@@ -317,7 +318,19 @@
           }
     }
     
-    [tbl_monthTask reloadData];
+    lbl_noEvent.frame = CGRectMake(6, tbl_monthTask.frame.origin.y, 300, 30);
+    
+    if (arr_monthTask.count == 0) {
+    
+        lbl_noEvent.text = KEY_NO_EVENT_FOUND;
+        lbl_noEvent.hidden = NO;
+        
+    }else{
+        
+        lbl_noEvent.hidden = YES;
+      
+    }
+       [tbl_monthTask reloadData];
 }
 
 #pragma mark - UITABLEVIEW DELEGATE AND DATASOURCE METHODS
@@ -496,7 +509,7 @@
             cell.lbl_taskColor.backgroundColor = [UIColor colorWithRed:39.0/255.0 green:166.0/255.0 blue:213.0/255.0 alpha:1.0];
         }
         
-        cell.lbl_taskName.text =  taskDetailDHolder.str_taskName;
+        cell.lbl_taskName.text =  taskDetailDHolder.str_taskNameEng;
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
         NSDateFormatter *dateFormatter1 = [[NSDateFormatter alloc]init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -512,18 +525,103 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    if (![tableView isEqual: tbl_gradeList])
-//    {
-//        if (![tableView isEqual:tbl_studentList])
-//        {
-//            MCATaskDetailDHolder *taskDetailDHolder;
-//            if (tableView == tbl_monthTask) {
-//                
-//                taskDetailDHolder  = [arr_currentTaskList objectAtIndex:indexPath.row];
-//            }
-//            [self performSegueWithIdentifier:@"segue_taskDetail" sender:taskDetailDHolder];
-//        }
-//    }
+    if (![tableView isEqual: tbl_gradeList])
+    {
+        if (![tableView isEqual:tbl_studentList])
+        {
+            MCATaskDetailDHolder *taskDetailDHolder;
+            if (tableView == tbl_monthTask) {
+                
+                taskDetailDHolder  = [arr_monthTask objectAtIndex:indexPath.row];
+            }
+            [self performSegueWithIdentifier:@"segue_calTaskDetail" sender:taskDetailDHolder];
+        }
+    }
+}
+#pragma mark - API CALL
+
+-(void)getTaskList:(id)sender{
+    
+    NSMutableDictionary *info=[NSMutableDictionary new];
+    [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] forKey:@"user_type"];
+    [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_LANGUAGE_CODE] forKey:@"language_code"];
+   
+    
+    if ([[NSUserDefaults standardUserDefaults]valueForKey:KEY_NOW_DATE]) {
+        [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_NOW_DATE] forKey:@"now_date"];
+    }else{
+        [info setValue:@"" forKey:@"now_date"];
+    }
+    
+    [info setValue:@"get_task_list" forKey:@"cmd"];
+    
+    NSString *str_jsonTask = [ NSString getJsonObject:info];
+    
+    [HUD showForTabBar];
+    [self.view bringSubviewToFront:HUD];
+    [self requestTaskList:str_jsonTask];
+    
+}
+
+#pragma mark - API CALLING
+
+-(void)requestTaskList:(NSString*)info{
+    
+    if ([MCAGlobalFunction isConnectedToInternet]) {
+        [[MCARestIntraction sharedManager]requestForTaskList:info];
+    }else{
+        
+        [HUD hide];
+   
+        [self createTaskList:@"12"];
+    }
+}
+#pragma mark - NSNOTIFICATION SELECTOR
+
+-(void)taskListSuccess:(NSNotification*)notification{
+  
+    [HUD hide];
+    
+    dict_taskList  = (NSMutableDictionary*)notification.object;
+    arr_taskList = [dict_taskList valueForKey:KEY_TASK_ALL_DATA];
+    
+    if ([[NSUserDefaults standardUserDefaults]valueForKey:KEY_NOW_DATE]) {
+        
+        [[MCADBIntraction databaseInteractionManager]deleteTask:arr_taskList];
+        [[MCADBIntraction databaseInteractionManager]insertTaskList:arr_taskList];
+        
+    }else{
+        
+        [[MCADBIntraction databaseInteractionManager]insertTaskList:arr_taskList];
+    }
+    
+    NSString *str_selectedGrade = [arr_gradeList objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_GRADE_INDEX]];
+    str_selectedGrade = [str_selectedGrade stringByReplacingOccurrencesOfString:@"th" withString:@""];
+    
+    NSInteger int_selectedStud = [[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_STUD_INDEX];
+    NSString *str_selectedStud;
+    
+    if (int_selectedStud == 0) {
+        
+        str_selectedStud = @"All";
+        
+    }else{
+        str_selectedStud  = [[arr_studentList valueForKey:@"str_userId"] objectAtIndex:[[NSUserDefaults standardUserDefaults]integerForKey:KEY_TASK_STUD_INDEX]-1];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults]integerForKey:KEY_STUDENT_COUNT] > 0) {
+        [self createTaskList:str_selectedStud];
+    }else {
+        [self createTaskList:str_selectedGrade];
+    }
+    
+    calendar = [[MCACalendarView alloc] init];
+    calendar.delegate = self;
+    [self.view addSubview:calendar];
+}
+-(void)taskListFailed:(NSNotification*)notification{
+    
+    [HUD hide];
 }
 
 #pragma mark - OTHER_METHOD
@@ -576,6 +674,15 @@
     }
 //    [calendar removeFromSuperview];
    
+}
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    
+    if ([segue.identifier isEqualToString:@"segue_calTaskDetail"]) {
+        
+        MCATaskDetailViewController *taskDetailViewCtr = (MCATaskDetailViewController*)[segue destinationViewController];
+        
+        taskDetailViewCtr.taskDetailDHolder = (MCATaskDetailDHolder*)sender;
+    }
 }
 
 - (void)viewDidUnload

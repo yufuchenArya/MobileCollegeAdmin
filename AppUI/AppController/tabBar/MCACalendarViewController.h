@@ -14,6 +14,7 @@
 @interface MCACalendarViewController : UIViewController <MCACalendarViewDelegate,UITableViewDelegate,UITableViewDataSource,SWTableViewCellDelegate>
 {
     MCACalendarView *calendar;
+    NSMutableDictionary *dict_taskList;
     NSMutableArray  *arr_taskList;
     NSMutableArray  *arr_currentTaskList;
     NSMutableArray  *arr_monthTask;
@@ -23,8 +24,9 @@
   IBOutlet UITableView *tbl_monthTask;
            UITableView *tbl_gradeList;
            UITableView *tbl_studentList;
- 
-         UIView *view_transBg;
-
+           UIView *view_transBg;
+  IBOutlet UILabel *lbl_noEvent;
+    
+AryaHUD *HUD;
 }
 @end

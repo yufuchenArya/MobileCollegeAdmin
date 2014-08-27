@@ -63,7 +63,7 @@ MCADBIntraction *databaseManager = nil;
     {        
         MCATaskDetailDHolder *taskDHoler=[arr_taskList objectAtIndex:i];
         
-        NSString *query=[NSString stringWithFormat:@"insert into tbl_tasklist(taskId,userId,taskName,taskDetail,taskPriority,taskStartDate,taskStatus,createdAt,createdBy,updatedAt,grade,status,network,nowDate) values(\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\")",taskDHoler.str_taskId,taskDHoler.str_userId,taskDHoler.str_taskName,taskDHoler.str_taskDetail,taskDHoler.str_taskPriority,taskDHoler.str_taskStartDate,taskDHoler.str_taskStatus,taskDHoler.str_createdAt,taskDHoler.str_createdBy,taskDHoler.str_updatedAt,taskDHoler.str_grade,taskDHoler.str_status,taskDHoler.str_network,taskDHoler.str_nowDate];
+        NSString *query=[NSString stringWithFormat:@"insert into tbl_tasklist(taskId,userId,taskNameEng,taskDetailEng,taskPriority,taskStartDate,taskStatus,createdAt,createdBy,updatedAt,grade,status,network,nowDate) values(\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\",\"%@\")",taskDHoler.str_taskId,taskDHoler.str_userId,taskDHoler.str_taskNameEng,taskDHoler.str_taskDetailEng,taskDHoler.str_taskPriority,taskDHoler.str_taskStartDate,taskDHoler.str_taskStatus,taskDHoler.str_createdAt,taskDHoler.str_createdBy,taskDHoler.str_updatedAt,taskDHoler.str_grade,taskDHoler.str_status,taskDHoler.str_network,taskDHoler.str_nowDate];
         
         @try
         {
@@ -98,8 +98,8 @@ MCADBIntraction *databaseManager = nil;
             MCATaskDetailDHolder *taskDHolder=[MCATaskDetailDHolder new];
             taskDHolder.str_taskId = [resultSet stringForColumn:@"taskId"];
             taskDHolder.str_userId = [resultSet stringForColumn:@"userId"];
-            taskDHolder.str_taskName = [resultSet stringForColumn:@"taskName"];
-            taskDHolder.str_taskDetail = [resultSet stringForColumn:@"taskDetail"];
+            taskDHolder.str_taskNameEng = [resultSet stringForColumn:@"taskNameEng"];
+            taskDHolder.str_taskDetailEng = [resultSet stringForColumn:@"taskDetailEng"];
             taskDHolder.str_taskPriority = [resultSet stringForColumn:@"taskPriority"];
             taskDHolder.str_taskStartDate = [resultSet stringForColumn:@"taskStartDate"];
             taskDHolder.str_taskStatus = [resultSet stringForColumn:@"taskStatus"];
@@ -139,8 +139,8 @@ MCADBIntraction *databaseManager = nil;
             MCATaskDetailDHolder *taskDHolder=[MCATaskDetailDHolder new];
             taskDHolder.str_taskId = [resultSet stringForColumn:@"taskId"];
             taskDHolder.str_userId = [resultSet stringForColumn:@"userId"];
-            taskDHolder.str_taskName = [resultSet stringForColumn:@"taskName"];
-            taskDHolder.str_taskDetail = [resultSet stringForColumn:@"taskDetail"];
+            taskDHolder.str_taskNameEng = [resultSet stringForColumn:@"taskNameEng"];
+            taskDHolder.str_taskDetailEng = [resultSet stringForColumn:@"taskDetailEng"];
             taskDHolder.str_taskPriority = [resultSet stringForColumn:@"taskPriority"];
             taskDHolder.str_taskStartDate = [resultSet stringForColumn:@"taskStartDate"];
             taskDHolder.str_taskStatus = [resultSet stringForColumn:@"taskStatus"];
@@ -180,8 +180,8 @@ MCADBIntraction *databaseManager = nil;
             MCATaskDetailDHolder *taskDHolder=[MCATaskDetailDHolder new];
             taskDHolder.str_taskId = [resultSet stringForColumn:@"taskId"];
             taskDHolder.str_userId = [resultSet stringForColumn:@"userId"];
-            taskDHolder.str_taskName = [resultSet stringForColumn:@"taskName"];
-            taskDHolder.str_taskDetail = [resultSet stringForColumn:@"taskDetail"];
+            taskDHolder.str_taskNameEng = [resultSet stringForColumn:@"taskNameEng"];
+            taskDHolder.str_taskDetailEng = [resultSet stringForColumn:@"taskDetailEng"];
             taskDHolder.str_taskPriority = [resultSet stringForColumn:@"taskPriority"];
             taskDHolder.str_taskStartDate = [resultSet stringForColumn:@"taskStartDate"];
             taskDHolder.str_taskStatus = [resultSet stringForColumn:@"taskStatus"];
@@ -214,7 +214,7 @@ MCADBIntraction *databaseManager = nil;
     {
         MCATaskDetailDHolder *taskDHoler=[arr_taskList objectAtIndex:i];
         
-        NSString *query=[NSString stringWithFormat:@"UPDATE tbl_tasklist SET taskId=\'%@\',userId =\'%@\',taskName=\'%@\',taskDetail=\'%@\',taskPriority=\'%@\',taskStartDate=\'%@\',taskStatus=\'%@\',createdAt=\'%@\',createdBy=\'%@\',updatedAt=\'%@\',grade=\'%@\',status=\'%@\',network=\'%@\',nowDate=\'%@\' where userId=\'%@\' and taskId=\'%@\'",taskDHoler.str_taskId,taskDHoler.str_userId,taskDHoler.str_taskName,taskDHoler.str_taskDetail,taskDHoler.str_taskPriority,taskDHoler.str_taskStartDate,taskDHoler.str_taskStatus,taskDHoler.str_createdAt,taskDHoler.str_createdBy,taskDHoler.str_updatedAt,taskDHoler.str_grade,taskDHoler.str_status,taskDHoler.str_network,taskDHoler.str_nowDate,taskDHoler.str_userId,taskDHoler.str_taskId];
+        NSString *query=[NSString stringWithFormat:@"UPDATE tbl_tasklist SET taskId=\'%@\',userId =\'%@\',taskNameEng=\'%@\',taskDetailEng=\'%@\',taskPriority=\'%@\',taskStartDate=\'%@\',taskStatus=\'%@\',createdAt=\'%@\',createdBy=\'%@\',updatedAt=\'%@\',grade=\'%@\',status=\'%@\',network=\'%@\',nowDate=\'%@\' where userId=\'%@\' and taskId=\'%@\'",taskDHoler.str_taskId,taskDHoler.str_userId,taskDHoler.str_taskNameEng,taskDHoler.str_taskDetailEng,taskDHoler.str_taskPriority,taskDHoler.str_taskStartDate,taskDHoler.str_taskStatus,taskDHoler.str_createdAt,taskDHoler.str_createdBy,taskDHoler.str_updatedAt,taskDHoler.str_grade,taskDHoler.str_status,taskDHoler.str_network,taskDHoler.str_nowDate,taskDHoler.str_userId,taskDHoler.str_taskId];
         
         @try
         {

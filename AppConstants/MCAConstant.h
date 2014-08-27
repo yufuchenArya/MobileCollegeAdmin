@@ -39,6 +39,8 @@
 #define KEY_CAL_CURRENT_MONTH @"current_month"
 #define KEY_CAL_CURRENT_YEAR @"current_year"
 #define KEY_CAL_HEIGHT @"cal_height"
+#define KEY_NO_EVENT_FOUND @"No Event Found"
+
 
 
 

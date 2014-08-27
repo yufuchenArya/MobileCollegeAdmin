@@ -46,8 +46,6 @@
     
     arr_studentList = [[MCADBIntraction databaseInteractionManager]retrieveStudList:nil];
        
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(taskListSuccess:) name:NOTIFICATION_TASK_LIST_SUCCESS object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(taskListFailed:) name:NOTIFICATION_TASK_LIST_FAILED object:nil];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteTaskSuccess:) name:NOTIFICATION_DELETE_TASK_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(completeTaskSuccess:) name:NOTIFICATION_COMPLETE_TASK_SUCCESS object:nil];
@@ -176,9 +174,19 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(taskListSuccess:) name:NOTIFICATION_TASK_LIST_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(taskListFailed:) name:NOTIFICATION_TASK_LIST_FAILED object:nil];
+    
      [self getTaskList:nil];
     
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:NOTIFICATION_TASK_LIST_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:NOTIFICATION_TASK_LIST_FAILED object:nil];
+
+}
+
 #pragma mark - API CALL
 
 -(void)getTaskList:(id)sender{
@@ -186,12 +194,6 @@
     NSMutableDictionary *info=[NSMutableDictionary new];
     [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] forKey:@"user_type"];
     [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_LANGUAGE_CODE] forKey:@"language_code"];
-//    
-//    if ([[NSUserDefaults standardUserDefaults]valueForKey:KEY_LANGUAGE_CODE]) {
-//        [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_LANGUAGE_CODE] forKey:@"language_code"];
-//    }else{
-        [info setValue:@"en_us" forKey:@"language_code"];
-//    }
     
     if ([[NSUserDefaults standardUserDefaults]valueForKey:KEY_NOW_DATE]) {
         [info setValue:[[NSUserDefaults standardUserDefaults]valueForKey:KEY_NOW_DATE] forKey:@"now_date"];
@@ -559,6 +561,7 @@
         return cell;
      
     }else{
+        
         CustomTableViewCell *cell;
         MCATaskDetailDHolder *taskDHolder;
         
@@ -609,7 +612,7 @@
            }
         
         // Configure the cell
-        cell.lbl_taskName.text = taskDHolder.str_taskName;
+        cell.lbl_taskName.text = taskDHolder.str_taskNameEng;
         [cell.lbl_taskName setFont:[UIFont systemFontOfSize:16]];
         cell.lbl_taskName.adjustsFontSizeToFitWidth = YES;
         cell.lbl_taskName.minimumScaleFactor = 0.8;

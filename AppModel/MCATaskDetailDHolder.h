@@ -15,9 +15,11 @@
 @property(nonatomic,strong)NSString *str_createdBy;
 @property(nonatomic,strong)NSString *str_grade;
 @property(nonatomic,strong)NSString *str_status;
-@property(nonatomic,strong)NSString *str_taskDetail;
+@property(nonatomic,strong)NSString *str_taskDetailEng;
+@property(nonatomic,strong)NSString *str_taskDetailSp;
 @property(nonatomic,strong)NSString *str_taskId;
-@property(nonatomic,strong)NSString *str_taskName;
+@property(nonatomic,strong)NSString *str_taskNameEng;
+@property(nonatomic,strong)NSString *str_taskNameSp;
 @property(nonatomic,strong)NSString *str_taskPriority;
 @property(nonatomic,strong)NSString *str_taskStartDate;
 @property(nonatomic,strong)NSString *str_taskStatus;

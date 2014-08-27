@@ -36,7 +36,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(completeTaskDetailSuccess:) name:NOTIFICATION_COMPLETE_TASK_DETAIL_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteOrCompleteTaskDetailFailed:) name:NOTIFICATION_DELETE_COMPLETE_TASK_DETAIL_FAILED object:nil];
      
-     tv_taskDetail.text = taskDetailDHolder.str_taskDetail;
+     tv_taskDetail.text = taskDetailDHolder.str_taskDetailEng;
     
     //code for navigation bar
     if ([taskDetailDHolder.str_taskStatus isEqualToString:@"o"] && ![[NSUserDefaults standardUserDefaults]integerForKey:KEY_STUDENT_COUNT] > 0)
@@ -172,7 +172,7 @@
     
     cell.leftUtilityButtons = leftUtilityButtons;
     
-    cell.lbl_taskName.text =  taskDetailDHolder.str_taskName;
+    cell.lbl_taskName.text =  taskDetailDHolder.str_taskNameEng;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     NSDateFormatter *dateFormatter1 = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -324,7 +324,7 @@
 -(void)editTaskDetail:(MCATaskDetailDHolder *)taskDHolder{
     
     taskDetailDHolder = taskDHolder;
-    tv_taskDetail.text = taskDetailDHolder.str_taskDetail;
+    tv_taskDetail.text = taskDetailDHolder.str_taskDetailEng;
     [tbl_taskDetail reloadData];
     
 }

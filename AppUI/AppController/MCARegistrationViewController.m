@@ -463,7 +463,11 @@
                     NSString *str_jsonStud = [NSString getJsonObject:info];
                    
                     [HUD show];
-                    [self.view bringSubviewToFront:HUD];
+                   for (UIView* subV in tempWindow.subviews) {
+                       if ([subV isKindOfClass:[UIButton class]])
+                           [subV removeFromSuperview];
+                   }
+                   
                     [self resignTextField];
                     [btn_keyboardDone removeFromSuperview];
                     [self requestStudentSignUp:str_jsonStud];

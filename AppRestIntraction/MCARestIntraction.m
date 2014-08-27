@@ -410,9 +410,9 @@
             taskDHolder.str_createdBy = [[arr_taskDetail valueForKey:@"created_by"]objectAtIndex:i];
             taskDHolder.str_grade = [[arr_taskDetail valueForKey:@"grade"]objectAtIndex:i];
             taskDHolder.str_status = [[arr_taskDetail valueForKey:@"status"]objectAtIndex:i];
-            taskDHolder.str_taskDetail = [[arr_taskDetail valueForKey:@"task_detail"]objectAtIndex:i];
             taskDHolder.str_taskId = [[arr_taskDetail valueForKey:@"task_id"]objectAtIndex:i];
-            taskDHolder.str_taskName = [[arr_taskDetail valueForKey:@"task_name"]objectAtIndex:i];
+            taskDHolder.str_taskDetailEng = [[arr_taskDetail valueForKey:@"task_detail_eng"]objectAtIndex:i];
+            taskDHolder.str_taskNameEng = [[arr_taskDetail valueForKey:@"task_name_eng"]objectAtIndex:i];
             taskDHolder.str_taskPriority = [[arr_taskDetail valueForKey:@"task_priority"]objectAtIndex:i];
             taskDHolder.str_taskStartDate = [[arr_taskDetail valueForKey:@"task_start_date"]objectAtIndex:i];
             taskDHolder.str_taskStatus = [[arr_taskDetail valueForKey:@"task_status"]objectAtIndex:i];

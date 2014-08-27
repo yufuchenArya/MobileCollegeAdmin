@@ -81,6 +81,9 @@
     
     if (indexPath.row == 3) {
         [self btnLogoutDidClicked:nil];
+    }else if (indexPath.row == 2){
+        
+        [self performSegueWithIdentifier:@"segue_feedback" sender:nil];
     }
 }
 @end

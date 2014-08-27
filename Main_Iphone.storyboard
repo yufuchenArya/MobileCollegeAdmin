@@ -1152,6 +1152,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Q8I-n0-3bX">
                         <barButtonItem key="rightBarButtonItem" image="taskSelect" id="F13-xl-DHd">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="btnBarDoneDidClicked:" destination="cWJ-3f-Coc" id="5UT-Iw-Sri"/>
                             </connections>
@@ -1425,18 +1426,27 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hrr-Sq-XQe">
+                                <rect key="frame" x="6" y="349" width="303" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Calendar" id="vBN-KX-mlw"/>
+                    <navigationItem key="navigationItem" title="Calendar" id="vBN-KX-mlw">
+                        <barButtonItem key="backBarButtonItem" title=" " id="9DV-z8-wRz"/>
+                    </navigationItem>
                     <connections>
+                        <outlet property="lbl_noEvent" destination="hrr-Sq-XQe" id="iCD-uf-HHy"/>
                         <outlet property="tbl_monthTask" destination="b5X-e1-Nzn" id="SYG-yv-zgw"/>
                         <segue destination="O8e-sV-peV" kind="push" identifier="segue_calTaskDetail" id="of0-yc-Peq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hPg-cN-zkU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-17" y="-1226"/>
+            <point key="canvasLocation" x="-9" y="-1258"/>
         </scene>
         <!--Navigation Controller - Calendar-->
         <scene sceneID="cra-rt-plR">
@@ -1447,6 +1457,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="ckQ-h0-ZDQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.1529411765" green="0.65098039220000004" blue="0.83529411760000005" alpha="1" colorSpace="deviceRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1508,6 +1519,104 @@
             </objects>
             <point key="canvasLocation" x="19" y="566"/>
         </scene>
+        <!--View Controller - Feedback-->
+        <scene sceneID="yTO-Wu-N3L">
+            <objects>
+                <viewController id="g17-B9-TVk" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nMh-oV-6T7">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="24f-k1-dac">
+                                <rect key="frame" x="7" y="46" width="306" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8pr-61-n3c">
+                                <rect key="frame" x="7" y="7" width="306" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rate" id="KnN-SI-kSI">
+                                <rect key="frame" x="15" y="13" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow2" id="EzN-6q-RXY">
+                                <rect key="frame" x="286" y="13" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vKV-Vk-KrN">
+                                <rect key="frame" x="48" y="11" width="224" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1j1-XA-quv">
+                                <rect key="frame" x="8" y="52" width="305" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Support" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uXg-sh-dcJ">
+                                <rect key="frame" x="48" y="56" width="224" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow2" id="KW1-rM-n3K">
+                                <rect key="frame" x="286" y="58" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="support" id="9g9-hV-V7q">
+                                <rect key="frame" x="15" y="58" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" id="Dw1-zX-8dl">
+                                <rect key="frame" x="7" y="91" width="306" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="0Tl-aH-8zm">
+                                <rect key="frame" x="8" y="96" width="305" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow2" id="vov-ok-DJu">
+                                <rect key="frame" x="286" y="102" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upgrate" id="dbC-UU-jJy">
+                                <rect key="frame" x="15" y="102" width="22" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upgrade" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="d7b-Zw-t8Q">
+                                <rect key="frame" x="48" y="100" width="224" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" id="BTB-pC-Enz">
+                                <rect key="frame" x="8" y="134" width="306" height="1"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Feedback" id="rmM-Cd-P9I"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YS1-UQ-17c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="605" y="949"/>
+        </scene>
         <!--Navigation Controller - Resources-->
         <scene sceneID="xGR-qF-2Th">
             <objects>
@@ -1561,6 +1670,7 @@
                     <navigationItem key="navigationItem" title="More" id="38l-K0-hOP"/>
                     <connections>
                         <outlet property="tbl_moreOption" destination="JgO-wp-7xO" id="SuS-7T-nl6"/>
+                        <segue destination="g17-B9-TVk" kind="push" identifier="segue_feedback" id="Fy6-0Q-j3m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vxc-X9-wDY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1576,6 +1686,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="TeY-n6-WNJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.1529411765" green="0.65098039220000004" blue="0.83529411760000005" alpha="1" colorSpace="deviceRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1589,6 +1700,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow2" width="22" height="22"/>
         <image name="back" width="22" height="22"/>
         <image name="btnLogin" width="205" height="26"/>
         <image name="calendar" width="32" height="26"/>
@@ -1596,10 +1708,13 @@
         <image name="loginLogo" width="136" height="136"/>
         <image name="more" width="32" height="26"/>
         <image name="notes" width="32" height="26"/>
+        <image name="rate" width="22" height="22"/>
         <image name="resources" width="32" height="26"/>
+        <image name="support" width="22" height="22"/>
         <image name="task" width="32" height="26"/>
         <image name="taskSelect" width="32" height="26"/>
         <image name="unCheckmark" width="22" height="22"/>
+        <image name="upgrate" width="22" height="22"/>
     </resources>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
