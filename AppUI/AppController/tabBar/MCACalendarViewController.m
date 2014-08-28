@@ -573,7 +573,7 @@
         
         [HUD hide];
    
-        [self createTaskList:@"12"];
+        [self taskListSuccess:nil];
     }
 }
 #pragma mark - NSNOTIFICATION SELECTOR

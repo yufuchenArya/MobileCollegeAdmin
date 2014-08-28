@@ -41,7 +41,8 @@
 #define KEY_CAL_HEIGHT @"cal_height"
 #define KEY_NO_EVENT_FOUND @"No Event Found"
 
-
+//local folders
+#define ROOT_FOLDER         @"MobileCollegeAdmin"
 
 
 //Notification
@@ -73,6 +74,9 @@
 #define NOTIFICATION_DELETE_TASK_DETAIL_SUCCESS @"notificationDeleteTaskDetailSuccess"
 #define NOTIFICATION_COMPLETE_TASK_DETAIL_SUCCESS @"notificationCompleteTaskDetailSuccess"
 #define NOTIFICATION_DELETE_COMPLETE_TASK_DETAIL_FAILED @"notificationDeleteCompleteTaskDetailFailed"
+
+#define NOTIFICATION_NOTES_CATEGORY_SUCCESS @"notificationNotesCategorySuccess"
+#define NOTIFICATION_NOTES_CATEGORY_FAILED @"notificationNotesCategoryFailed"
 
 
 

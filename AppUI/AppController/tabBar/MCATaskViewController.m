@@ -736,7 +736,7 @@
     }else{
         [HUD hide];
 //        arr_taskList = [[MCADBIntraction databaseInteractionManager]retrieveTaskList:nil];
-        [self createTaskList:@"12"];
+        [self taskListSuccess:nil];
 //        [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
     }
 }
@@ -746,7 +746,7 @@
         [[MCARestIntraction sharedManager]requestForConfirmationApi:info];
     }else{
         [HUD hide];
-        [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
+//        [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
     }
 }
 -(void)requestDeleteOrCompleteTask:(NSString*)info{

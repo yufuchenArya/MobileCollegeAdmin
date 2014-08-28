@@ -17,6 +17,6 @@
 +(void)showCustomizeAlert:(NSString*)msg;
 +(BOOL)isConnectedToInternet;
 +(BOOL)isConnectedToHost;
-
++(BOOL)isFileExists:(NSString*)name;
 
 @end

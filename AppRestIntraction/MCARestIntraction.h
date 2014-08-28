@@ -10,8 +10,10 @@
 #import "JSON.h"
 #import "MCALoginDHolder.h"
 #import "MCASignUpDHolder.h"
+#import "MCANotesCatDHolder.h"
 #import "ASIFormDataRequest.h"
 #import "MCATaskDetailDHolder.h"
+
 
 @class MCARestIntraction;
 MCARestIntraction *restIntraction;
@@ -22,14 +24,16 @@ MCARestIntraction *restIntraction;
     
 }
 +(id)sharedManager;
--(void)requestForLogin:(NSString *)info;
--(void)requestForForgotPwd:(NSString *)info;
--(void)requestForAddStudent:(NSString *)info;
--(void)requestForParentSignUp:(NSString *)info;
--(void)requestForStudentSignUp:(NSString *)info;
+-(void)requestForLogin:(NSString*)info;
+-(void)requestForForgotPwd:(NSString*)info;
+-(void)requestForAddStudent:(NSString*)info;
+-(void)requestForParentSignUp:(NSString*)info;
+-(void)requestForStudentSignUp:(NSString*)info;
 -(void)requestForTaskList:(NSString *)info;
 -(void)requestForConfirmationApi:(NSString*)info;
--(void)requestForDeleteOrCompleteTask:(NSString *)info :(NSString*)controller;
--(void)requestForAddTask:(NSString *)info;
+-(void)requestForDeleteOrCompleteTask:(NSString*)info :(NSString*)controller;
+-(void)requestForAddTask:(NSString*)info;
+-(void)requestForNotesCategory:(NSString*)info;
+
 
 @end

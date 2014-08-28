@@ -15,11 +15,12 @@
 {
     MCACalendarView *calendar;
     NSMutableDictionary *dict_taskList;
-    NSMutableArray  *arr_taskList;
-    NSMutableArray  *arr_currentTaskList;
-    NSMutableArray  *arr_monthTask;
-    NSMutableArray  *arr_studentList;
-            NSArray *arr_gradeList;
+    
+    NSMutableArray *arr_taskList;
+    NSMutableArray *arr_currentTaskList;
+    NSMutableArray *arr_monthTask;
+    NSMutableArray *arr_studentList;
+           NSArray *arr_gradeList;
    
   IBOutlet UITableView *tbl_monthTask;
            UITableView *tbl_gradeList;

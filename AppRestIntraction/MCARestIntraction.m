@@ -589,7 +589,8 @@
                        });
     }
 }
-#pragma mark - CONFIRMATION API 
+
+#pragma mark - CONFIRMATION API
 
 -(void)requestForConfirmationApi:(NSString *)info{
     
@@ -622,9 +623,70 @@
     
     if ([status_code isEqualToString:@"U1001"]) {
         dispatch_async(dispatch_get_main_queue(), ^
-               {
-                   
-               });
-     }
+                       {
+                           
+                       });
+    }
+}
+#pragma mark - NOTES_CATEGORY
+
+-(void)requestForNotesCategory:(NSString *)info{
+    
+    NSURL *url = [NSURL URLWithString:URL_MAIN];
+    ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:url];
+    
+    [request setPostValue:info forKey:@"data"];
+    
+    [request setDelegate:self];
+    [request setDidFailSelector:@selector(requestNotesCategoryFail:)];
+    [request setDidFinishSelector:@selector(requestNotesCategorySuccess:)];
+    [request startAsynchronous];
+}
+-(void)requestNotesCategoryFail:(ASIFormDataRequest*)request{
+    
+    dispatch_async(dispatch_get_main_queue(), ^
+                   {
+                       [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_NOTES_CATEGORY_FAILED object:@"Unable to get category at this movement."];
+                   });
+}
+-(void)requestNotesCategorySuccess:(ASIFormDataRequest*)request{
+    
+    NSString *responseString = [request responseString];
+    responseString = [[responseString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@""];
+    responseString = [responseString stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+    SBJSON *parser=[[SBJSON alloc]init];
+    
+    NSDictionary *results = [parser objectWithString:responseString error:nil];
+    NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
+    NSMutableArray *arr_notesCategory = (NSMutableArray*)[results objectForKey:@"data"];
+    NSString *status_code = [results valueForKey:@"status_code"];
+    
+    if ([status_code isEqualToString:@"S1001"])
+    {
+        NSMutableArray *arr_notesCategoryList = [NSMutableArray new];
+        
+        for (int i = 0; i < arr_notesCategory.count; i++) {
+            
+            MCANotesCatDHolder *notesDHolder = [MCANotesCatDHolder new];
+            notesDHolder.str_notesCatId = [[arr_notesCategory valueForKey:@"notes_cat_id"]objectAtIndex:i];
+            notesDHolder.str_notesCatImage = [[arr_notesCategory valueForKey:@"notes_cat_image"]objectAtIndex:i];
+            notesDHolder.str_notesCatName = [[arr_notesCategory valueForKey:@"notes_category_name"]objectAtIndex:i];
+            
+            [arr_notesCategoryList addObject:notesDHolder];
+        }
+      
+        dispatch_async(dispatch_get_main_queue(), ^
+                       {
+                           [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_NOTES_CATEGORY_SUCCESS object:arr_notesCategoryList];
+                       });
+    }
+    else{
+        
+        NSString *errMsg = [results valueForKey:@"msg"];
+        dispatch_async(dispatch_get_main_queue(), ^
+                       {
+                           [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_NOTES_CATEGORY_FAILED object:errMsg];
+                       });
+    }
 }
 @end

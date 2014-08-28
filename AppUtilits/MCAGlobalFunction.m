@@ -51,5 +51,13 @@
     NetworkStatus networkStatus = [reachability currentReachabilityStatus];
     return !(networkStatus == NotReachable);
 }
-
++(BOOL)isFileExists:(NSString*)name{
+    
+    NSFileManager *fileManager = [NSFileManager new];
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths objectAtIndex:0];
+    NSString *filePath = [NSString stringWithFormat:@"%@/%@",path,name];
+    BOOL isExist = [fileManager fileExistsAtPath:filePath isDirectory:nil];
+    return isExist;
+}
 @end

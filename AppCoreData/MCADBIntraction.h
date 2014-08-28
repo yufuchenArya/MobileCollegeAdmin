@@ -12,6 +12,8 @@
 @property (nonatomic,retain) NSString *databaseName;
 + (id)databaseInteractionManager;
 
+#pragma mark - TASK_QUERY
+
 -(void)insertTaskList:(NSMutableArray*)arr_taskList;
 -(void)updateTaskList:(NSMutableArray*)arr_taskList;
 -(void)deleteTaskList:(id)sender;
@@ -20,7 +22,14 @@
 -(NSMutableArray*)retrieveTask:(id)sender;
 -(NSMutableArray*)retrieveSelectedTask:(id)sender;
 
+#pragma mark - STUDENT_QUERY
+
 -(void)insertStudList:(NSMutableArray*)arr_studList;
 -(NSMutableArray*)retrieveStudList:(id)sender;
 -(void)deleteStudList:(id)sender;
+
+#pragma mark - NOTES_QUERY
+
+-(void)insertNotesCatList:(NSMutableArray*)arr_notesCatList;
+-(NSMutableArray*)retrieveNotesCatList:(id)sender;
 @end

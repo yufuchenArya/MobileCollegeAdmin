@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UIImageView+LazyImage.h"
+#import "MCALocalStoredFolder.h"
 #import "NSString+Util.h"
 #import "MCACustomButton.h"
 #import "Reachability.h"

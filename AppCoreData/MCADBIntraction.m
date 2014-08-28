@@ -55,7 +55,7 @@ MCADBIntraction *databaseManager = nil;
 	return [paths objectAtIndex:0];
 }
 
-#pragma mark TASK_QUERY
+#pragma mark - TASK_QUERY
 
 -(void)insertTaskList:(NSMutableArray *)arr_taskList
 {
@@ -370,6 +370,64 @@ MCADBIntraction *databaseManager = nil;
     {
         NSLog(@"%@",e);
     }
+}
+
+#pragma mark - NOTES_CATEGORY QUERY
+-(void)insertNotesCatList:(NSMutableArray*)arr_notesCatList{
+    
+    for (int i=0; i<arr_notesCatList.count;i++)
+    {
+        MCANotesCatDHolder *notesDHolder=[arr_notesCatList objectAtIndex:i];
+        
+        NSString *query=[NSString stringWithFormat:@"insert into tbl_notesCatList(notesCatId,notesCatImage,notesCatName) values(\"%@\",\"%@\",\"%@\")",notesDHolder.str_notesCatId,notesDHolder.str_notesCatImage,notesDHolder.str_notesCatName];
+        
+        @try
+        {
+            [dBCollgeAdmin open];
+            if ([dBCollgeAdmin executeUpdate:query])
+            {
+                NSLog(@"successfully inserted");
+            }
+        }
+        @catch (NSException *e)
+        {
+            NSLog(@"%@",e);
+        }
+        @finally
+        {
+            [dBCollgeAdmin close];
+        }
+    }
+}
+-(NSMutableArray*)retrieveNotesCatList:(id)sender{
+    
+    NSMutableArray *arr_dbNotesCatList=[[NSMutableArray alloc]init];
+    NSString *query = @"Select * from tbl_notesCatList";
+    
+    @try
+    {
+        [dBCollgeAdmin open];
+        FMResultSet *resultSet=[dBCollgeAdmin executeQuery:query];
+        while ([resultSet next])
+        {
+            MCANotesCatDHolder *notesDHolder=[MCANotesCatDHolder new];
+            notesDHolder.str_notesCatId = [resultSet stringForColumn:@"notesCatId"];
+            notesDHolder.str_notesCatImage = [resultSet stringForColumn:@"notesCatImage"];
+            notesDHolder.str_notesCatName = [resultSet stringForColumn:@"notesCatName"];
+            
+            [arr_dbNotesCatList addObject:notesDHolder];
+        }
+        [resultSet close];
+    }
+    @catch (NSException *exception)
+    {
+        NSLog(@"%@",exception);
+    }
+    @finally
+    {
+        [dBCollgeAdmin close];
+    }
+    return arr_dbNotesCatList;
 }
 
 @end
