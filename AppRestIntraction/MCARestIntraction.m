@@ -667,12 +667,12 @@
         
         for (int i = 0; i < arr_notesCategory.count; i++) {
             
-            MCANotesCatDHolder *notesDHolder = [MCANotesCatDHolder new];
-            notesDHolder.str_notesCatId = [[arr_notesCategory valueForKey:@"notes_cat_id"]objectAtIndex:i];
-            notesDHolder.str_notesCatImage = [[arr_notesCategory valueForKey:@"notes_cat_image"]objectAtIndex:i];
-            notesDHolder.str_notesCatName = [[arr_notesCategory valueForKey:@"notes_category_name"]objectAtIndex:i];
+            MCANotesCatDHolder *notesCatDHolder = [MCANotesCatDHolder new];
+            notesCatDHolder.str_notesCatId = [[arr_notesCategory valueForKey:@"notes_cat_id"]objectAtIndex:i];
+            notesCatDHolder.str_notesCatImage = [[arr_notesCategory valueForKey:@"notes_cat_image"]objectAtIndex:i];
+            notesCatDHolder.str_notesCatName = [[arr_notesCategory valueForKey:@"notes_category_name"]objectAtIndex:i];
             
-            [arr_notesCategoryList addObject:notesDHolder];
+            [arr_notesCategoryList addObject:notesCatDHolder];
         }
       
         dispatch_async(dispatch_get_main_queue(), ^
@@ -689,4 +689,86 @@
                        });
     }
 }
+
+#pragma mark - NOTES
+
+-(void)requestForNotes:(NSString *)info{
+    
+    NSURL *url = [NSURL URLWithString:URL_MAIN];
+    ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:url];
+    
+    [request setPostValue:info forKey:@"data"];
+    
+    [request setDelegate:self];
+    [request setDidFailSelector:@selector(requestNotesFail:)];
+    [request setDidFinishSelector:@selector(requestNotesSuccess:)];
+    [request startAsynchronous];
+}
+-(void)requestNotesFail:(ASIFormDataRequest*)request{
+    
+    dispatch_async(dispatch_get_main_queue(), ^
+                   {
+                       [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_NOTES_FAILED object:@"Unable to get notes at this movement."];
+                   });
+}
+-(void)requestNotesSuccess:(ASIFormDataRequest*)request{
+    
+    NSString *responseString = [request responseString];
+    responseString = [[responseString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@""];
+    responseString = [responseString stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+    SBJSON *parser=[[SBJSON alloc]init];
+    
+    NSDictionary *results = [parser objectWithString:responseString error:nil];
+    NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
+    
+    NSMutableArray *arr_notes = (NSMutableArray*)[responseDict objectForKey:@"data"];
+    NSString *str_imgURL = (NSString*)[responseDict objectForKey:@"image_url"];
+    NSString *status_code = [results valueForKey:@"status_code"];
+    
+    if ([status_code isEqualToString:@"S1001"])
+    {
+        NSMutableArray *arr_notesList = [NSMutableArray new];
+        
+        for (int i = 0; i < arr_notes.count; i++)
+        {
+            MCANotesDHolder *notesDHolder = [MCANotesDHolder new];
+            notesDHolder.arr_notesImage = [NSMutableArray new];
+            
+            notesDHolder.str_notesId = [[arr_notes valueForKey:@"notes_id"]objectAtIndex:i];
+            notesDHolder.str_notesDesc = [[arr_notes valueForKey:@"notes_desc"]objectAtIndex:i];
+            notesDHolder.str_notesName = [[arr_notes valueForKey:@"notes_name"]objectAtIndex:i];
+            notesDHolder.str_notesImage = [[arr_notes valueForKey:@"notes_image"]objectAtIndex:i];
+            
+            notesDHolder.str_notesImage = [notesDHolder.str_notesImage stringByReplacingOccurrencesOfString:@"[" withString:@""];
+            notesDHolder.str_notesImage = [notesDHolder.str_notesImage stringByReplacingOccurrencesOfString:@"]" withString:@""];
+            notesDHolder.str_notesImage = [notesDHolder.str_notesImage stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+            
+            NSMutableArray *arr_nImagesTemp = [[notesDHolder.str_notesImage componentsSeparatedByString:@","] mutableCopy];
+            
+                for (int i = 0; i < arr_nImagesTemp.count; i++)
+                {
+                    NSString *str_nImagesTemp = [arr_nImagesTemp objectAtIndex:i];
+                    str_nImagesTemp = [str_imgURL stringByAppendingString:str_nImagesTemp];
+                    [notesDHolder.arr_notesImage addObject:str_nImagesTemp];
+                }
+           
+            [arr_notesList addObject:notesDHolder];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^
+                       {
+                           [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_NOTES_SUCCESS object:arr_notesList];
+                       });
+    }
+    else{
+        
+        NSString *errMsg = [results valueForKey:@"msg"];
+        dispatch_async(dispatch_get_main_queue(), ^
+                       {
+                           [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_NOTES_FAILED object:errMsg];
+                       });
+    }
+}
+
+
 @end

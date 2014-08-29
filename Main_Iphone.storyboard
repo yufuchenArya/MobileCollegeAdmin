@@ -1178,7 +1178,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="Zau-ao-lgG">
-                                <rect key="frame" x="0.0" y="96" width="320" height="351"/>
+                                <rect key="frame" x="5" y="95" width="310" height="351"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -1469,10 +1469,10 @@
             </objects>
             <point key="canvasLocation" x="-627" y="-1226"/>
         </scene>
-        <!--Notes View Controller - Notes-->
+        <!--Notes Category View Controller - Notes-->
         <scene sceneID="N2M-bp-xJ7">
             <objects>
-                <viewController id="XCm-BC-1Ry" customClass="MCANotesViewController" sceneMemberID="viewController">
+                <viewController id="XCm-BC-1Ry" customClass="MCANotesCategoryViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wAw-gt-hWc">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1513,14 +1513,104 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Notes" id="Mx0-hg-GrD"/>
+                    <navigationItem key="navigationItem" title="Notes" id="Mx0-hg-GrD">
+                        <barButtonItem key="backBarButtonItem" title=" " id="FWJ-wG-bnB"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tbl_notesCategory" destination="6ba-xs-xVc" id="Dtz-Nn-H0h"/>
+                        <segue destination="RnQ-aG-vDo" kind="push" identifier="segue_notes" id="B9o-oh-C6a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wnw-cI-55g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-45" y="-346"/>
+        </scene>
+        <!--Notes View Controller-->
+        <scene sceneID="ARh-1x-s3R">
+            <objects>
+                <viewController id="RnQ-aG-vDo" customClass="MCANotesViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="s8Q-Tm-Nef">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="2Si-x0-oOy">
+                                <rect key="frame" x="0.0" y="1" width="320" height="454"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <inset key="separatorInset" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="notesCell" rowHeight="42" id="fgK-eU-cti">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="42"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fgK-eU-cti" id="V8h-su-ZwK">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="41"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="RnQ-aG-vDo" id="hR6-V4-dBw"/>
+                                    <outlet property="delegate" destination="RnQ-aG-vDo" id="M6r-lt-U7x"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="gNH-hn-SiG">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="JB2-Kn-tpM"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tbl_notes" destination="2Si-x0-oOy" id="HBa-iB-KlK"/>
+                        <segue destination="zOS-L9-VtG" kind="push" identifier="segue_notesDetail" id="3dp-K0-oop"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fdq-nA-BMc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="437" y="-354"/>
+        </scene>
+        <!--Notes Detail View Controller-->
+        <scene sceneID="dVf-me-ArH">
+            <objects>
+                <viewController id="zOS-L9-VtG" customClass="MCANotesDetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dS6-qh-cPh">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QDZ-Lb-1SO">
+                                <rect key="frame" x="6" y="6" width="308" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ydW-vx-fmU">
+                                <rect key="frame" x="6" y="38" width="308" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="4kh-VK-KR9">
+                                <rect key="frame" x="10" y="144" width="300" height="300"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="zOS-L9-VtG" id="QC2-Yz-kTy"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="eEh-hi-Qea"/>
+                    <connections>
+                        <outlet property="lbl_noteName" destination="QDZ-Lb-1SO" id="itA-y6-BNR"/>
+                        <outlet property="scrollV_noteImages" destination="4kh-VK-KR9" id="vpj-Zs-gU4"/>
+                        <outlet property="tv_noteDesc" destination="ydW-vx-fmU" id="qCg-Sv-TbR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pag-tg-6ip" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="925" y="-339"/>
         </scene>
         <!--Navigation Controller - Notes-->
         <scene sceneID="Mk9-Bf-5Kt">
@@ -1531,6 +1621,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="9DN-MD-GAh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.15294117647058825" green="0.65098039215686276" blue="0.83529411764705885" alpha="1" colorSpace="deviceRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

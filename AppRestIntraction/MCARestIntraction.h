@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "JSON.h"
 #import "MCALoginDHolder.h"
+#import "MCANotesDHolder.h"
 #import "MCASignUpDHolder.h"
 #import "MCANotesCatDHolder.h"
 #import "ASIFormDataRequest.h"
@@ -34,6 +35,7 @@ MCARestIntraction *restIntraction;
 -(void)requestForDeleteOrCompleteTask:(NSString*)info :(NSString*)controller;
 -(void)requestForAddTask:(NSString*)info;
 -(void)requestForNotesCategory:(NSString*)info;
+-(void)requestForNotes:(NSString*)info;
 
 
 @end

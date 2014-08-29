@@ -123,7 +123,6 @@
             
             UIBarButtonItem *btnBar_add =[[UIBarButtonItem alloc] initWithCustomView:btn_add];
             UIBarButtonItem *btnBar_grade =[[UIBarButtonItem alloc] initWithCustomView:btn_grade];
-            
          
             [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:btnBar_add,btnBar_grade, nil]];
             

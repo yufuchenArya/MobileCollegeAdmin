@@ -21,6 +21,8 @@
 #define ACCEPT_TERM_MESSAGE @"Please accept Terms of Use."
 #define INVALID_USERNAME_PWD @"Please enter valid username and password."
 #define INVALID_EMAIL_PWD @"Please enter valid email address and password."
+#define PLACEHOLDER_IMAGE @"loadingImage.png"
+#define NO_IMAGE @"noimage1.png"
 
 //keys
 #define KEY_USER_ID @"user_id"
@@ -77,6 +79,9 @@
 
 #define NOTIFICATION_NOTES_CATEGORY_SUCCESS @"notificationNotesCategorySuccess"
 #define NOTIFICATION_NOTES_CATEGORY_FAILED @"notificationNotesCategoryFailed"
+
+#define NOTIFICATION_NOTES_SUCCESS @"notificationNotesSuccess"
+#define NOTIFICATION_NOTES_FAILED @"notificationNotesFailed"
 
 
 

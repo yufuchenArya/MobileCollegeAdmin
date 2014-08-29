@@ -10,12 +10,17 @@
 
 @implementation MCALocalStoredFolder
 static NSString *rootDir;
-
+static NSString *subRootDir;
 
 +(void)createRootDir
 {
     rootDir = [self createSubfolderWithRootDir:[self getSystemDocumentFolder] andSubDirName:ROOT_FOLDER];
 }
++(void)createSubRootDir:(id)sender
+{
+    subRootDir = [self createSubfolderWithRootDir:rootDir andSubDirName:sender];
+}
+
 +(NSString *)createSubfolderWithRootDir:(NSString *)rootDirPath andSubDirName:(NSString *)subDirName
 {
     NSString *createdDir = (NSMutableString *)[rootDirPath stringByAppendingPathComponent:subDirName];

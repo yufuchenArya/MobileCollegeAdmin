@@ -68,6 +68,7 @@
     btn_complete.layer.cornerRadius = 3.0f;
     tbl_taskDetail.scrollEnabled = NO;
     tv_taskDetail.editable = NO;
+    [tv_taskDetail setContentInset:UIEdgeInsetsMake(-5, 0, 5,0)];
 }
 
 - (void)didReceiveMemoryWarning

@@ -77,6 +77,9 @@
 		CE84C2411962E46800A351FF /* MCAGlobalFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = CE84C2401962E46800A351FF /* MCAGlobalFunction.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CE84C2441962E48600A351FF /* MCAValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE84C2431962E48600A351FF /* MCAValidation.m */; };
 		CEA9D9D1197FEFFE009C3884 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA9D9D0197FEFFE009C3884 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CEBD96E119B04E0000A63CC5 /* MCANotesCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBD96E019B04E0000A63CC5 /* MCANotesCategoryViewController.m */; };
+		CEBD96E419B0513800A63CC5 /* MCANotesDHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBD96E319B0513800A63CC5 /* MCANotesDHolder.m */; };
+		CEBD96E719B0790800A63CC5 /* MCANotesDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBD96E619B0790800A63CC5 /* MCANotesDetailViewController.m */; };
 		CEDB9B42198F61A6006B3C9B /* MCAGlobalData.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDB9B41198F61A6006B3C9B /* MCAGlobalData.m */; };
 		CEDB9B49198FAE48006B3C9B /* MCAForgotPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDB9B48198FAE48006B3C9B /* MCAForgotPwdViewController.m */; };
 		CEEDCABB197F8BE20088511D /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEDCAA7197F8BE20088511D /* ASIAuthenticationDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -226,6 +229,12 @@
 		CE84C2431962E48600A351FF /* MCAValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAValidation.m; sourceTree = "<group>"; };
 		CEA9D9CF197FEFFE009C3884 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		CEA9D9D0197FEFFE009C3884 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		CEBD96DF19B04E0000A63CC5 /* MCANotesCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCANotesCategoryViewController.h; sourceTree = "<group>"; };
+		CEBD96E019B04E0000A63CC5 /* MCANotesCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCANotesCategoryViewController.m; sourceTree = "<group>"; };
+		CEBD96E219B0513800A63CC5 /* MCANotesDHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCANotesDHolder.h; sourceTree = "<group>"; };
+		CEBD96E319B0513800A63CC5 /* MCANotesDHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCANotesDHolder.m; sourceTree = "<group>"; };
+		CEBD96E519B0790800A63CC5 /* MCANotesDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCANotesDetailViewController.h; sourceTree = "<group>"; };
+		CEBD96E619B0790800A63CC5 /* MCANotesDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCANotesDetailViewController.m; sourceTree = "<group>"; };
 		CEDB9B40198F61A5006B3C9B /* MCAGlobalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCAGlobalData.h; path = ../AppConstants/MCAGlobalData.h; sourceTree = "<group>"; };
 		CEDB9B41198F61A6006B3C9B /* MCAGlobalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MCAGlobalData.m; path = ../AppConstants/MCAGlobalData.m; sourceTree = "<group>"; };
 		CEDB9B47198FAE48006B3C9B /* MCAForgotPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MCAForgotPwdViewController.h; path = forgotPwd/MCAForgotPwdViewController.h; sourceTree = "<group>"; };
@@ -374,8 +383,12 @@
 		CE2DFC2619AEE11A000D59EB /* notes */ = {
 			isa = PBXGroup;
 			children = (
+				CEBD96DF19B04E0000A63CC5 /* MCANotesCategoryViewController.h */,
+				CEBD96E019B04E0000A63CC5 /* MCANotesCategoryViewController.m */,
 				CE2DFC2719AEE193000D59EB /* MCANotesViewController.h */,
 				CE2DFC2819AEE193000D59EB /* MCANotesViewController.m */,
+				CEBD96E519B0790800A63CC5 /* MCANotesDetailViewController.h */,
+				CEBD96E619B0790800A63CC5 /* MCANotesDetailViewController.m */,
 			);
 			name = notes;
 			sourceTree = "<group>";
@@ -606,6 +619,8 @@
 				CE24C6001994B2A70048B85D /* MCATaskDetailDHolder.m */,
 				CE2DFC2A19AEE7C6000D59EB /* MCANotesCatDHolder.h */,
 				CE2DFC2B19AEE7C6000D59EB /* MCANotesCatDHolder.m */,
+				CEBD96E219B0513800A63CC5 /* MCANotesDHolder.h */,
+				CEBD96E319B0513800A63CC5 /* MCANotesDHolder.m */,
 			);
 			path = AppModel;
 			sourceTree = "<group>";
@@ -869,6 +884,7 @@
 				CE0D694F1995DC5C009C0DBE /* MCADBIntraction.m in Sources */,
 				CE278A251992365A00783592 /* MCASignUpDHolder.m in Sources */,
 				CEDB9B42198F61A6006B3C9B /* MCAGlobalData.m in Sources */,
+				CEBD96E419B0513800A63CC5 /* MCANotesDHolder.m in Sources */,
 				CE6E7D1E1990A963005470BC /* MCATaskViewController.m in Sources */,
 				CEEDCABD197F8BE20088511D /* ASIDataDecompressor.m in Sources */,
 				CE84C2441962E48600A351FF /* MCAValidation.m in Sources */,
@@ -878,6 +894,7 @@
 				CE278A1B19920D6700783592 /* SWLongPressGestureRecognizer.m in Sources */,
 				CEEDCAC2197F8BE20088511D /* ASINetworkQueue.m in Sources */,
 				CE278A1D19920D6700783592 /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
+				CEBD96E719B0790800A63CC5 /* MCANotesDetailViewController.m in Sources */,
 				CE0D69521995FE9C009C0DBE /* MCAAddTaskViewController.m in Sources */,
 				CEEDCAD2197F8BF30088511D /* SBJSON.m in Sources */,
 				CE32DA7A19AAF14A0037C555 /* UIColor+expanded.m in Sources */,
@@ -892,6 +909,7 @@
 				CEEDCAE0197F8F520088511D /* MCARestIntraction.m in Sources */,
 				CE278A1C19920D6700783592 /* SWTableViewCell.m in Sources */,
 				CEDB9B49198FAE48006B3C9B /* MCAForgotPwdViewController.m in Sources */,
+				CEBD96E119B04E0000A63CC5 /* MCANotesCategoryViewController.m in Sources */,
 				CE2DFC4719AF1B51000D59EB /* MCALocalStoredFolder.m in Sources */,
 				CEEDCABF197F8BE20088511D /* ASIFormDataRequest.m in Sources */,
 				CEEDCAD1197F8BF30088511D /* NSString+SBJSON.m in Sources */,

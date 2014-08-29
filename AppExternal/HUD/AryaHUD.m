@@ -73,7 +73,13 @@
     }
 -(void)showForTabBar{
     
-    self.center = CGPointMake(160, 192);
+    if (IS_IPHONE_5) {
+         self.center = CGPointMake(160, 222);
+    }else{
+         self.center = CGPointMake(160, 192);
+    }
+    
+   
     if (isSuperViewIntractionEnabled) {
         [self.superview setUserInteractionEnabled:YES];
     }else{
