@@ -35,6 +35,7 @@
     [self performSelectorOnMainThread:@selector(displayImage:) withObject:image waitUntilDone:NO];
 }
 - (void)displayImage:(UIImage *)image {
+   
     self.alpha = 0.0f;
     [self setImage:image];
     [UIView beginAnimations:nil context:NULL];
@@ -47,7 +48,6 @@
 
 -(UIImage *)getCachedImage: (NSString *)imageURLString
 {
-    
     UIImage *image;
     // Check for a cached version
     

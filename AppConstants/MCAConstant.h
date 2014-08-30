@@ -46,7 +46,6 @@
 //local folders
 #define ROOT_FOLDER         @"MobileCollegeAdmin"
 
-
 //Notification
 #define NOTIFICATION_LOGIN_SUCCESS @"notificationLoginSuccess"
 #define NOTIFICATION_LOGIN_FAILED @"notificationLoginFailed"

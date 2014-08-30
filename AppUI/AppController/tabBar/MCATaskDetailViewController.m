@@ -82,10 +82,13 @@
 -(void)btnBar_deleteDidClicked:(id)sender{
     
     MCAAlertView *alertView = [MCAGlobalFunction showAlert:@"Do you want to delete the task?"
+                                                     title:@"Delete"
                                                   delegate:self
                                                      btnOk:@"Confirm Action"
-                                                 btnCancel:@"Cancel"];
-    alertView.tag = 1;
+                                                 btnCancel:@"Cancel" ];
+                               
+    
+     alertView.tag = 1;
    
     
 }
@@ -96,6 +99,7 @@
 -(IBAction)btnCompleteDidClicked:(id)sender{
     
     MCAAlertView *alertView = [MCAGlobalFunction showAlert:@"Do you want to complete the task?"
+                                                     title:@"Message"
                                                   delegate:self
                                                      btnOk:@"Confirm Action"
                                                  btnCancel:@"Cancel"];

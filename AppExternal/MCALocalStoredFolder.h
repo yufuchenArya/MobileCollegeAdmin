@@ -15,12 +15,12 @@
 
 +(void)createRootDir;
 +(void)createSubRootDir:(id)sender;
-
-
++(void)createCategoryDir:(id)sender;
++(void)createSubCategoryDir:(id)sender;
 #pragma mark - Get Directories path
 +(NSString *)getRootDir;
-
-
-
++(NSString *)getSubRootDir;
++(NSString *)getCategoryDir;
++(NSString *)getSubCategoryDir;
 
 @end

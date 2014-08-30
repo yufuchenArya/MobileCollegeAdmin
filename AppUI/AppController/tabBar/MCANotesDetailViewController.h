@@ -16,7 +16,8 @@
   
     NSMutableArray *arr_scrollImages;
   
-
+    AryaHUD *HUD;
+    
 }
 @property(nonatomic,strong)MCANotesDHolder *notesDHolder;
 @end

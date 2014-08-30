@@ -32,18 +32,16 @@
 		CE2AE636199890AF00B23FFF /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE2AE635199890AF00B23FFF /* libsqlite3.0.dylib */; };
 		CE2DFC2919AEE193000D59EB /* MCANotesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2DFC2819AEE193000D59EB /* MCANotesViewController.m */; };
 		CE2DFC2C19AEE7C6000D59EB /* MCANotesCatDHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2DFC2B19AEE7C6000D59EB /* MCANotesCatDHolder.m */; };
-		CE2DFC3919AEEC03000D59EB /* ImgCache.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2DFC3119AEEC03000D59EB /* ImgCache.m */; };
 		CE2DFC3A19AEEC03000D59EB /* loadingImage.png in Resources */ = {isa = PBXBuildFile; fileRef = CE2DFC3219AEEC03000D59EB /* loadingImage.png */; };
 		CE2DFC3B19AEEC03000D59EB /* noimage1.png in Resources */ = {isa = PBXBuildFile; fileRef = CE2DFC3319AEEC03000D59EB /* noimage1.png */; };
-		CE2DFC3C19AEEC03000D59EB /* UIImage+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2DFC3519AEEC03000D59EB /* UIImage+Additions.m */; };
 		CE2DFC3D19AEEC03000D59EB /* UIImageView+LazyImage.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2DFC3719AEEC03000D59EB /* UIImageView+LazyImage.m */; };
 		CE2DFC4219AF0094000D59EB /* MobileCollegeAdmin.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CE2DFC4119AF0094000D59EB /* MobileCollegeAdmin.sqlite */; };
 		CE2DFC4319AF0094000D59EB /* MobileCollegeAdmin.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CE2DFC4119AF0094000D59EB /* MobileCollegeAdmin.sqlite */; };
 		CE2DFC4719AF1B51000D59EB /* MCALocalStoredFolder.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2DFC4619AF1B51000D59EB /* MCALocalStoredFolder.m */; };
 		CE303986199F230D00D17A2B /* MCAMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE303985199F230D00D17A2B /* MCAMoreViewController.m */; };
-		CE30398A199F35F500D17A2B /* 58*58@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE303987199F35F500D17A2B /* 58*58@2x.png */; };
-		CE30398B199F35F500D17A2B /* 80*80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE303988199F35F500D17A2B /* 80*80@2x.png */; };
-		CE30398C199F35F500D17A2B /* 120*120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE303989199F35F500D17A2B /* 120*120@2x.png */; };
+		CE30FB8819B18B9E00E036B2 /* 58*58@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE30FB8519B18B9E00E036B2 /* 58*58@2x.png */; };
+		CE30FB8919B18B9E00E036B2 /* 80*80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE30FB8619B18B9E00E036B2 /* 80*80@2x.png */; };
+		CE30FB8A19B18B9E00E036B2 /* 120*120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE30FB8719B18B9E00E036B2 /* 120*120@2x.png */; };
 		CE32DA7619AAF14A0037C555 /* MCACalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE32DA6D19AAF14A0037C555 /* MCACalendarView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CE32DA7719AAF14A0037C555 /* UIView+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CE32DA6F19AAF14A0037C555 /* UIView+convenience.m */; };
 		CE32DA7819AAF14A0037C555 /* NSMutableArray+convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = CE32DA7119AAF14A0037C555 /* NSMutableArray+convenience.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -163,12 +161,8 @@
 		CE2DFC2819AEE193000D59EB /* MCANotesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCANotesViewController.m; sourceTree = "<group>"; };
 		CE2DFC2A19AEE7C6000D59EB /* MCANotesCatDHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCANotesCatDHolder.h; sourceTree = "<group>"; };
 		CE2DFC2B19AEE7C6000D59EB /* MCANotesCatDHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCANotesCatDHolder.m; sourceTree = "<group>"; };
-		CE2DFC3019AEEC03000D59EB /* ImgCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImgCache.h; sourceTree = "<group>"; };
-		CE2DFC3119AEEC03000D59EB /* ImgCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImgCache.m; sourceTree = "<group>"; };
 		CE2DFC3219AEEC03000D59EB /* loadingImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loadingImage.png; sourceTree = "<group>"; };
 		CE2DFC3319AEEC03000D59EB /* noimage1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noimage1.png; sourceTree = "<group>"; };
-		CE2DFC3419AEEC03000D59EB /* UIImage+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Additions.h"; sourceTree = "<group>"; };
-		CE2DFC3519AEEC03000D59EB /* UIImage+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Additions.m"; sourceTree = "<group>"; };
 		CE2DFC3619AEEC03000D59EB /* UIImageView+LazyImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+LazyImage.h"; sourceTree = "<group>"; };
 		CE2DFC3719AEEC03000D59EB /* UIImageView+LazyImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+LazyImage.m"; sourceTree = "<group>"; };
 		CE2DFC4119AF0094000D59EB /* MobileCollegeAdmin.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = MobileCollegeAdmin.sqlite; sourceTree = "<group>"; };
@@ -176,9 +170,9 @@
 		CE2DFC4619AF1B51000D59EB /* MCALocalStoredFolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCALocalStoredFolder.m; sourceTree = "<group>"; };
 		CE303984199F230D00D17A2B /* MCAMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAMoreViewController.h; sourceTree = "<group>"; };
 		CE303985199F230D00D17A2B /* MCAMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAMoreViewController.m; sourceTree = "<group>"; };
-		CE303987199F35F500D17A2B /* 58*58@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "58*58@2x.png"; sourceTree = "<group>"; };
-		CE303988199F35F500D17A2B /* 80*80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80*80@2x.png"; sourceTree = "<group>"; };
-		CE303989199F35F500D17A2B /* 120*120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "120*120@2x.png"; sourceTree = "<group>"; };
+		CE30FB8519B18B9E00E036B2 /* 58*58@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "58*58@2x.png"; sourceTree = "<group>"; };
+		CE30FB8619B18B9E00E036B2 /* 80*80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "80*80@2x.png"; sourceTree = "<group>"; };
+		CE30FB8719B18B9E00E036B2 /* 120*120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "120*120@2x.png"; sourceTree = "<group>"; };
 		CE32DA6C19AAF14A0037C555 /* MCACalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCACalendarView.h; sourceTree = "<group>"; };
 		CE32DA6D19AAF14A0037C555 /* MCACalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCACalendarView.m; sourceTree = "<group>"; };
 		CE32DA6E19AAF14A0037C555 /* UIView+convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+convenience.h"; sourceTree = "<group>"; };
@@ -396,12 +390,8 @@
 		CE2DFC2D19AEEBEF000D59EB /* Lazy Loading */ = {
 			isa = PBXGroup;
 			children = (
-				CE2DFC3019AEEC03000D59EB /* ImgCache.h */,
-				CE2DFC3119AEEC03000D59EB /* ImgCache.m */,
 				CE2DFC3219AEEC03000D59EB /* loadingImage.png */,
 				CE2DFC3319AEEC03000D59EB /* noimage1.png */,
-				CE2DFC3419AEEC03000D59EB /* UIImage+Additions.h */,
-				CE2DFC3519AEEC03000D59EB /* UIImage+Additions.m */,
 				CE2DFC3619AEEC03000D59EB /* UIImageView+LazyImage.h */,
 				CE2DFC3719AEEC03000D59EB /* UIImageView+LazyImage.m */,
 			);
@@ -533,9 +523,9 @@
 		CE84C1F41962D83800A351FF /* MobileCollegeAdmin */ = {
 			isa = PBXGroup;
 			children = (
-				CE303987199F35F500D17A2B /* 58*58@2x.png */,
-				CE303988199F35F500D17A2B /* 80*80@2x.png */,
-				CE303989199F35F500D17A2B /* 120*120@2x.png */,
+				CE30FB8519B18B9E00E036B2 /* 58*58@2x.png */,
+				CE30FB8619B18B9E00E036B2 /* 80*80@2x.png */,
+				CE30FB8719B18B9E00E036B2 /* 120*120@2x.png */,
 				CE84C1F51962D83800A351FF /* Supporting Files */,
 			);
 			path = MobileCollegeAdmin;
@@ -828,15 +818,15 @@
 				CE2DFC3A19AEEC03000D59EB /* loadingImage.png in Resources */,
 				CE17F560199C75F90027251A /* Images.xcassets in Resources */,
 				CE84C1F91962D83800A351FF /* InfoPlist.strings in Resources */,
-				CE30398C199F35F500D17A2B /* 120*120@2x.png in Resources */,
 				CE2DFC3B19AEEC03000D59EB /* noimage1.png in Resources */,
+				CE30FB8A19B18B9E00E036B2 /* 120*120@2x.png in Resources */,
+				CE30FB8919B18B9E00E036B2 /* 80*80@2x.png in Resources */,
 				CE2DFC4219AF0094000D59EB /* MobileCollegeAdmin.sqlite in Resources */,
 				CE7E432119A22B4C00A8652F /* pigsmall.mp4 in Resources */,
 				CE7E431F19A22B4C00A8652F /* ducksmall.mp4 in Resources */,
 				CE7E432219A22B4C00A8652F /* rabbitsmall.mp4 in Resources */,
-				CE30398B199F35F500D17A2B /* 80*80@2x.png in Resources */,
 				CE7E432019A22B4C00A8652F /* mousesmall.mp4 in Resources */,
-				CE30398A199F35F500D17A2B /* 58*58@2x.png in Resources */,
+				CE30FB8819B18B9E00E036B2 /* 58*58@2x.png in Resources */,
 				CE84C2241962D88700A351FF /* Main_Iphone.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -870,7 +860,6 @@
 				CE2AE62F1998881100B23FFF /* FMDatabasePool.m in Sources */,
 				CEEDCABC197F8BE20088511D /* ASIDataCompressor.m in Sources */,
 				CE2DFC2919AEE193000D59EB /* MCANotesViewController.m in Sources */,
-				CE2DFC3C19AEEC03000D59EB /* UIImage+Additions.m in Sources */,
 				CE2DFC2C19AEE7C6000D59EB /* MCANotesCatDHolder.m in Sources */,
 				CE2AA3131999DE4900D43008 /* MCATaskDetailViewController.m in Sources */,
 				CEF5375E19A70FB700B72CD2 /* MCACalendarViewController.m in Sources */,
@@ -900,7 +889,6 @@
 				CE32DA7A19AAF14A0037C555 /* UIColor+expanded.m in Sources */,
 				CE2DFC3D19AEEC03000D59EB /* UIImageView+LazyImage.m in Sources */,
 				CE1805A0198656260087CA3D /* MCAStudentDHolder.m in Sources */,
-				CE2DFC3919AEEC03000D59EB /* ImgCache.m in Sources */,
 				CEEDCAE3197F962F0088511D /* MCALoginDHolder.m in Sources */,
 				CEA9D9D1197FEFFE009C3884 /* Reachability.m in Sources */,
 				CEEDCABB197F8BE20088511D /* ASIAuthenticationDialog.m in Sources */,

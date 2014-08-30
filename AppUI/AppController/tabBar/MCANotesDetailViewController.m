@@ -28,6 +28,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    HUD = [AryaHUD new];
+    [self.view addSubview:HUD];
+    
     arr_scrollImages = [NSMutableArray new];
     
     lbl_noteName.text = notesDHolder.str_notesName;
@@ -61,18 +64,12 @@
     
     [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:btnBar_delete,btnBar_edit, nil]];
     
-//    notesDHolder.arr_notesImage = [NSMutableArray new];
-//    [notesDHolder.arr_notesImage addObject:@"blueBg.png"];
-//    [notesDHolder.arr_notesImage addObject:@"redBg.png"];
-//    [notesDHolder.arr_notesImage addObject:@"purpleBg.png"];
-//    [notesDHolder.arr_notesImage addObject:@"redBg.png"];
-//    [notesDHolder.arr_notesImage addObject:@"yellowBg.png"];
-//    [notesDHolder.arr_notesImage addObject:@"blueBg.png"];
-//    [notesDHolder.arr_notesImage addObject:@"greenBg.png"];
+    [MCALocalStoredFolder createSubCategoryDir:notesDHolder.str_notesName];
     
- }
+}
 -(void)getImageScrollView:(id)sender{
     
+    [HUD showForTabBar];
     scrollV_noteImages.delegate = self;
     scrollV_noteImages.scrollEnabled = YES;
     int scrollheight = 60;
@@ -90,8 +87,7 @@
         [img setImageWithUrl:[NSURL URLWithString:[notesDHolder.arr_notesImage objectAtIndex:index]]
                andPlaceHoder:[UIImage imageNamed:PLACEHOLDER_IMAGE]
                   andNoImage:[UIImage imageNamed:NO_IMAGE]];
-        //        img.image = [UIImage imageNamed:[notesDHolder.arr_notesImage objectAtIndex:index]];
-        
+            
         [arr_scrollImages insertObject:img atIndex:index];
         scrollV_noteImages.contentSize = CGSizeMake(300 ,110+yOffset);
         [scrollV_noteImages addSubview:[arr_scrollImages objectAtIndex:index]];
@@ -103,12 +99,59 @@
             yOffset += 78;
         }
     }
+    
+    dispatch_async(dispatch_get_main_queue(), ^ {
+       
+       [self writeToTextFile];
+        
+    });
+   
 }
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)writeToTextFile{
+ 
+    //get the documents directory:
+    NSString *documentsDirectory = [MCALocalStoredFolder getSubCategoryDir];
+    
+    //make a file name to write the data to using the documents directory:
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.txt",
+                                                                             notesDHolder.str_notesName]];
+    //create content - four lines of text
+    NSString *content = notesDHolder.str_notesDesc;
+    
+    for (int i = 0; i < notesDHolder.arr_notesImage.count; i++) {
+        
+        UIImageView *img =[UIImageView new];
+        
+        img.image = [UIImage imageWithData:
+                            [NSData dataWithContentsOfURL:
+                             [NSURL URLWithString: [notesDHolder.arr_notesImage objectAtIndex:i]]]];
+        
+        NSString *imageName = [[notesDHolder.arr_notesImage objectAtIndex:i] lastPathComponent];
+        
+       NSString *imagePath = [documentsDirectory stringByAppendingPathComponent:imageName];
+        
+        NSData *imageData = UIImagePNGRepresentation(img.image);
+        
+        [imageData writeToFile:imagePath
+                  atomically:NO];
+    }
+   
+    
+    
+    //save content to the documents directory
+    [content writeToFile:filePath
+              atomically:NO
+                encoding:NSStringEncodingConversionAllowLossy
+                   error:nil];
+    [HUD hide];
+}
+
+
 
 
 @end

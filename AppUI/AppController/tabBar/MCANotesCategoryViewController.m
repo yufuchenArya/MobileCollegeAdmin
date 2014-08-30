@@ -54,6 +54,7 @@
     [self getNotesCategory:nil];
     
     [MCALocalStoredFolder createRootDir];
+    [MCALocalStoredFolder createSubRootDir:@"Notes"];
     
 }
 

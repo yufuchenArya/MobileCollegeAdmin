@@ -123,6 +123,7 @@
             
             UIBarButtonItem *btnBar_add =[[UIBarButtonItem alloc] initWithCustomView:btn_add];
             UIBarButtonItem *btnBar_grade =[[UIBarButtonItem alloc] initWithCustomView:btn_grade];
+            
          
             [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:btnBar_add,btnBar_grade, nil]];
             
@@ -713,7 +714,8 @@
            NSIndexPath *cellIndexPath = [tbl_taskCurrent indexPathForCell:cell];
           
            MCAAlertView *alertView = [MCAGlobalFunction showAlert:@"Do you want to delete the task."
-                                             delegate:self
+                                                       title:@"Delete"
+                                                    delegate:self
                                                 btnOk:@"Confirm Action"
                                             btnCancel:@"Cancel"];
           

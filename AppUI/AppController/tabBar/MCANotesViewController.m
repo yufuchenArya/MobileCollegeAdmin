@@ -57,10 +57,10 @@
     UIBarButtonItem *btnBar_add =[[UIBarButtonItem alloc] initWithCustomView:btn_add];
     UIBarButtonItem *btnBar_refresh =[[UIBarButtonItem alloc] initWithCustomView:btn_refresh];
     [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:btnBar_add, btnBar_refresh, nil]];
-
     
     [self getNotes:notesCatDHolder.str_notesCatId];
-    [MCALocalStoredFolder createSubRootDir:notesCatDHolder.str_notesCatName];
+        
+    [MCALocalStoredFolder createCategoryDir:notesCatDHolder.str_notesCatName];
  
 }
 -(void)getNotes:(id)sender{
@@ -143,7 +143,7 @@
 -(void)notesSuccess:(NSNotification*)notification{
     
     [HUD hide];
-    arr_notes = notification.object;
+    arr_notes = notification.object; 
     tbl_notes.frame = CGRectMake(0, 0, 320, 42*arr_notes.count);
     [tbl_notes reloadData];
     
@@ -161,5 +161,21 @@
         MCANotesDetailViewController *noteDetailViewCtr = (MCANotesDetailViewController*)[segue destinationViewController];
         noteDetailViewCtr.notesDHolder = (MCANotesDHolder*)sender;
     }
+}
+-(NSString *)readFile:(NSString *)fileName
+{
+    NSString *documentsDirectory = [MCALocalStoredFolder getSubCategoryDir];
+    NSString *appFile = [documentsDirectory stringByAppendingPathComponent:fileName];
+    NSFileManager *fileManager=[NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:appFile])
+    {
+        NSError *error= NULL;
+        id resultData=[NSString stringWithContentsOfFile:appFile encoding:NSUTF8StringEncoding error:&error];
+        if (error == NULL)
+        {
+            return resultData;
+        }
+    }
+    return NULL;
 }
 @end
