@@ -81,7 +81,7 @@
 
 -(void)btnBar_deleteDidClicked:(id)sender{
     
-    MCAAlertView *alertView = [MCAGlobalFunction showAlert:@"Do you want to delete the task?"
+    MCAAlertView *alertView = [MCAGlobalFunction showAlert:@"Do you want to delete this task?"
                                                      title:@"Delete"
                                                   delegate:self
                                                      btnOk:@"Confirm Action"

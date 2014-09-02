@@ -105,7 +105,6 @@
        [self writeToTextFile];
         
     });
-   
 }
 - (void)didReceiveMemoryWarning
 {
@@ -128,21 +127,17 @@
         UIImageView *img =[UIImageView new];
         
         img.image = [UIImage imageWithData:
-                            [NSData dataWithContentsOfURL:
+                          [NSData dataWithContentsOfURL:
                              [NSURL URLWithString: [notesDHolder.arr_notesImage objectAtIndex:i]]]];
         
-        NSString *imageName = [[notesDHolder.arr_notesImage objectAtIndex:i] lastPathComponent];
-        
+       NSString *imageName = [[notesDHolder.arr_notesImage objectAtIndex:i] lastPathComponent];
        NSString *imagePath = [documentsDirectory stringByAppendingPathComponent:imageName];
+       NSData *imageData = UIImagePNGRepresentation(img.image);
         
-        NSData *imageData = UIImagePNGRepresentation(img.image);
-        
-        [imageData writeToFile:imagePath
+       [imageData writeToFile:imagePath
                   atomically:NO];
     }
-   
-    
-    
+
     //save content to the documents directory
     [content writeToFile:filePath
               atomically:NO
@@ -150,8 +145,4 @@
                    error:nil];
     [HUD hide];
 }
-
-
-
-
 @end

@@ -11,9 +11,9 @@
 @interface MCANotesViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>{
     
     IBOutlet UITableView *tbl_notes;
-    
     NSMutableArray *arr_notes;
-    
+    NSMutableArray *arr_dirNotes;
+    NSArray * arr_dirContents;
     AryaHUD *HUD;
 }
 @property(nonatomic,strong)MCANotesCatDHolder *notesCatDHolder;

@@ -53,7 +53,7 @@
         
         self.navigationItem.title = @"New Task";
         
-        tv_description.text = @"Description";
+        tv_description.text = @"Description:";
         tv_description.textColor = [UIColor lightGrayColor];
         
     }else{
@@ -155,7 +155,7 @@
 }
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    if ([[textView text] isEqualToString:@"Description"]) {
+    if ([[textView text] isEqualToString:@"Description:"]) {
         textView.text = @"";
         textView.textColor = [UIColor blackColor];
     }
@@ -166,7 +166,7 @@
 -(BOOL)textViewShouldEndEditing:(UITextView *)textView
 {
     if ([[textView text] length] == 0) {
-        textView.text = @"Description";
+        textView.text = @"Description:";
         textView.textColor = [UIColor lightGrayColor];
     }
     return YES;
@@ -280,7 +280,7 @@
 }
 -(IBAction)btnBarDoneDidClicked:(id)sender{
     
-    if (![tx_taskName.text isEqualToString:@""] && ![tx_priority.text isEqualToString:@""] && ![tx_chooseDate.text isEqualToString:@""] && ![tv_description.text isEqualToString:@""] && ![tv_description.text isEqualToString:@"Description"])
+    if (![tx_taskName.text isEqualToString:@""] && ![tx_priority.text isEqualToString:@""] && ![tx_chooseDate.text isEqualToString:@""] && ![tv_description.text isEqualToString:@""] && ![tv_description.text isEqualToString:@"Description:"])
     {
         [self keyboardDisappeared];
         NSMutableDictionary *dict_addTask =[NSMutableDictionary new];

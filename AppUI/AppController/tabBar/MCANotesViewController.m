@@ -34,7 +34,6 @@
     [self.view addSubview:HUD];
     
     arr_notes = [NSMutableArray new];
-    tbl_notes.frame = CGRectMake(0, 0, 320, 0);
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notesFailed:) name:NOTIFICATION_NOTES_FAILED object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notesSuccess:) name:NOTIFICATION_NOTES_SUCCESS object:nil];
@@ -47,7 +46,6 @@
     [btn_add setBackgroundImage:img_add forState:UIControlStateNormal];
     [btn_add setShowsTouchWhenHighlighted:YES];
     
-    
     UIImage* img_refresh = [UIImage imageNamed:@"refresh.png"];
     CGRect img_gradeFrame = CGRectMake(0, 0, img_refresh.size.width, img_refresh.size.height);
     UIButton *btn_refresh = [[UIButton alloc] initWithFrame:img_gradeFrame];
@@ -57,11 +55,23 @@
     UIBarButtonItem *btnBar_add =[[UIBarButtonItem alloc] initWithCustomView:btn_add];
     UIBarButtonItem *btnBar_refresh =[[UIBarButtonItem alloc] initWithCustomView:btn_refresh];
     [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:btnBar_add, btnBar_refresh, nil]];
+  
+//    [self readDirectory:nil];
     
-    [self getNotes:notesCatDHolder.str_notesCatId];
-        
-    [MCALocalStoredFolder createCategoryDir:notesCatDHolder.str_notesCatName];
- 
+//    if (arr_dirContents.count > 0) {
+//     
+//        arr_dirNotes = [[NSMutableArray alloc]initWithArray:arr_dirContents];
+//        [tbl_notes reloadData];
+//        [self.view bringSubviewToFront:tbl_notes];
+//        
+//        
+//    }else{
+    
+        [self getNotes:notesCatDHolder.str_notesCatId];
+        [MCALocalStoredFolder createCategoryDir:notesCatDHolder.str_notesCatName];
+//    }
+    
+    tbl_notes.tableFooterView = [[UIView alloc] init];
 }
 -(void)getNotes:(id)sender{
         
@@ -75,7 +85,6 @@
     [HUD showForTabBar];
     [self.view bringSubviewToFront:HUD];
     [self requestNotes:str_jsonNotes];
-    
     
 }
 - (void)didReceiveMemoryWarning
@@ -93,7 +102,11 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    return arr_notes.count;
+    if (arr_dirNotes.count > 0) {
+           return arr_dirNotes.count;
+    }else{
+           return arr_notes.count;
+    }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -106,13 +119,23 @@
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:cellIdentifier];
     }
+    MCANotesDHolder *notesDHolder;
     
-    MCANotesDHolder *notesDHolder = (MCANotesDHolder*)[arr_notes objectAtIndex:indexPath.row];
-    cell.textLabel.text = notesDHolder.str_notesName;
+    if (arr_dirContents.count > 0) {
+   
+        cell.textLabel.text = [arr_dirNotes objectAtIndex:indexPath.row];
+        
+    }else{
+        
+        notesDHolder  = (MCANotesDHolder*)[arr_notes objectAtIndex:indexPath.row];
+        cell.textLabel.text = notesDHolder.str_notesName;
+    }
+    
     cell.textLabel.font = [UIFont systemFontOfSize:14.0f];
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
     cell.textLabel.minimumScaleFactor = 0.7f;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    tbl_notes.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
   
     return cell;
     
@@ -120,7 +143,6 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     MCANotesDHolder *notesDHolder = (MCANotesDHolder*)[arr_notes objectAtIndex:indexPath.row];
-    
     [self performSegueWithIdentifier:@"segue_notesDetail" sender:notesDHolder];
     
 }
@@ -136,15 +158,15 @@
         
         [HUD hide];
     }
-
 }
 #pragma mark - NSNOTIFICATION SELECTOR
 
 -(void)notesSuccess:(NSNotification*)notification{
     
     [HUD hide];
-    arr_notes = notification.object; 
-    tbl_notes.frame = CGRectMake(0, 0, 320, 42*arr_notes.count);
+    arr_notes = notification.object;
+
+//    tbl_notes.frame = CGRectMake(0, 0, 320, 42*arr_notes.count);
     [tbl_notes reloadData];
     
 }
@@ -162,20 +184,13 @@
         noteDetailViewCtr.notesDHolder = (MCANotesDHolder*)sender;
     }
 }
--(NSString *)readFile:(NSString *)fileName
-{
-    NSString *documentsDirectory = [MCALocalStoredFolder getSubCategoryDir];
-    NSString *appFile = [documentsDirectory stringByAppendingPathComponent:fileName];
-    NSFileManager *fileManager=[NSFileManager defaultManager];
-    if ([fileManager fileExistsAtPath:appFile])
-    {
-        NSError *error= NULL;
-        id resultData=[NSString stringWithContentsOfFile:appFile encoding:NSUTF8StringEncoding error:&error];
-        if (error == NULL)
-        {
-            return resultData;
-        }
-    }
-    return NULL;
+-(void)readDirectory:(NSString *)fileName
+{ 
+    NSString *documentsDirectory = [MCALocalStoredFolder getSubRootDir];
+    NSString *filePath = [documentsDirectory stringByAppendingString:[NSString stringWithFormat:@"%@/",notesCatDHolder.str_notesCatName]];
+    NSError * error;
+    arr_dirContents =  [[NSFileManager defaultManager]
+                                    contentsOfDirectoryAtPath:filePath error:&error];
+    
 }
 @end

@@ -334,7 +334,7 @@
                            
                        }else{
                            
-                           [MCAGlobalFunction showAlert:@"Zipcode should be 5 digits."];
+                           [MCAGlobalFunction showAlert:ZIP_CODE_MSG];
                            return;
                        }
                    }else{
@@ -367,7 +367,8 @@
                     }else{
                         [info setValue:@"0" forKeyPath:@"notify_by_email"];
                     }
-                    
+                   
+                  [info setValue:@"ios" forKey:@"device_type"];
                   [info setValue:@"user_register" forKey:@"cmd"];
                    
                    NSString *str_jsonParent = [NSString getJsonObject:info];
@@ -431,7 +432,7 @@
                           
                        }else{
                            
-                           [MCAGlobalFunction showAlert:@"Zipcode should be 5 digits."];
+                           [MCAGlobalFunction showAlert:ZIP_CODE_MSG];
                             return;
                         }
                     }else{
@@ -457,7 +458,7 @@
                     }else{
                         [info setValue:@"0" forKeyPath:@"notify_by_email"];
                     }
-                    
+                    [info setValue:@"ios" forKey:@"device_type"];
                     [info setValue:@"user_register" forKey:@"cmd"];
                
                     NSString *str_jsonStud = [NSString getJsonObject:info];

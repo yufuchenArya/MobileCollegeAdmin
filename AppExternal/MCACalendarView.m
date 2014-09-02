@@ -284,8 +284,8 @@
     self.markedDates=nil;
     self.markedColors=nil;  
     
-    CGRect rectArrowLeft = CGRectMake(0, 0, 50, 40);
-    CGRect rectArrowRight = CGRectMake(self.frame.size.width-50, 0, 50, 40);
+    CGRect rectArrowLeft = CGRectMake(0, 0, 50, 30);
+    CGRect rectArrowRight = CGRectMake(self.frame.size.width-50, 0, 50, 30);
     
     //Touch either arrows or month in middle
     if (CGRectContainsPoint(rectArrowLeft, touchPoint)) {
@@ -325,7 +325,7 @@
     CGContextFillPath(context);
     
     //Arrows
-    int arrowSize = 14;
+    int arrowSize = 20;
     int xmargin = 20;
     int ymargin = 6;
     

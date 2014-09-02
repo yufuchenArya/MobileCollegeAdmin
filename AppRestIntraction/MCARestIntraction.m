@@ -739,19 +739,22 @@
             notesDHolder.str_notesName = [[arr_notes valueForKey:@"notes_name"]objectAtIndex:i];
             notesDHolder.str_notesImage = [[arr_notes valueForKey:@"notes_image"]objectAtIndex:i];
             
-            notesDHolder.str_notesImage = [notesDHolder.str_notesImage stringByReplacingOccurrencesOfString:@"[" withString:@""];
-            notesDHolder.str_notesImage = [notesDHolder.str_notesImage stringByReplacingOccurrencesOfString:@"]" withString:@""];
-            notesDHolder.str_notesImage = [notesDHolder.str_notesImage stringByReplacingOccurrencesOfString:@"\"" withString:@""];
+            if (notesDHolder.str_notesImage.length > 0)
+            {
+                notesDHolder.str_notesImage = [notesDHolder.str_notesImage stringByReplacingOccurrencesOfString:@"[" withString:@""];
+                notesDHolder.str_notesImage = [notesDHolder.str_notesImage stringByReplacingOccurrencesOfString:@"]" withString:@""];
+                notesDHolder.str_notesImage = [notesDHolder.str_notesImage stringByReplacingOccurrencesOfString:@"\"" withString:@""];
             
-            NSMutableArray *arr_nImagesTemp = [[notesDHolder.str_notesImage componentsSeparatedByString:@","] mutableCopy];
-            
+                NSMutableArray *arr_nImagesTemp = [[notesDHolder.str_notesImage componentsSeparatedByString:@","] mutableCopy];
+                
                 for (int i = 0; i < arr_nImagesTemp.count; i++)
                 {
                     NSString *str_nImagesTemp = [arr_nImagesTemp objectAtIndex:i];
                     str_nImagesTemp = [str_imgURL stringByAppendingString:str_nImagesTemp];
                     [notesDHolder.arr_notesImage addObject:str_nImagesTemp];
                 }
-           
+            }
+            
             [arr_notesList addObject:notesDHolder];
         }
         

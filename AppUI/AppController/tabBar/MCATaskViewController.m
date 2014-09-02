@@ -38,14 +38,12 @@
                        forBarPosition:UIBarPositionAny
                            barMetrics:UIBarMetricsDefault];
     [navigationBar setShadowImage:[UIImage new]];
-
     
     arr_taskList = [NSMutableArray new];
     arr_studentList = [NSMutableArray new];
     arr_loginData = [[NSUserDefaults standardUserDefaults]objectForKey:@"test"];
     
     arr_studentList = [[MCADBIntraction databaseInteractionManager]retrieveStudList:nil];
-       
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteTaskSuccess:) name:NOTIFICATION_DELETE_TASK_SUCCESS object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(completeTaskSuccess:) name:NOTIFICATION_COMPLETE_TASK_SUCCESS object:nil];
@@ -61,7 +59,6 @@
     
     [[NSUserDefaults standardUserDefaults]setInteger:0 forKey:KEY_ANIMATION_FILE_RAND_NO];
     [[NSUserDefaults standardUserDefaults]synchronize];
-    
     
      self.navigationItem.title = @"Tasks";
     
@@ -713,7 +710,7 @@
       {
            NSIndexPath *cellIndexPath = [tbl_taskCurrent indexPathForCell:cell];
           
-           MCAAlertView *alertView = [MCAGlobalFunction showAlert:@"Do you want to delete the task."
+           MCAAlertView *alertView = [MCAGlobalFunction showAlert:@"Do you want to delete this task?"
                                                        title:@"Delete"
                                                     delegate:self
                                                 btnOk:@"Confirm Action"

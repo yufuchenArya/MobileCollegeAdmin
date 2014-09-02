@@ -16,13 +16,14 @@
 #define INVALID_PWD @"Please enter valid password."
 #define EMAIL_MESSAGE @"Please enter valid email address."
 #define INVALID_USERNAME @"Please enter valid username."
-#define NET_NOT_AVAIALABLE @"Please connect to internet."
-#define MANDATORY_MESSAGE @"All fields are mandatory." 
+#define NET_NOT_AVAIALABLE @"Internet not available Cross check your internet connectivity and try again"
+#define MANDATORY_MESSAGE @"All fields are mandatory"
 #define ACCEPT_TERM_MESSAGE @"Please accept Terms of Use."
 #define INVALID_USERNAME_PWD @"Please enter valid username and password."
 #define INVALID_EMAIL_PWD @"Please enter valid email address and password."
 #define PLACEHOLDER_IMAGE @"loadingImage.png"
 #define NO_IMAGE @"noimage1.png"
+#define ZIP_CODE_MSG @"The postal code should be only 5 digits."
 
 //keys
 #define KEY_USER_ID @"user_id"
