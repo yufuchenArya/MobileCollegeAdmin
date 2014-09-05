@@ -44,34 +44,42 @@
     CGRect img_addFrame = CGRectMake(0, 0, img_add.size.width, img_add.size.height);
     UIButton *btn_add = [[UIButton alloc] initWithFrame:img_addFrame];
     [btn_add setBackgroundImage:img_add forState:UIControlStateNormal];
+    [btn_add addTarget:self
+                action:@selector(btnBar_addDidClicked:)
+      forControlEvents:UIControlEventTouchUpInside];
     [btn_add setShowsTouchWhenHighlighted:YES];
     
     UIImage* img_refresh = [UIImage imageNamed:@"refresh.png"];
     CGRect img_gradeFrame = CGRectMake(0, 0, img_refresh.size.width, img_refresh.size.height);
     UIButton *btn_refresh = [[UIButton alloc] initWithFrame:img_gradeFrame];
     [btn_refresh setBackgroundImage:img_refresh forState:UIControlStateNormal];
+    [btn_refresh addTarget:self
+                    action:@selector(btnBar_refreshDidClicked:)
+          forControlEvents:UIControlEventTouchUpInside];
     [btn_refresh setShowsTouchWhenHighlighted:YES];
     
     UIBarButtonItem *btnBar_add =[[UIBarButtonItem alloc] initWithCustomView:btn_add];
     UIBarButtonItem *btnBar_refresh =[[UIBarButtonItem alloc] initWithCustomView:btn_refresh];
     [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:btnBar_add, btnBar_refresh, nil]];
-  
-//    [self readDirectory:nil];
     
-//    if (arr_dirContents.count > 0) {
-//     
-//        arr_dirNotes = [[NSMutableArray alloc]initWithArray:arr_dirContents];
-//        [tbl_notes reloadData];
-//        [self.view bringSubviewToFront:tbl_notes];
-//        
-//        
-//    }else{
+    [self readDirectory:nil];
+    if (arr_dirContents.count > 0) {
+      
+        [tbl_notes reloadData];
+        
+    }else{
+        
+          [self getNotes:notesCatDHolder.str_notesCatId];
+    }
     
-        [self getNotes:notesCatDHolder.str_notesCatId];
-        [MCALocalStoredFolder createCategoryDir:notesCatDHolder.str_notesCatName];
-//    }
-    
+    [MCALocalStoredFolder createCategoryDir:notesCatDHolder.str_notesCatName];
     tbl_notes.tableFooterView = [[UIView alloc] init];
+  
+}
+-(void)viewWillAppear:(BOOL)animated{
+    
+    [self readDirectory:nil];
+    [tbl_notes reloadData];
 }
 -(void)getNotes:(id)sender{
         
@@ -92,7 +100,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - IB_ACTION
 
+-(void)btnBar_addDidClicked:(id)sender{
+    
+    [self performSegueWithIdentifier:@"segue_addNotes" sender:nil];
+}
+-(void)btnBar_refreshDidClicked:(id)sender{
+    
+    [self getNotes:notesCatDHolder.str_notesCatId];
+}
 #pragma mark -  UITABLEVIEW DELEGATE AND DATASOURCE METHODS
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -102,11 +119,8 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if (arr_dirNotes.count > 0) {
-           return arr_dirNotes.count;
-    }else{
-           return arr_notes.count;
-    }
+   return arr_dirContents.count;
+   
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -119,17 +133,8 @@
                 initWithStyle:UITableViewCellStyleDefault
                 reuseIdentifier:cellIdentifier];
     }
-    MCANotesDHolder *notesDHolder;
     
-    if (arr_dirContents.count > 0) {
-   
-        cell.textLabel.text = [arr_dirNotes objectAtIndex:indexPath.row];
-        
-    }else{
-        
-        notesDHolder  = (MCANotesDHolder*)[arr_notes objectAtIndex:indexPath.row];
-        cell.textLabel.text = notesDHolder.str_notesName;
-    }
+    cell.textLabel.text = [arr_dirContents objectAtIndex:indexPath.row];
     
     cell.textLabel.font = [UIFont systemFontOfSize:14.0f];
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
@@ -142,7 +147,9 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    MCANotesDHolder *notesDHolder = (MCANotesDHolder*)[arr_notes objectAtIndex:indexPath.row];
+    MCANotesDHolder *notesDHolder ;
+    notesDHolder = [MCANotesDHolder new];
+    notesDHolder.str_notesName = [arr_dirContents objectAtIndex:indexPath.row];
     [self performSegueWithIdentifier:@"segue_notesDetail" sender:notesDHolder];
     
 }
@@ -159,15 +166,15 @@
         [HUD hide];
     }
 }
+
 #pragma mark - NSNOTIFICATION SELECTOR
 
 -(void)notesSuccess:(NSNotification*)notification{
     
     [HUD hide];
     arr_notes = notification.object;
-
-//    tbl_notes.frame = CGRectMake(0, 0, 320, 42*arr_notes.count);
-    [tbl_notes reloadData];
+    
+    [self writeToFile:nil];
     
 }
 -(void)notesFailed:(NSNotification*)notification{
@@ -184,10 +191,54 @@
         noteDetailViewCtr.notesDHolder = (MCANotesDHolder*)sender;
     }
 }
+#pragma mark - DOCUMENT_DIRECTORY_METHOD
+
+-(void)writeToFile:(id)sender{
+    
+    [HUD showForTabBar];
+    
+    for (int i = 0; i < arr_notes.count; i++)
+    {
+        MCANotesDHolder *notesDHolder = (MCANotesDHolder*)[arr_notes objectAtIndex:i];
+        
+        [MCALocalStoredFolder createSubCategoryDir:notesDHolder.str_notesName];
+        
+        NSString *documentsDirectory = [NSString stringWithFormat:@"%@/%@",[MCALocalStoredFolder getCategoryDir],notesDHolder.str_notesName];
+        
+        //make a file name to write the data to using the documents directory:
+        NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.txt",notesDHolder.str_notesName]];
+        //create content - four lines of text
+        NSString *content = notesDHolder.str_notesDesc;
+        
+        for (int i = 0; i < notesDHolder.arr_notesImage.count; i++) {
+            
+            UIImageView *img =[UIImageView new];
+            img.image = [UIImage imageWithData:
+                         [NSData dataWithContentsOfURL:
+                          [NSURL URLWithString: [notesDHolder.arr_notesImage objectAtIndex:i]]]];
+            
+            NSString *imageName = [[notesDHolder.arr_notesImage objectAtIndex:i] lastPathComponent];
+            NSString *imagePath = [documentsDirectory stringByAppendingPathComponent:imageName];
+            NSData *imageData = UIImagePNGRepresentation(img.image);
+            [imageData writeToFile:imagePath
+                        atomically:NO];
+        }
+        
+        //save content to the documents directory
+        [content writeToFile:filePath
+                  atomically:NO
+                    encoding:NSStringEncodingConversionAllowLossy
+                       error:nil];
+        [HUD hide];
+    }
+    
+    [self readDirectory:nil];
+    [tbl_notes reloadData];
+}
 -(void)readDirectory:(NSString *)fileName
 { 
     NSString *documentsDirectory = [MCALocalStoredFolder getSubRootDir];
-    NSString *filePath = [documentsDirectory stringByAppendingString:[NSString stringWithFormat:@"%@/",notesCatDHolder.str_notesCatName]];
+    NSString *filePath = [documentsDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@",notesCatDHolder.str_notesCatName]];
     NSError * error;
     arr_dirContents =  [[NSFileManager defaultManager]
                                     contentsOfDirectoryAtPath:filePath error:&error];

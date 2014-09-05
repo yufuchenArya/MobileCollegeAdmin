@@ -69,7 +69,7 @@
     
     [info setValue:@"get_note_category" forKey:@"cmd"];
     [info setValue:@"en_us" forKey:@"language_code"];
-    
+     
     NSString *str_jsonCategory = [NSString getJsonObject:info];
     [HUD showForTabBar];
     [self.view bringSubviewToFront:HUD];

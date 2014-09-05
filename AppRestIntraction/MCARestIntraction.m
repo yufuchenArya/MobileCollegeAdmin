@@ -738,6 +738,7 @@
             notesDHolder.str_notesDesc = [[arr_notes valueForKey:@"notes_desc"]objectAtIndex:i];
             notesDHolder.str_notesName = [[arr_notes valueForKey:@"notes_name"]objectAtIndex:i];
             notesDHolder.str_notesImage = [[arr_notes valueForKey:@"notes_image"]objectAtIndex:i];
+            notesDHolder.str_notesType = @"S";
             
             if (notesDHolder.str_notesImage.length > 0)
             {

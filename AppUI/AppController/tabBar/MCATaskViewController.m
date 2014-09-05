@@ -617,8 +617,8 @@
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
         NSDateFormatter *dateFormatter1 = [[NSDateFormatter alloc]init];
         
-        [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-        [dateFormatter1 setDateFormat:@"yyyy/MM/dd"];
+       [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+       [dateFormatter1 setDateFormat:@"yyyy/MM/dd"];
         NSDate *dateTemp =[dateFormatter dateFromString:taskDHolder.str_taskStartDate];
         NSString *strDate = [dateFormatter1 stringFromDate:dateTemp];
         cell.lbl_taskStartDate.text = strDate;

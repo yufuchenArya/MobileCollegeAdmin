@@ -10,6 +10,7 @@
 #import "UIImageView+LazyImage.h"
 #import "MCALocalStoredFolder.h"
 #import "NSString+Util.h"
+#import "MCACustomImageV.h"
 #import "MCACustomButton.h"
 #import "Reachability.h"
 #import "MCAAlertView.h"

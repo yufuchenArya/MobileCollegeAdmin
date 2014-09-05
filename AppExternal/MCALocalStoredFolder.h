@@ -17,6 +17,7 @@
 +(void)createSubRootDir:(id)sender;
 +(void)createCategoryDir:(id)sender;
 +(void)createSubCategoryDir:(id)sender;
++(void)deleteSubCategory:(NSString*)str;
 #pragma mark - Get Directories path
 +(NSString *)getRootDir;
 +(NSString *)getSubRootDir;

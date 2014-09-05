@@ -15,5 +15,6 @@
 @property(nonatomic,strong)NSString *str_notesName;
 @property(nonatomic,strong)NSString *str_notesDesc;
 @property(nonatomic,strong)NSString *str_notesImage;
+@property(nonatomic,strong)NSString *str_notesType;
 @property(nonatomic,strong)NSMutableArray *arr_notesImage;
 @end

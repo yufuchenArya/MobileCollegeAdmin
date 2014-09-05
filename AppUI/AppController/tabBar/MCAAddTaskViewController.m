@@ -502,7 +502,7 @@
     tx_chooseDate.text = str_date;
     
     NSDateFormatter *dateFormatter1 = [[NSDateFormatter alloc]init];
-    [dateFormatter1 setDateFormat:@"yyyy-MM-dd 00:00:00"];
+    [dateFormatter1 setDateFormat:@"yyyy/MM/dd hh:mm:ss"];
     str_dateSelected = [dateFormatter1 stringFromDate:datePicker.date];
     [sheet_datePicker dismissWithClickedButtonIndex:0 animated:YES];
     

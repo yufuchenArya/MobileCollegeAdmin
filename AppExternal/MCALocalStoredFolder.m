@@ -77,6 +77,9 @@ static NSString *subCategoryDir;
 {
     return subCategoryDir;
 }
-
-
++(void)deleteSubCategory:(NSString*)str{
+    
+    NSError *error;
+    [[NSFileManager defaultManager] removeItemAtPath:str error: &error];
+}
 @end
