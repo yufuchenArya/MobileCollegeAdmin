@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <DropboxSDK/DropboxSDK.h>
 
-@interface MCAAppDelegate : UIResponder <UIApplicationDelegate>{
+@interface MCAAppDelegate : UIResponder <UIApplicationDelegate,DBRestClientDelegate,DBSessionDelegate>{
     
     UIApplication *eApplication;
 }

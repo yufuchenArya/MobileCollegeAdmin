@@ -303,8 +303,6 @@
     [HUD hide];
 }
 
-
-
 #pragma mark - OTHER_METHOD
 - (void)didReceiveMemoryWarning
 {

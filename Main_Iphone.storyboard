@@ -1255,6 +1255,63 @@
             </objects>
             <point key="canvasLocation" x="529" y="-1769"/>
         </scene>
+        <!--Drop Box View Controller-->
+        <scene sceneID="VeW-AX-ZCY">
+            <objects>
+                <viewController id="5Sb-Ha-SGA" customClass="MCADropBoxViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uqw-zb-CuK">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="IVY-Jr-QSh">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="398"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="notesCell" id="CEU-Hr-kSX">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CEU-Hr-kSX" id="FuH-ok-d8l">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="5Sb-Ha-SGA" id="hbz-58-xuK"/>
+                                    <outlet property="delegate" destination="5Sb-Ha-SGA" id="ku9-1F-9BZ"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="dcm-Ey-pfn">
+                                <rect key="frame" x="20" y="411" width="280" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <color key="backgroundColor" red="0.1529411765" green="0.65098039220000004" blue="0.83529411760000005" alpha="1" colorSpace="deviceRGB"/>
+                                <state key="normal" title="Link To Dropbox">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnLinkToDropboxDidClicked:" destination="5Sb-Ha-SGA" eventType="touchUpInside" id="4JC-4C-wTb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="NFn-yc-aZM">
+                        <barButtonItem key="rightBarButtonItem" image="dropbox" id="iCD-y9-9TP">
+                            <connections>
+                                <action selector="btnUploadToDropBox:" destination="5Sb-Ha-SGA" id="Hrv-Wz-xc5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tbl_notesList" destination="IVY-Jr-QSh" id="9eR-L2-24L"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X5C-AB-j4g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="613" y="-923"/>
+        </scene>
         <!--Forgot Pwd View Controller-->
         <scene sceneID="Gir-er-oQ8">
             <objects>
@@ -1519,6 +1576,7 @@
                     <connections>
                         <outlet property="tbl_notesCategory" destination="6ba-xs-xVc" id="Dtz-Nn-H0h"/>
                         <segue destination="RnQ-aG-vDo" kind="push" identifier="segue_notes" id="B9o-oh-C6a"/>
+                        <segue destination="5Sb-Ha-SGA" kind="push" identifier="segue_dropboxList" id="Pgw-Kv-pCo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wnw-cI-55g" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1567,7 +1625,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fdq-nA-BMc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="437" y="-354"/>
+            <point key="canvasLocation" x="613" y="46"/>
         </scene>
         <!--Add Edit Notes View Controller-->
         <scene sceneID="Nqq-jZ-nHt">
@@ -1664,7 +1722,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N1L-6l-xbQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1501" y="-354"/>
+            <point key="canvasLocation" x="1501" y="22"/>
         </scene>
         <!--Notes Detail View Controller-->
         <scene sceneID="dVf-me-ArH">
@@ -1708,7 +1766,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pag-tg-6ip" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="985" y="109"/>
+            <point key="canvasLocation" x="1089" y="597"/>
         </scene>
         <!--Navigation Controller - Notes-->
         <scene sceneID="Mk9-Bf-5Kt">
@@ -1933,6 +1991,7 @@
         <image name="calendar" width="32" height="26"/>
         <image name="camera" width="22" height="22"/>
         <image name="checkMark" width="22" height="22"/>
+        <image name="dropbox" width="24" height="24"/>
         <image name="loginLogo" width="136" height="136"/>
         <image name="more" width="32" height="26"/>
         <image name="notes" width="32" height="26"/>
@@ -1952,8 +2011,8 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="b9N-e4-lCM"/>
-        <segue reference="nf9-ap-ADM"/>
-        <segue reference="BAV-Zh-z7g"/>
         <segue reference="Ygq-zg-HY8"/>
+        <segue reference="BAV-Zh-z7g"/>
+        <segue reference="nf9-ap-ADM"/>
     </inferredMetricsTieBreakers>
 </document>

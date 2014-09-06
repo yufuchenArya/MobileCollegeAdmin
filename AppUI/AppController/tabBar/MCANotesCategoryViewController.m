@@ -38,14 +38,13 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notesCategoryFailed:) name:NOTIFICATION_NOTES_CATEGORY_FAILED object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(notesCategorySuccess:) name:NOTIFICATION_NOTES_CATEGORY_SUCCESS object:nil];
     
-    
     UIImage* img_export = [UIImage imageNamed:@"export.png"];
     CGRect img_exportFrame = CGRectMake(0, 0, img_export.size.width, img_export.size.height);
     UIButton *btn_export = [[UIButton alloc] initWithFrame:img_exportFrame];
     [btn_export setBackgroundImage:img_export forState:UIControlStateNormal];
-//    [btn_student addTarget:self
-//                    action:@selector(btnBar_studentDidClicked:)
-//          forControlEvents:UIControlEventTouchUpInside];
+    [btn_export addTarget:self
+                    action:@selector(btnExportDidClicked:)
+          forControlEvents:UIControlEventTouchUpInside];
     [btn_export setShowsTouchWhenHighlighted:YES];
     
     UIBarButtonItem *btnBar_export =[[UIBarButtonItem alloc] initWithCustomView:btn_export];
@@ -75,6 +74,13 @@
     [self.view bringSubviewToFront:HUD];
     [self requestNotesCategory:str_jsonCategory];
     
+}
+
+#pragma mark - IB_ACTION
+
+-(void)btnExportDidClicked:(id)sender{
+ 
+    [self performSegueWithIdentifier:@"segue_dropboxList" sender:nil];
 }
 
 #pragma mark -  UITABLEVIEW DELEGATE AND DATASOURCE METHODS

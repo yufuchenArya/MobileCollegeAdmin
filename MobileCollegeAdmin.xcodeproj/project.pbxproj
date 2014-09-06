@@ -57,7 +57,6 @@
 		CE7E432419A22BD900A8652F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7E432319A22BD900A8652F /* AVFoundation.framework */; };
 		CE7E432619A22BE200A8652F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7E432519A22BE100A8652F /* MediaPlayer.framework */; };
 		CE7E432819A22C2E00A8652F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7E432719A22C2E00A8652F /* QuartzCore.framework */; };
-		CE84C1EF1962D83800A351FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE84C1EE1962D83800A351FF /* Foundation.framework */; };
 		CE84C1F11962D83800A351FF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE84C1F01962D83800A351FF /* CoreGraphics.framework */; };
 		CE84C1F31962D83800A351FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE84C1F21962D83800A351FF /* UIKit.framework */; };
 		CE84C1F91962D83800A351FF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE84C1F71962D83800A351FF /* InfoPlist.strings */; };
@@ -75,6 +74,12 @@
 		CE84C2411962E46800A351FF /* MCAGlobalFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = CE84C2401962E46800A351FF /* MCAGlobalFunction.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CE84C2441962E48600A351FF /* MCAValidation.m in Sources */ = {isa = PBXBuildFile; fileRef = CE84C2431962E48600A351FF /* MCAValidation.m */; };
 		CEA9D9D1197FEFFE009C3884 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA9D9D0197FEFFE009C3884 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CEAB93E419BAD21C00D4EC9E /* MCADropBoxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAB93E319BAD21C00D4EC9E /* MCADropBoxViewController.m */; };
+		CEAB94C919BAEB1400D4EC9E /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAB94C819BAEB1400D4EC9E /* DropboxSDK.framework */; };
+		CEAB94E119BB184300D4EC9E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE84C1EE1962D83800A351FF /* Foundation.framework */; };
+		CEAB94F519BB18F700D4EC9E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE84C20D1962D83800A351FF /* XCTest.framework */; };
+		CEAB94F619BB1ABB00D4EC9E /* libarchive.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAB94CA19BB127D00D4EC9E /* libarchive.dylib */; };
+		CEAB94F719BB1AC000D4EC9E /* libarchive.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CEAB94CC19BB149100D4EC9E /* libarchive.2.dylib */; };
 		CEBA2DCB19B6EBFF00C6941F /* MCAAddEditNotesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBA2DCA19B6EBFF00C6941F /* MCAAddEditNotesViewController.m */; };
 		CEBD96E119B04E0000A63CC5 /* MCANotesCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBD96E019B04E0000A63CC5 /* MCANotesCategoryViewController.m */; };
 		CEBD96E419B0513800A63CC5 /* MCANotesDHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = CEBD96E319B0513800A63CC5 /* MCANotesDHolder.m */; };
@@ -225,6 +230,11 @@
 		CE84C2431962E48600A351FF /* MCAValidation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAValidation.m; sourceTree = "<group>"; };
 		CEA9D9CF197FEFFE009C3884 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		CEA9D9D0197FEFFE009C3884 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		CEAB93E219BAD21C00D4EC9E /* MCADropBoxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCADropBoxViewController.h; sourceTree = "<group>"; };
+		CEAB93E319BAD21C00D4EC9E /* MCADropBoxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCADropBoxViewController.m; sourceTree = "<group>"; };
+		CEAB94C819BAEB1400D4EC9E /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
+		CEAB94CA19BB127D00D4EC9E /* libarchive.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libarchive.dylib; path = usr/lib/libarchive.dylib; sourceTree = SDKROOT; };
+		CEAB94CC19BB149100D4EC9E /* libarchive.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libarchive.2.dylib; path = usr/lib/libarchive.2.dylib; sourceTree = SDKROOT; };
 		CEBA2DC919B6EBFF00C6941F /* MCAAddEditNotesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAAddEditNotesViewController.h; sourceTree = "<group>"; };
 		CEBA2DCA19B6EBFF00C6941F /* MCAAddEditNotesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAAddEditNotesViewController.m; sourceTree = "<group>"; };
 		CEBD96DF19B04E0000A63CC5 /* MCANotesCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCANotesCategoryViewController.h; sourceTree = "<group>"; };
@@ -288,18 +298,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEAB94F719BB1AC000D4EC9E /* libarchive.2.dylib in Frameworks */,
+				CEAB94F619BB1ABB00D4EC9E /* libarchive.dylib in Frameworks */,
+				CEAB94F519BB18F700D4EC9E /* XCTest.framework in Frameworks */,
+				CEAB94E119BB184300D4EC9E /* Foundation.framework in Frameworks */,
 				CE7E432819A22C2E00A8652F /* QuartzCore.framework in Frameworks */,
 				CE7E432619A22BE200A8652F /* MediaPlayer.framework in Frameworks */,
 				CE7E432419A22BD900A8652F /* AVFoundation.framework in Frameworks */,
 				CE2AE636199890AF00B23FFF /* libsqlite3.0.dylib in Frameworks */,
 				CEEDCADB197F8E3B0088511D /* CFNetwork.framework in Frameworks */,
+				CEAB94C919BAEB1400D4EC9E /* DropboxSDK.framework in Frameworks */,
 				CEEDCAD9197F8E180088511D /* MobileCoreServices.framework in Frameworks */,
 				CEEDCAD7197F8DFE0088511D /* libz.dylib in Frameworks */,
 				CE84C22E1962D9C100A351FF /* SystemConfiguration.framework in Frameworks */,
 				CE84C22C1962D9B400A351FF /* CoreFoundation.framework in Frameworks */,
 				CE84C1F11962D83800A351FF /* CoreGraphics.framework in Frameworks */,
 				CE84C1F31962D83800A351FF /* UIKit.framework in Frameworks */,
-				CE84C1EF1962D83800A351FF /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +405,8 @@
 				CEBD96E619B0790800A63CC5 /* MCANotesDetailViewController.m */,
 				CEBA2DC919B6EBFF00C6941F /* MCAAddEditNotesViewController.h */,
 				CEBA2DCA19B6EBFF00C6941F /* MCAAddEditNotesViewController.m */,
+				CEAB93E219BAD21C00D4EC9E /* MCADropBoxViewController.h */,
+				CEAB93E319BAD21C00D4EC9E /* MCADropBoxViewController.m */,
 			);
 			name = notes;
 			sourceTree = "<group>";
@@ -512,6 +528,9 @@
 		CE84C1ED1962D83800A351FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CEAB94CC19BB149100D4EC9E /* libarchive.2.dylib */,
+				CEAB94CA19BB127D00D4EC9E /* libarchive.dylib */,
+				CEAB94C819BAEB1400D4EC9E /* DropboxSDK.framework */,
 				CE7E432719A22C2E00A8652F /* QuartzCore.framework */,
 				CE7E432519A22BE100A8652F /* MediaPlayer.framework */,
 				CE7E432319A22BD900A8652F /* AVFoundation.framework */,
@@ -637,6 +656,7 @@
 		CE84C2311962DB6200A351FF /* AppExternal */ = {
 			isa = PBXGroup;
 			children = (
+				CEAB94E219BB189A00D4EC9E /* Objective-Zip */,
 				CE394C3319938D0C0080B5B8 /* MCACustomController */,
 				CE2DFC4419AF1B0A000D59EB /* LocalStoredFolder */,
 				CE2DFC2D19AEEBEF000D59EB /* Lazy Loading */,
@@ -671,6 +691,13 @@
 			);
 			name = more;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		CEAB94E219BB189A00D4EC9E /* Objective-Zip */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Objective-Zip";
 			sourceTree = "<group>";
 		};
 		CEBDA79A19B96F10001294DD /* customImageView */ = {
@@ -870,6 +897,7 @@
 				CEEDCAD5197F8BF30088511D /* SBJsonWriter.m in Sources */,
 				CEEDCAC1197F8BE20088511D /* ASIInputStream.m in Sources */,
 				CE278A1E19920D6700783592 /* SWUtilityButtonView.m in Sources */,
+				CEAB93E419BAD21C00D4EC9E /* MCADropBoxViewController.m in Sources */,
 				CE84C2411962E46800A351FF /* MCAGlobalFunction.m in Sources */,
 				CE2AE62E1998881100B23FFF /* FMDatabaseAdditions.m in Sources */,
 				CEEDCABE197F8BE20088511D /* ASIDownloadCache.m in Sources */,
@@ -986,8 +1014,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Rashmi Singh (2EC659949Q)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rashmi Singh (2EC659949Q)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1005,7 +1033,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d3f12233-bb5b-4175-afc6-25d8b7e67767";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1026,8 +1054,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Rashmi Singh (2EC659949Q)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rashmi Singh (2EC659949Q)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1039,7 +1067,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d3f12233-bb5b-4175-afc6-25d8b7e67767";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1049,15 +1077,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Rashmi Singh (2EC659949Q)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rashmi Singh (2EC659949Q)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobileCollegeAdmin/MobileCollegeAdmin-Prefix.pch";
 				INFOPLIST_FILE = "MobileCollegeAdmin/MobileCollegeAdmin-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d3f12233-bb5b-4175-afc6-25d8b7e67767";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1067,15 +1100,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Rashmi Singh (2EC659949Q)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rashmi Singh (2EC659949Q)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MobileCollegeAdmin/MobileCollegeAdmin-Prefix.pch";
 				INFOPLIST_FILE = "MobileCollegeAdmin/MobileCollegeAdmin-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "d3f12233-bb5b-4175-afc6-25d8b7e67767";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
