@@ -31,7 +31,7 @@
     
     arr_scrollImages = [NSMutableArray  new];
     
-    btn_camera.layer.cornerRadius = 8.0f;
+    btn_camera.layer.cornerRadius = 12.0f;
     btn_camera.layer.masksToBounds = YES;
     
     tv_description.text = @"Description:";

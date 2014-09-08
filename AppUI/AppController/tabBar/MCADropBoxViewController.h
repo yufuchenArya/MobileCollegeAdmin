@@ -11,12 +11,12 @@
 
 @interface MCADropBoxViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,DBRestClientDelegate>{
     
-    IBOutlet UITableView *tbl_notesList;
+    IBOutlet UITableView *tbl_catList;
+    IBOutlet UIButton *btn_dropBox;
     NSArray *arr_catList;
     NSMutableArray *arr_selectedCatList;
     
     AryaHUD *HUD;
 }
--(IBAction)btnUploadToDropBox:(id)sender;
 @property (nonatomic, strong) DBRestClient *restClient;
 @end
