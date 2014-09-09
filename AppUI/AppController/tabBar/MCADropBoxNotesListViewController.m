@@ -47,6 +47,8 @@
     
     btn_dropBox.layer.cornerRadius = 12.0f;
     tbl_notesfile.tableFooterView = [[UIView alloc] init];
+    
+    k = 0;
 }
 
 - (void)didReceiveMemoryWarning
@@ -149,14 +151,36 @@
     
     NSLog(@"File uploaded successfully to path: %@", metadata.path);
    
-    [HUD hide];
-    [tbl_notesfile reloadData];
+    k = ++k;
     
+    if (k == arr_selectedNotesfile.count) {
+        
+        [HUD hide];
+        [tbl_notesfile reloadData];
+        arr_selectedNotesfile = [NSMutableArray new];
+        k = 0;
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Message"
+                                                       message:@"File uploaded to dropbox successfully." delegate:nil
+                                             cancelButtonTitle:nil
+                                             otherButtonTitles:nil, nil];
+        
+        [alert show];
+
+        double delayInSeconds = 1.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(),^ {
+            
+           [alert dismissWithClickedButtonIndex:0 animated:YES];
+            
+        });
+    }
 }
 
 - (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
     
     NSLog(@"File upload failed with error: %@", error);
+    
+    k = ++k;
 }
 
 #pragma mark - DOCUMENT_DIRECTORY_METHOD
@@ -194,7 +218,7 @@
 //        UIImage *img_Temp = [UIImage imageWithData:retrieveData];
 //        if (img_Temp) {
         
-           [self.restClient uploadFile:[files objectAtIndex:i] toPath:destDir withParentRev:nil fromPath:fileName];
+        [self.restClient uploadFile:[files objectAtIndex:i] toPath:destDir withParentRev:nil fromPath:fileName];
        
 //          }
      }

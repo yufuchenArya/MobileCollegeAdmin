@@ -1303,7 +1303,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.1529411765" green="0.65098039220000004" blue="0.83529411760000005" alpha="1" colorSpace="deviceRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" image="dropbox">
+                                <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1372,7 +1372,7 @@
                                 <rect key="frame" x="60" y="414" width="200" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.1529411765" green="0.65098039220000004" blue="0.83529411760000005" alpha="1" colorSpace="deviceRGB"/>
-                                <state key="normal" image="dropbox">
+                                <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1441,7 +1441,7 @@
                                 <rect key="frame" x="60" y="414" width="200" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.1529411765" green="0.65098039220000004" blue="0.83529411760000005" alpha="1" colorSpace="deviceRGB"/>
-                                <state key="normal" image="dropbox">
+                                <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -1876,7 +1876,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N1L-6l-xbQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1501" y="22"/>
+            <point key="canvasLocation" x="1581" y="46"/>
         </scene>
         <!--Notes Detail View Controller-->
         <scene sceneID="dVf-me-ArH">
@@ -1920,7 +1920,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pag-tg-6ip" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1089" y="597"/>
+            <point key="canvasLocation" x="1121" y="589"/>
         </scene>
         <!--Navigation Controller - Notes-->
         <scene sceneID="Mk9-Bf-5Kt">
@@ -2145,7 +2145,6 @@
         <image name="calendar" width="32" height="26"/>
         <image name="camera" width="22" height="22"/>
         <image name="checkMark" width="22" height="22"/>
-        <image name="dropbox" width="24" height="24"/>
         <image name="loginLogo" width="136" height="136"/>
         <image name="more" width="32" height="26"/>
         <image name="notes" width="32" height="26"/>
@@ -2165,8 +2164,8 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="b9N-e4-lCM"/>
-        <segue reference="Ygq-zg-HY8"/>
         <segue reference="BAV-Zh-z7g"/>
         <segue reference="nf9-ap-ADM"/>
+        <segue reference="izs-bf-NdR"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -17,6 +17,9 @@
     NSMutableArray *arr_selectedNotesList;
     
     AryaHUD *HUD;
+    NSMutableArray *arrtest;
+    
+    int k;
     
 }
 @property(nonatomic,retain)NSString *str_catName;

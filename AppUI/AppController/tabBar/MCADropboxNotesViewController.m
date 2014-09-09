@@ -34,6 +34,9 @@
     HUD = [AryaHUD new];
     [self.view addSubview:HUD];
     
+    arrtest = [NSMutableArray new];
+    k = 0;
+    
     arr_selectedNotesList = [NSMutableArray  new];
     
     [self readDirectory:nil];
@@ -158,14 +161,23 @@
               from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
     
     NSLog(@"File uploaded successfully to path: %@", metadata.path);
-    [HUD hide];
-    [tbl_notesList reloadData];
+    
+    k = ++k;
+    
+    if (k == arrtest.count) {
+        
+        [HUD hide];
+        [tbl_notesList reloadData];
+        arr_selectedNotesList = [NSMutableArray new];
+        
+    }
 }
 
 - (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
     
     NSLog(@"File upload failed with error: %@", error);
     [HUD hide];
+    k = ++k;
 }
 #pragma mark - DOCUMENT_DIRECTORY_METHOD
 
@@ -192,9 +204,12 @@
         
         NSString *destDir = [NSString stringWithFormat:@"/%@/%@",@"Notes",[arr_selectedNotesList objectAtIndex:i]];
         
-        for (int k = 0; k< files.count; k++)
+        [arrtest addObjectsFromArray:files];
+//        [arrtest addObject:[arr_selectedNotesList objectAtIndex:i]];
+        
+        for (int j = 0; j< files.count; j++)
             {
-                NSString *fileName = [filePath stringByAppendingString:[NSString stringWithFormat:@"/%@",[files objectAtIndex:k]]];
+                NSString *fileName = [filePath stringByAppendingString:[NSString stringWithFormat:@"/%@",[files objectAtIndex:j]]];
 //                NSData *retrieveData = [NSData dataWithContentsOfFile:fileName];
 //                
 //                NSString *str_Temp = [[NSString alloc]initWithData:retrieveData encoding:NSUTF8StringEncoding];
@@ -206,9 +221,10 @@
 //                UIImage *img_Temp = [UIImage imageWithData:retrieveData];
 //                if (img_Temp) {
                 
-                     [self.restClient uploadFile:[files objectAtIndex:k] toPath:destDir withParentRev:nil fromPath:fileName];
+                
+                     [self.restClient uploadFile:[files objectAtIndex:j] toPath:destDir withParentRev:nil fromPath:fileName];
 //                }
-           }
+            }
      }
 }
 
