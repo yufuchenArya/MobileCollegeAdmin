@@ -90,9 +90,12 @@
     {
         [HUD showForTabBar];
         if(arr_selectedNotesfile.count > 0){
-            
-            [self readToFile:nil];
-            
+            if ([MCAGlobalFunction isConnectedToInternet]) {
+                [self readToFile:nil];
+            }else{
+                [HUD hide];
+                [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
+            }
         }else{
             
             [HUD hide];
@@ -206,7 +209,6 @@
                           contentsOfDirectoryAtPath:filePath error:&error];
         
         NSString *destDir = [NSString stringWithFormat:@"/%@",@"Notes"];
-      
         NSString *fileName = [filePath stringByAppendingString:[NSString stringWithFormat:@"/%@",[arr_selectedNotesfile objectAtIndex:i]]];
 //        NSData *retrieveData = [NSData dataWithContentsOfFile:fileName];
 //        

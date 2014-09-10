@@ -64,9 +64,12 @@
     {
         [HUD showForTabBar];
         if(arr_selectedCatList.count > 0){
-            
-           [self readToFile:nil];
-            
+            if ([MCAGlobalFunction isConnectedToInternet]) {
+                [self readToFile:nil];
+            }else{
+                [HUD hide];
+                [MCAGlobalFunction showAlert:NET_NOT_AVAIALABLE];
+            }
         }else{
             
             [HUD hide];
