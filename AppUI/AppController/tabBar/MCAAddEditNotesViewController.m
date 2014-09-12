@@ -26,15 +26,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    HUD = [AryaHUD new];
-    [self.view addSubview:HUD];
+    hud = [AryaHUD new];
+    [self.view addSubview:hud];
     
     arr_scrollImages = [NSMutableArray  new];
     
     btn_camera.layer.cornerRadius = 12.0f;
     btn_camera.layer.masksToBounds = YES;
     
-    tv_description.text = @"Description:";
+    tv_description.text = @"Enter Note Description";
     tv_description.textColor = [UIColor lightGrayColor];
     
     NSUInteger numberOfViewControllersOnStack = [self.navigationController.viewControllers count];
@@ -43,7 +43,7 @@
     className = NSStringFromClass(parentVCClass);
     
     if ([className isEqualToString:@"MCANotesViewController"]) {
-         self.navigationItem.title = @"Add Note";
+         self.navigationItem.title = @"New Note";
          notesDHolder = [MCANotesDHolder new];
          notesDHolder.arr_notesImage = [NSMutableArray new];
         
@@ -52,6 +52,7 @@
         self.navigationItem.title = @"Edit Note";
         tx_noteTitle.text = notesDHolder.str_notesName;
         tv_description.text = notesDHolder.str_notesDesc;
+        tv_description.textColor = [UIColor grayColor];
         [self getImageScrollView:nil];
         
     }
@@ -71,7 +72,7 @@
 }
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    if ([[textView text] isEqualToString:@"Description:"]) {
+    if ([[textView text] isEqualToString:@"Enter Note Description"]) {
         textView.text = @"";
         textView.textColor = [UIColor grayColor];
     }
@@ -81,7 +82,7 @@
 -(BOOL)textViewShouldEndEditing:(UITextView *)textView
 {
     if ([[textView text] length] == 0) {
-        textView.text = @"Description:";
+        textView.text = @"Enter Note Description";
         textView.textColor = [UIColor lightGrayColor];
     }
     return YES;
@@ -110,63 +111,115 @@
 }
 -(IBAction)btnDoneDidClicked:(id)sender{
     
-    [self.view addSubview:HUD];
-    [HUD showForTabBar];
-    
-    [self addEditNote:nil];
-   
-}
--(void)addEditNote:(id)sender{
+//    [self.view addSubview:HUD];
+    [hud showForTabBar];
+    [self.view bringSubviewToFront:hud];
     
     if (!tx_noteTitle.text.length == 0)
     {
-        if (!tv_description.text.length == 0 && ![tv_description.text isEqualToString:@"Description:"])
+        if (!tv_description.text.length == 0 && ![tv_description.text isEqualToString:@"Enter Note Description"])
         {
-            NSString *docDir= [MCALocalStoredFolder getCategoryDir];
-            NSString *deleteFilePath = [docDir stringByAppendingString:[NSString stringWithFormat:@"/%@",notesDHolder.str_notesName]];
+            [tv_description resignFirstResponder];
+            [tx_noteTitle resignFirstResponder];
             
-            [MCALocalStoredFolder deleteSubCategory:deleteFilePath];
-            
-            //get the documents directory:
-            [MCALocalStoredFolder createSubCategoryDir:tx_noteTitle.text];
-            
-            NSString *documentsDirectory = [NSString stringWithFormat:@"%@/%@",[MCALocalStoredFolder getCategoryDir],tx_noteTitle.text];
-            
-            //make a file name to write the data to using the documents directory:
-            NSString *filePath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.txt",                                                                         tx_noteTitle.text]];
-            //create content - four lines of text
-            NSString *content = tv_description.text;
-            
-            for (int i = 0; i < notesDHolder.arr_notesImage.count; i++) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 
-                UIImage *image = [notesDHolder.arr_notesImage objectAtIndex:i];
-                NSString *imagePath = [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@%d.png",tx_noteTitle.text,i]];
-                NSData *imageData = UIImagePNGRepresentation(image);
-                [imageData writeToFile:imagePath
-                            atomically:NO];
-            }
-            
-            //save content to the documents directory
-            [content writeToFile:filePath
-                      atomically:NO
-                        encoding:NSStringEncodingConversionAllowLossy
-                           error:nil];
-            //            [self.delegate addEditNoteDetail:nil];
-            if (![className  isEqualToString:@"MCANotesViewController"]) {
-               
-                [self.delegate editNoteDetail:tx_noteTitle.text];
-            }
-            
-            [self.navigationController popViewControllerAnimated:YES];
-            
+                [self addEditNote:nil];
+                
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    
+                    [self processCompleted:nil];
+                });
+            });
+     
         }else{
-
+            [hud hide];
             [MCAGlobalFunction showAlert:@"Please enter Note Description."];
         }
     }else{
-
+        [hud hide];
         [MCAGlobalFunction showAlert:@"Please enter Note Title."];
     }
+}
+-(void)addEditNote:(id)sender{
+    
+    NSString *docDir= [MCALocalStoredFolder getCategoryDir];
+    NSString *deleteFilePath = [docDir stringByAppendingString:[NSString stringWithFormat:@"/%@",notesDHolder.str_notesName]];
+    
+    [MCALocalStoredFolder deleteSubCategory:deleteFilePath];
+    
+    tx_noteTitle.text = [tx_noteTitle.text stringByTrimmingCharactersInSet:
+                               [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    //get the documents directory:
+    [MCALocalStoredFolder createSubCategoryDir:tx_noteTitle.text];
+    
+    NSString *documentsDirectory =
+    [NSString stringWithFormat:@"%@/%@",[MCALocalStoredFolder getCategoryDir],tx_noteTitle.text];
+    
+    //make a file name to write the data to using the documents directory:
+     NSString *filePath =
+    [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.txt",tx_noteTitle.text]];
+    
+    //create content - four lines of text
+    NSString *content = tv_description.text;
+    
+    for (int i = 0; i < notesDHolder.arr_notesImage.count; i++) {
+        
+    UIImage *image = [notesDHolder.arr_notesImage objectAtIndex:i];
+    NSString *imagePath =
+   [documentsDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"%@%d.png",tx_noteTitle.text,i]];
+        
+    NSData *imageData = UIImagePNGRepresentation(image);
+    [imageData writeToFile:imagePath
+                    atomically:NO];
+        
+    }
+    
+    //save content to the documents directory
+    [content writeToFile:filePath
+              atomically:NO
+                encoding:NSStringEncodingConversionAllowLossy
+                   error:nil];
+    //            [self.delegate addEditNoteDetail:nil];
+    
+   
+}
+-(void)processCompleted:(id)sender{
+    
+    [hud hide];
+    UIAlertView *alert;
+    
+    if ([className isEqualToString:@"MCANotesViewController"]) {
+        
+        alert   = [[UIAlertView alloc]initWithTitle:@"Message"
+                                            message:@"Note added successfully."
+                                           delegate:nil
+                                  cancelButtonTitle:nil
+                                  otherButtonTitles:nil, nil];
+        
+    }else{
+        
+        alert  = [[UIAlertView alloc]initWithTitle:@"Message"
+                                           message:@"Note edited successfully."
+                                          delegate:nil
+                                 cancelButtonTitle:nil
+                                 otherButtonTitles:nil, nil];
+        
+       [self.delegate editNoteDetail:tx_noteTitle.text];
+        
+    }
+    
+    [alert show];
+    
+    double delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(),^ {
+        
+        [alert dismissWithClickedButtonIndex:0 animated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
+    });
+
 }
 -(void)btn_deleteDidClicked:(id)sender{
     
@@ -272,7 +325,6 @@
     
     if([mediaType isEqualToString:(NSString*)kUTTypeImage]) {
         // an image was taken/selected:
-        
         
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
         [notesDHolder.arr_notesImage addObject:image];

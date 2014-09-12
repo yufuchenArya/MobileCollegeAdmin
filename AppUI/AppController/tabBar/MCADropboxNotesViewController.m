@@ -45,7 +45,7 @@
     
     if (![[DBSession sharedSession] isLinked]) {
         
-        [btn_dropBox setTitle:@"Login To Dropbox" forState:UIControlStateNormal];
+        [btn_dropBox setTitle:@"Log in to DropBox to export" forState:UIControlStateNormal];
     }else{
         [btn_dropBox setTitle:@"Export" forState:UIControlStateNormal];
     }
@@ -102,7 +102,7 @@
         }else{
             
             [HUD hide];
-            [MCAGlobalFunction showAlert:@"Select a file to upload"];
+            [MCAGlobalFunction showAlert:@"Please select at least one file."];
         }
     }
 }
@@ -164,8 +164,8 @@
 - (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
               from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
     
+    [HUD showForTabBar];
     NSLog(@"File uploaded successfully to path: %@", metadata.path);
-    
     k = ++k;
     
     if (k == arrtest.count) {
@@ -173,6 +173,7 @@
         [HUD hide];
         [tbl_notesList reloadData];
         arr_selectedNotesList = [NSMutableArray new];
+        arrtest = [NSMutableArray new];
         k = 0;
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Message"
                                                        message:@"File uploaded to dropbox successfully." delegate:nil
@@ -188,15 +189,37 @@
             [alert dismissWithClickedButtonIndex:0 animated:YES];
             
         });
-
     }
 }
 
 - (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
     
     NSLog(@"File upload failed with error: %@", error);
-    [HUD hide];
     k = ++k;
+    
+    if (k == arrtest.count) {
+        
+        [HUD hide];
+        [tbl_notesList reloadData];
+        arr_selectedNotesList = [NSMutableArray new];
+        arrtest = [NSMutableArray new];
+        k = 0;
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Message"
+                                                       message:@"Unable to upload some of the files." delegate:nil
+                                             cancelButtonTitle:nil
+                                             otherButtonTitles:nil, nil];
+        
+        [alert show];
+        
+        double delayInSeconds = 1.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(),^ {
+            
+            [alert dismissWithClickedButtonIndex:0 animated:YES];
+            
+        });
+    }
+
 }
 #pragma mark - DOCUMENT_DIRECTORY_METHOD
 
@@ -224,24 +247,15 @@
         NSString *destDir = [NSString stringWithFormat:@"/%@/%@",@"Notes",[arr_selectedNotesList objectAtIndex:i]];
         
         [arrtest addObjectsFromArray:files];
-//        [arrtest addObject:[arr_selectedNotesList objectAtIndex:i]];
         
         for (int j = 0; j< files.count; j++)
             {
                 NSString *fileName = [filePath stringByAppendingString:[NSString stringWithFormat:@"/%@",[files objectAtIndex:j]]];
-//                NSData *retrieveData = [NSData dataWithContentsOfFile:fileName];
-//                
-//                NSString *str_Temp = [[NSString alloc]initWithData:retrieveData encoding:NSUTF8StringEncoding];
-//                if (str_Temp) {
-//                    
-//                    [self.restClient uploadFile:[files objectAtIndex:k] toPath:destDir withParentRev:nil fromPath:fileName];
-//                }
-//                
-//                UIImage *img_Temp = [UIImage imageWithData:retrieveData];
-//                if (img_Temp) {
                 
-                     [self.restClient uploadFile:[files objectAtIndex:j] toPath:destDir withParentRev:nil fromPath:fileName];
-//                }
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                   
+                    [self.restClient uploadFile:[files objectAtIndex:j] toPath:destDir withParentRev:nil fromPath:fileName];
+                }];
             }
       }
 }

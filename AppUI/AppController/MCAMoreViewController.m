@@ -32,6 +32,8 @@
     
     arr_moreOptionList = [[NSMutableArray alloc]initWithObjects:@"Settings",@"Share",@"Feedback",@"Logout", nil];
     arr_moreImageList = [[NSMutableArray alloc]initWithObjects:@"setting.png",@"share.png",@"feedback.png",@"logout.png", nil];
+    
+   tbl_moreOption.tableFooterView = [[UIView alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,6 +41,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark - IB_ACTION
 
 -(void)btnLogoutDidClicked:(id)sender{
     
@@ -49,6 +52,7 @@
     [appdelegate logout];
     
 }
+
 #pragma mark UITABLEVIEW DELEGATE AND DATASOURCE METHODS
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -84,6 +88,8 @@
     }else if (indexPath.row == 2){
         
         [self performSegueWithIdentifier:@"segue_feedback" sender:nil];
+    }else if (indexPath.row == 0){
+        [self performSegueWithIdentifier:@"segue_setting" sender:nil];
     }
 }
 @end

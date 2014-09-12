@@ -144,6 +144,10 @@
    [[NSUserDefaults standardUserDefaults]setValue:loginDHolder.str_userId forKey:KEY_USER_ID];
    [[NSUserDefaults standardUserDefaults]setValue:loginDHolder.str_signinId forKey:KEY_SIGNIN_ID];
    [[NSUserDefaults standardUserDefaults]setValue:loginDHolder.str_userType forKey:KEY_USER_TYPE];
+   [[NSUserDefaults standardUserDefaults]setValue:loginDHolder.str_zipCode forKey:KEY_USER_ZIPCODE];
+   [[NSUserDefaults standardUserDefaults]setValue:loginDHolder.str_userName forKey:KEY_USER_NAME];
+   [[NSUserDefaults standardUserDefaults]setValue:loginDHolder.str_family forKey:KEY_USER_FAMILY];
+   [[NSUserDefaults standardUserDefaults]setValue:loginDHolder.str_grade forKey:KEY_USER_GRADE];
    [[NSUserDefaults standardUserDefaults]setInteger:loginDHolder.arr_StudentData.count forKey:KEY_STUDENT_COUNT];
    [[NSUserDefaults standardUserDefaults]setValue:loginDHolder.str_userToken forKey:KEY_USER_TOKEN];
    [[NSUserDefaults standardUserDefaults]synchronize];

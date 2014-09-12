@@ -337,10 +337,10 @@
                            [MCAGlobalFunction showAlert:ZIP_CODE_MSG];
                            return;
                        }
-                   }else{
+                     }else{
                        [info setValue:@"" forKey:@"zipcode"];
                        
-                   }
+                     }
 
                     [info setValue:tx_parentEmail.text forKey:@"signin_id"];
                     [info setValue:tx_parentPwd.text forKey:@"pwd"];
@@ -1006,6 +1006,10 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
     [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_userId forKey:KEY_USER_ID];
     [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_signinId forKey:KEY_SIGNIN_ID];
     [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_userType forKey:KEY_USER_TYPE];
+    [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_zipCode forKey:KEY_USER_ZIPCODE];
+    [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_userName forKey:KEY_USER_NAME];
+    [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_family forKey:KEY_USER_FAMILY];
+    [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_grade forKey:KEY_USER_GRADE];
     [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_userToken forKey:KEY_USER_TOKEN];
     [[NSUserDefaults standardUserDefaults]setInteger:signUpDHolder.arr_StudentData.count forKey:KEY_STUDENT_COUNT];
      if (![signUpDHolder.str_lang isKindOfClass:[NSNull class]]) {
@@ -1028,6 +1032,10 @@ if (![tx_addStudEmail.text isEqualToString:@""]&&![tx_addStudGrade.text isEqualT
     [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_userId forKey:KEY_USER_ID];
     [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_signinId forKey:KEY_SIGNIN_ID];
     [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_userType forKey:KEY_USER_TYPE];
+    [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_zipCode forKey:KEY_USER_ZIPCODE];
+    [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_userName forKey:KEY_USER_NAME];
+    [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_family forKey:KEY_USER_FAMILY];
+    [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_grade forKey:KEY_USER_GRADE];
     [[NSUserDefaults standardUserDefaults]setValue:signUpDHolder.str_userToken forKey:KEY_USER_TOKEN];
     [[NSUserDefaults standardUserDefaults]setInteger:signUpDHolder.arr_StudentData.count forKey:KEY_STUDENT_COUNT];
     if (![signUpDHolder.str_lang isKindOfClass:[NSNull class]]) {

@@ -27,7 +27,11 @@
 
 //keys
 #define KEY_USER_ID @"user_id"
+#define KEY_USER_NAME @"user_name"
+#define KEY_USER_ZIPCODE @"user_zipcode"
 #define KEY_USER_TYPE @"user_type"
+#define KEY_USER_FAMILY @"user_family"
+#define KEY_USER_GRADE @"user_grade"
 #define KEY_USER_TOKEN @"user_token"
 #define KEY_SIGNIN_ID @"signin_id"
 #define KEY_NOW_DATE @"now_date"
@@ -83,6 +87,9 @@
 #define NOTIFICATION_NOTES_SUCCESS @"notificationNotesSuccess"
 #define NOTIFICATION_NOTES_FAILED @"notificationNotesFailed"
 
+#define NOTIFICATION_USER_PROFILE_EDIT_SUCCESS @"notificationUserProfileEditSuccess"
+#define NOTIFICATION_USER_PROFILE_EDIT_FAILED @"notificationUserProfileEditFailed"
 
-
+#define NOTIFICATION_CHANGE_PWD_SUCCESS @"notificationChangePwdSuccess"
+#define NOTIFICATION_CHANGE_PWD_FAILED @"notificationChangePwdFailed"
 

@@ -56,8 +56,11 @@
 		CE36AE0219BD6B75004C047D /* MCADropboxNotesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE36AE0119BD6B75004C047D /* MCADropboxNotesViewController.m */; };
 		CE36AE0519BD8137004C047D /* MCADropBoxNotesListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE36AE0419BD8137004C047D /* MCADropBoxNotesListViewController.m */; };
 		CE394C3619938D300080B5B8 /* MCACustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = CE394C3519938D300080B5B8 /* MCACustomButton.m */; };
+		CE3B4FE619C18359001B07D4 /* MCASettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B4FE519C18359001B07D4 /* MCASettingViewController.m */; };
+		CE3B4FE919C19966001B07D4 /* MCAUserProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3B4FE819C19966001B07D4 /* MCAUserProfileViewController.m */; };
 		CE49490619B7416A00320D8C /* MobileCollegeAdmin.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CE49490519B7416A00320D8C /* MobileCollegeAdmin.sqlite */; };
 		CE49490719B7416A00320D8C /* MobileCollegeAdmin.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = CE49490519B7416A00320D8C /* MobileCollegeAdmin.sqlite */; };
+		CE69728719C3057000DDE7F5 /* MCAChangePwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE69728619C3057000DDE7F5 /* MCAChangePwdViewController.m */; };
 		CE6E7D1E1990A963005470BC /* MCATaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE6E7D1D1990A963005470BC /* MCATaskViewController.m */; };
 		CE7E430719A1F6D400A8652F /* MCAAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE7E430619A1F6D400A8652F /* MCAAlertView.m */; };
 		CE7E431F19A22B4C00A8652F /* ducksmall.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CE7E431B19A22B4C00A8652F /* ducksmall.mp4 */; };
@@ -217,7 +220,13 @@
 		CE36AE1A19BDD886004C047D /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = usr/lib/libz.1.dylib; sourceTree = SDKROOT; };
 		CE394C3419938D300080B5B8 /* MCACustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCACustomButton.h; sourceTree = "<group>"; };
 		CE394C3519938D300080B5B8 /* MCACustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCACustomButton.m; sourceTree = "<group>"; };
+		CE3B4FE419C18359001B07D4 /* MCASettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCASettingViewController.h; sourceTree = "<group>"; };
+		CE3B4FE519C18359001B07D4 /* MCASettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCASettingViewController.m; sourceTree = "<group>"; };
+		CE3B4FE719C19966001B07D4 /* MCAUserProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAUserProfileViewController.h; sourceTree = "<group>"; };
+		CE3B4FE819C19966001B07D4 /* MCAUserProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAUserProfileViewController.m; sourceTree = "<group>"; };
 		CE49490519B7416A00320D8C /* MobileCollegeAdmin.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = MobileCollegeAdmin.sqlite; sourceTree = "<group>"; };
+		CE69728519C3057000DDE7F5 /* MCAChangePwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAChangePwdViewController.h; sourceTree = "<group>"; };
+		CE69728619C3057000DDE7F5 /* MCAChangePwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAChangePwdViewController.m; sourceTree = "<group>"; };
 		CE6E7D1C1990A963005470BC /* MCATaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCATaskViewController.h; sourceTree = "<group>"; };
 		CE6E7D1D1990A963005470BC /* MCATaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCATaskViewController.m; sourceTree = "<group>"; };
 		CE7E430519A1F6D400A8652F /* MCAAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAAlertView.h; sourceTree = "<group>"; };
@@ -738,6 +747,12 @@
 			children = (
 				CE303984199F230D00D17A2B /* MCAMoreViewController.h */,
 				CE303985199F230D00D17A2B /* MCAMoreViewController.m */,
+				CE3B4FE419C18359001B07D4 /* MCASettingViewController.h */,
+				CE3B4FE519C18359001B07D4 /* MCASettingViewController.m */,
+				CE3B4FE719C19966001B07D4 /* MCAUserProfileViewController.h */,
+				CE3B4FE819C19966001B07D4 /* MCAUserProfileViewController.m */,
+				CE69728519C3057000DDE7F5 /* MCAChangePwdViewController.h */,
+				CE69728619C3057000DDE7F5 /* MCAChangePwdViewController.m */,
 			);
 			name = more;
 			path = ..;
@@ -971,6 +986,7 @@
 				CE278A2219920DEF00783592 /* CustomTableViewCell.m in Sources */,
 				CE84C23A1962DE2E00A351FF /* MCARegistrationViewController.m in Sources */,
 				CEEDCAC0197F8BE20088511D /* ASIHTTPRequest.m in Sources */,
+				CE3B4FE619C18359001B07D4 /* MCASettingViewController.m in Sources */,
 				CEEDCAD4197F8BF30088511D /* SBJsonParser.m in Sources */,
 				CEEDCAD3197F8BF30088511D /* SBJsonBase.m in Sources */,
 				CE0D694F1995DC5C009C0DBE /* MCADBIntraction.m in Sources */,
@@ -993,7 +1009,9 @@
 				CEEDCAD2197F8BF30088511D /* SBJSON.m in Sources */,
 				CE32DA7A19AAF14A0037C555 /* UIColor+expanded.m in Sources */,
 				CE2DFC3D19AEEC03000D59EB /* UIImageView+LazyImage.m in Sources */,
+				CE3B4FE919C19966001B07D4 /* MCAUserProfileViewController.m in Sources */,
 				CE1805A0198656260087CA3D /* MCAStudentDHolder.m in Sources */,
+				CE69728719C3057000DDE7F5 /* MCAChangePwdViewController.m in Sources */,
 				CEEDCAE3197F962F0088511D /* MCALoginDHolder.m in Sources */,
 				CEA9D9D1197FEFFE009C3884 /* Reachability.m in Sources */,
 				CE36AE0219BD6B75004C047D /* MCADropboxNotesViewController.m in Sources */,

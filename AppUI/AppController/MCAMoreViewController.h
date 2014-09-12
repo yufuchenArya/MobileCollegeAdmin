@@ -16,5 +16,5 @@
     NSMutableArray *arr_moreOptionList;
     NSMutableArray *arr_moreImageList;
 }
--(IBAction)btnLogoutDidClicked:(id)sender;
+
 @end

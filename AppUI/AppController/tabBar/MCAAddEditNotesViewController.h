@@ -21,9 +21,10 @@
     IBOutlet UIButton *btn_camera;
     IBOutlet UIScrollView *scrollV_noteImages;
     
+
     NSMutableArray *arr_scrollImages;
     NSString *className;
-    AryaHUD *HUD;
+    AryaHUD *hud;
 }
 -(IBAction)btnDoneDidClicked:(id)sender;
 -(IBAction)btnCameraDidClicked:(id)sender;

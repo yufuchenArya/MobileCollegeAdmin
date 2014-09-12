@@ -74,6 +74,8 @@
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:KEY_NOW_DATE];
     [[NSUserDefaults standardUserDefaults]synchronize];
     
+    [[DBSession sharedSession]unlinkAll];
+    
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main_Iphone" bundle:nil];
     MCALoginViewController *loginViewController = (MCALoginViewController *)[storyboard instantiateViewControllerWithIdentifier:@"loginViewCtr"];
    
@@ -118,4 +120,5 @@
     // Add whatever other url handling code your app requires here
     return NO;
 }
+
 @end

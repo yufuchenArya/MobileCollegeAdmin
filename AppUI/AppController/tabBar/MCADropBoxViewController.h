@@ -16,7 +16,11 @@
     NSArray *arr_catList;
     NSMutableArray *arr_selectedCatList;
     
+    NSMutableArray *arrtest;
+    int count;
+    
     AryaHUD *HUD;
 }
 @property (nonatomic, strong) DBRestClient *restClient;
+@property (nonatomic, strong) NSOperationQueue *queue;
 @end

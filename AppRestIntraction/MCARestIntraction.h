@@ -36,6 +36,8 @@ MCARestIntraction *restIntraction;
 -(void)requestForAddTask:(NSString*)info;
 -(void)requestForNotesCategory:(NSString*)info;
 -(void)requestForNotes:(NSString*)info;
+-(void)requestForUserProfileEdit:(NSString *)info;
+-(void)requestForChangePwd:(NSString *)info;
 
 
 @end

@@ -41,8 +41,7 @@
     
     arr_taskList = [NSMutableArray new];
     arr_studentList = [NSMutableArray new];
-    arr_loginData = [[NSUserDefaults standardUserDefaults]objectForKey:@"test"];
-    
+       
     arr_studentList = [[MCADBIntraction databaseInteractionManager]retrieveStudList:nil];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteTaskSuccess:) name:NOTIFICATION_DELETE_TASK_SUCCESS object:nil];

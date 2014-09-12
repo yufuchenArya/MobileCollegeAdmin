@@ -81,7 +81,7 @@
 }
 -(void)btnBar_deleteDidClicked:(id)sender{
     
-    MCAAlertView *alertView = [MCAGlobalFunction showAlert:@"Do you want to delete this note?"
+    MCAAlertView *alertView = [MCAGlobalFunction showAlert:@"Do you wish to delete?"
                                                      title:@"Delete"
                                                   delegate:self
                                                      btnOk:@"Confirm Action"

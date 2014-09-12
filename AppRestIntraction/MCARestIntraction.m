@@ -93,7 +93,7 @@
     
         [[MCADBIntraction databaseInteractionManager]insertStudList:arr_studList];
         
-        arr_loginData = [NSMutableArray new];
+         arr_loginData = [NSMutableArray new];
         [arr_loginData addObject:loginDHolder];
              
         dispatch_async(dispatch_get_main_queue(), ^
@@ -476,7 +476,7 @@
     
     dispatch_async(dispatch_get_main_queue(), ^
                {
-                   [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_DELETE_COMPLETE_TASK_FAILED object:@"Unable to perfrom task at this movement."];
+                   [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_DELETE_COMPLETE_TASK_FAILED object:@"Unable to perform task at this movement."];
                });
 }
 -(void)requestDeleteOrCompleteTaskSuccess:(ASIFormDataRequest*)request{
@@ -560,7 +560,7 @@
     
     dispatch_async(dispatch_get_main_queue(), ^
                    {
-                       [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_ADD_TASK_FAILED object:@"Unable to perfrom task at this movement."];
+                       [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_ADD_TASK_FAILED object:@"Unable to perform task at this movement."];
                    });
 }
 -(void)requestAddTaskSuccess:(ASIFormDataRequest*)request{
@@ -690,7 +690,7 @@
     }
 }
 
-#pragma mark - NOTES
+#pragma mark - NOTES_DETAIL
 
 -(void)requestForNotes:(NSString *)info{
     
@@ -774,5 +774,108 @@
     }
 }
 
+
+#pragma mark - USER_PROFILE_EDIT
+
+-(void)requestForUserProfileEdit:(NSString *)info{
+    
+    NSURL *url = [NSURL URLWithString:URL_MAIN];
+    ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:url];
+    
+    [request setPostValue:info forKey:@"data"];
+    
+    [request setDelegate:self];
+    [request setDidFailSelector:@selector(requestUserProfileEditFail:)];
+    [request setDidFinishSelector:@selector(requestUserProfileEditSuccess:)];
+    [request startAsynchronous];
+    
+}
+-(void)requestUserProfileEditFail:(ASIFormDataRequest*)request{
+    
+    dispatch_async(dispatch_get_main_queue(), ^
+                   {
+                       [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_USER_PROFILE_EDIT_FAILED object:@"Unable to perform task at this movement."];
+                   });
+}
+-(void)requestUserProfileEditSuccess:(ASIFormDataRequest*)request{
+    
+    NSString *responseString = [request responseString];
+    responseString = [[responseString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@""];
+    responseString = [responseString stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+    SBJSON *parser=[[SBJSON alloc]init];
+    
+    NSDictionary *results = [parser objectWithString:responseString error:nil];
+    NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
+    NSString *status_code = [results valueForKey:@"status_code"];
+    
+    if ([status_code isEqualToString:@"S1001"]) {
+        
+        MCALoginDHolder *loginDHolder = [MCALoginDHolder new];
+        loginDHolder.str_userId = [responseDict valueForKey:@"user_id"];
+        loginDHolder.str_userName = [responseDict valueForKey:@"user_name"];
+        loginDHolder.str_zipCode = [responseDict valueForKey:@"zipcode"];
+        loginDHolder.str_userToken = [responseDict valueForKey:@"user_token"];
+        loginDHolder.str_appToken = [responseDict valueForKey:@"app_token"];
+        loginDHolder.str_deviceId = [responseDict valueForKey:@"device_id"];
+        
+        dispatch_async(dispatch_get_main_queue(), ^
+                       {
+                           [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_USER_PROFILE_EDIT_SUCCESS object:loginDHolder];
+                       });
+    }else{
+        NSString *errMsg = [results valueForKey:@"msg"];
+        dispatch_async(dispatch_get_main_queue(), ^
+                       {
+                           [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_USER_PROFILE_EDIT_FAILED object:errMsg];
+                       });
+    }
+}
+#pragma mark - CHANGE_PWD
+
+-(void)requestForChangePwd:(NSString *)info{
+    
+    NSURL *url = [NSURL URLWithString:URL_MAIN];
+    ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:url];
+    
+    [request setPostValue:info forKey:@"data"];
+    
+    [request setDelegate:self];
+    [request setDidFailSelector:@selector(requestChangePwdFail:)];
+    [request setDidFinishSelector:@selector(requestChangePwdSuccess:)];
+    [request startAsynchronous];
+    
+}
+-(void)requestChangePwdFail:(ASIFormDataRequest*)request{
+    
+    dispatch_async(dispatch_get_main_queue(), ^
+                   {
+                       [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_USER_PROFILE_EDIT_FAILED object:@"Unable to perform task at this movement."];
+                   });
+}
+-(void)requestChangePwdSuccess:(ASIFormDataRequest*)request{
+    
+    NSString *responseString = [request responseString];
+    responseString = [[responseString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]] componentsJoinedByString:@""];
+    responseString = [responseString stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+    SBJSON *parser=[[SBJSON alloc]init];
+    
+    NSDictionary *results = [parser objectWithString:responseString error:nil];
+    NSMutableDictionary *responseDict = ((NSMutableDictionary *)[results objectForKey:@"data"]);
+    NSString *status_code = [results valueForKey:@"status_code"];
+    
+    if ([status_code isEqualToString:@"S1001"]) {
+        
+        dispatch_async(dispatch_get_main_queue(), ^
+                       {
+                           [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_USER_PROFILE_EDIT_SUCCESS object:nil];
+                       });
+    }else{
+        NSString *errMsg = [results valueForKey:@"msg"];
+        dispatch_async(dispatch_get_main_queue(), ^
+                       {
+                           [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_USER_PROFILE_EDIT_FAILED object:errMsg];
+                       });
+    }
+}
 
 @end

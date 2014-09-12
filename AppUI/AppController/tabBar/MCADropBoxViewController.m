@@ -31,6 +31,9 @@
     HUD = [AryaHUD new];
     [self.view addSubview:HUD];
     
+    arrtest = [NSMutableArray new];
+    count = 0;
+    
     arr_selectedCatList = [NSMutableArray new];
     
     [self readDirectory:nil];
@@ -39,12 +42,15 @@
     
     if (![[DBSession sharedSession] isLinked]) {
         
-          [btn_dropBox setTitle:@"Login To Dropbox" forState:UIControlStateNormal];
+          [btn_dropBox setTitle:@"Log in to DropBox to export" forState:UIControlStateNormal];
     }else{
           [btn_dropBox setTitle:@"Export" forState:UIControlStateNormal];
     }
     btn_dropBox.layer.cornerRadius = 12.0f;
     tbl_catList.tableFooterView = [[UIView alloc] init];
+    self.queue = [[NSOperationQueue alloc] init];
+  
+    [self.queue addObserver:self forKeyPath:@"operations" options:0 context:NULL];
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,7 +58,20 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                         change:(NSDictionary *)change context:(void *)context
+{
+    if (object == self.queue && [keyPath isEqualToString:@"operations"]) {
+        if ([self.queue.operations count] == 0) {
+            // Do something here when your queue has completed
+            NSLog(@"queue has completed");
+        }
+    }
+    else {
+        [super observeValueForKeyPath:keyPath ofObject:object
+                               change:change context:context];
+    }
+}
 #pragma mark - IB_ACTION
 
 -(IBAction)btnLinkToDropboxDidClicked:(id)sender{
@@ -73,7 +92,7 @@
         }else{
             
             [HUD hide];
-            [MCAGlobalFunction showAlert:@"Select a file"];
+            [MCAGlobalFunction showAlert:@"Please select at least one file."];
         }
     }
 }
@@ -188,15 +207,67 @@
 
 - (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
     
+    [HUD showForTabBar];
     NSLog(@"File uploaded successfully to path: %@", metadata.path);
-    [HUD hide];
-    [tbl_catList reloadData];
+    
+    count = ++count;
+    
+    if (count== arrtest.count)
+    {        
+        [HUD hide];
+        [tbl_catList reloadData];
+        arr_selectedCatList = [NSMutableArray new];
+        arrtest = [NSMutableArray new];
+        count = 0;
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Message"
+                                                       message:@"File uploaded to dropbox successfully." delegate:nil
+                                             cancelButtonTitle:nil
+                                             otherButtonTitles:nil, nil];
+        
+        [alert show];
+        
+        double delayInSeconds = 1.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(),^ {
+            
+            [alert dismissWithClickedButtonIndex:0 animated:YES];
+            
+        });
+    }
+
+    
+//    [HUD hide];
+//    [tbl_catList reloadData];
 }
 
 - (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
     
     NSLog(@"File upload failed with error: %@", error);
-    [HUD hide];
+    count = ++count;
+    
+    if (count== arrtest.count) {
+        
+        [HUD hide];
+        [tbl_catList reloadData];
+        arr_selectedCatList = [NSMutableArray new];
+        arrtest = [NSMutableArray new];
+        count = 0;
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Message"
+                                                       message:@"Unable to upload some of the files." delegate:nil
+                                             cancelButtonTitle:nil
+                                             otherButtonTitles:nil, nil];
+        
+        [alert show];
+        
+        double delayInSeconds = 1.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(),^ {
+            
+            [alert dismissWithClickedButtonIndex:0 animated:YES];
+            
+        });
+    }
+
 }
 
 #pragma mark - DOCUMENT_DIRECTORY_METHOD
@@ -232,6 +303,8 @@
             NSString *destDir = [NSString stringWithFormat:@"/%@/%@/%@",@"Notes",[arr_selectedCatList objectAtIndex:i],[arr_notesList objectAtIndex:j]];
             [HUD showForTabBar];
           
+            [arrtest addObjectsFromArray:files];
+            
             for (int k = 0; k< files.count; k++)
             {
                 NSString *fileName = [filePath stringByAppendingString:[NSString stringWithFormat:@"/%@",[files objectAtIndex:k]]];
@@ -256,10 +329,12 @@
 //                    });
 //                });
                 
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     
-                    [self.restClient uploadFile:[files objectAtIndex:k] toPath:destDir withParentRev:nil fromPath:fileName];
-                });
+                       [self.restClient uploadFile:[files objectAtIndex:k] toPath:destDir withParentRev:nil fromPath:fileName];
+                   
+                    
+                }];
             }
         }
     }

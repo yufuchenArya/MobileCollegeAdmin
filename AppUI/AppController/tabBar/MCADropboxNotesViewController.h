@@ -18,7 +18,7 @@
     
     AryaHUD *HUD;
     NSMutableArray *arrtest;
-    
+
     int k;
     
 }
