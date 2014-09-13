@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A0AB8E819C3FB0000C51EEE /* MCADetailTblCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AB8E719C3FB0000C51EEE /* MCADetailTblCell.m */; };
+		0A3824B119C39DE700662A39 /* MCAResourcesCatDHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3824B019C39DE700662A39 /* MCAResourcesCatDHolder.m */; };
+		0A3824B419C39E0000662A39 /* MCAResourcesDHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3824B319C39E0000662A39 /* MCAResourcesDHolder.m */; };
+		0A8BC6E019C39542007C2CB3 /* MCAResourcesCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BC6DF19C39542007C2CB3 /* MCAResourcesCategoryViewController.m */; };
+		0A8BC6E319C3955C007C2CB3 /* MCAResourcesDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BC6E219C3955C007C2CB3 /* MCAResourcesDetailViewController.m */; };
+		0A8BC6E619C395E2007C2CB3 /* MCAResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BC6E519C395E2007C2CB3 /* MCAResourcesViewController.m */; };
 		CE0D694F1995DC5C009C0DBE /* MCADBIntraction.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0D694E1995DC5C009C0DBE /* MCADBIntraction.m */; };
 		CE0D69521995FE9C009C0DBE /* MCAAddTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0D69511995FE9C009C0DBE /* MCAAddTaskViewController.m */; };
 		CE174993198D19C200F61135 /* AryaHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CE174992198D19C200F61135 /* AryaHUD.m */; };
@@ -132,6 +138,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A0AB8E619C3FB0000C51EEE /* MCADetailTblCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCADetailTblCell.h; sourceTree = "<group>"; };
+		0A0AB8E719C3FB0000C51EEE /* MCADetailTblCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCADetailTblCell.m; sourceTree = "<group>"; };
+		0A3824AF19C39DE700662A39 /* MCAResourcesCatDHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAResourcesCatDHolder.h; sourceTree = "<group>"; };
+		0A3824B019C39DE700662A39 /* MCAResourcesCatDHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAResourcesCatDHolder.m; sourceTree = "<group>"; };
+		0A3824B219C39E0000662A39 /* MCAResourcesDHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAResourcesDHolder.h; sourceTree = "<group>"; };
+		0A3824B319C39E0000662A39 /* MCAResourcesDHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAResourcesDHolder.m; sourceTree = "<group>"; };
+		0A8BC6DE19C39542007C2CB3 /* MCAResourcesCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAResourcesCategoryViewController.h; sourceTree = "<group>"; };
+		0A8BC6DF19C39542007C2CB3 /* MCAResourcesCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAResourcesCategoryViewController.m; sourceTree = "<group>"; };
+		0A8BC6E119C3955C007C2CB3 /* MCAResourcesDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAResourcesDetailViewController.h; sourceTree = "<group>"; };
+		0A8BC6E219C3955C007C2CB3 /* MCAResourcesDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAResourcesDetailViewController.m; sourceTree = "<group>"; };
+		0A8BC6E419C395E2007C2CB3 /* MCAResourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAResourcesViewController.h; sourceTree = "<group>"; };
+		0A8BC6E519C395E2007C2CB3 /* MCAResourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAResourcesViewController.m; sourceTree = "<group>"; };
 		CE0D694D1995DC5C009C0DBE /* MCADBIntraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCADBIntraction.h; sourceTree = "<group>"; };
 		CE0D694E1995DC5C009C0DBE /* MCADBIntraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCADBIntraction.m; sourceTree = "<group>"; };
 		CE0D69501995FE9C009C0DBE /* MCAAddTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAAddTaskViewController.h; sourceTree = "<group>"; };
@@ -364,6 +382,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A5D5CFB19C37ACD00ACC5D6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0A8BC6DE19C39542007C2CB3 /* MCAResourcesCategoryViewController.h */,
+				0A8BC6DF19C39542007C2CB3 /* MCAResourcesCategoryViewController.m */,
+				0A8BC6E419C395E2007C2CB3 /* MCAResourcesViewController.h */,
+				0A8BC6E519C395E2007C2CB3 /* MCAResourcesViewController.m */,
+				0A8BC6E119C3955C007C2CB3 /* MCAResourcesDetailViewController.h */,
+				0A8BC6E219C3955C007C2CB3 /* MCAResourcesDetailViewController.m */,
+				0A0AB8E619C3FB0000C51EEE /* MCADetailTblCell.h */,
+				0A0AB8E719C3FB0000C51EEE /* MCADetailTblCell.m */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		CE174990198D19A100F61135 /* HUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -510,9 +543,10 @@
 		CE6E7D1A1990A8F6005470BC /* tabBar */ = {
 			isa = PBXGroup;
 			children = (
-				CE2DFC2619AEE11A000D59EB /* notes */,
 				CE6E7D1B1990A90E005470BC /* tasks */,
 				CEF5375B19A70F9B00B72CD2 /* calendar */,
+				CE2DFC2619AEE11A000D59EB /* notes */,
+				0A5D5CFB19C37ACD00ACC5D6 /* Resources */,
 				CE84C2341962DDDD00A351FF /* more */,
 			);
 			path = tabBar;
@@ -694,6 +728,10 @@
 				CE2DFC2B19AEE7C6000D59EB /* MCANotesCatDHolder.m */,
 				CEBD96E219B0513800A63CC5 /* MCANotesDHolder.h */,
 				CEBD96E319B0513800A63CC5 /* MCANotesDHolder.m */,
+				0A3824AF19C39DE700662A39 /* MCAResourcesCatDHolder.h */,
+				0A3824B019C39DE700662A39 /* MCAResourcesCatDHolder.m */,
+				0A3824B219C39E0000662A39 /* MCAResourcesDHolder.h */,
+				0A3824B319C39E0000662A39 /* MCAResourcesDHolder.m */,
 			);
 			path = AppModel;
 			sourceTree = "<group>";
@@ -966,6 +1004,7 @@
 				CE27456919C031E400DDA5A8 /* MCATutorialViewController.m in Sources */,
 				CE32DA7819AAF14A0037C555 /* NSMutableArray+convenience.m in Sources */,
 				CE84C2371962DE1200A351FF /* MCALoginViewController.m in Sources */,
+				0A8BC6E619C395E2007C2CB3 /* MCAResourcesViewController.m in Sources */,
 				CEEDCAD5197F8BF30088511D /* SBJsonWriter.m in Sources */,
 				CEEDCAC1197F8BE20088511D /* ASIInputStream.m in Sources */,
 				CE278A1E19920D6700783592 /* SWUtilityButtonView.m in Sources */,
@@ -984,6 +1023,7 @@
 				CEF5375E19A70FB700B72CD2 /* MCACalendarViewController.m in Sources */,
 				CE174993198D19C200F61135 /* AryaHUD.m in Sources */,
 				CE278A2219920DEF00783592 /* CustomTableViewCell.m in Sources */,
+				0A8BC6E019C39542007C2CB3 /* MCAResourcesCategoryViewController.m in Sources */,
 				CE84C23A1962DE2E00A351FF /* MCARegistrationViewController.m in Sources */,
 				CEEDCAC0197F8BE20088511D /* ASIHTTPRequest.m in Sources */,
 				CE3B4FE619C18359001B07D4 /* MCASettingViewController.m in Sources */,
@@ -993,6 +1033,7 @@
 				CE278A251992365A00783592 /* MCASignUpDHolder.m in Sources */,
 				CEDB9B42198F61A6006B3C9B /* MCAGlobalData.m in Sources */,
 				CEBD96E419B0513800A63CC5 /* MCANotesDHolder.m in Sources */,
+				0A8BC6E319C3955C007C2CB3 /* MCAResourcesDetailViewController.m in Sources */,
 				CE6E7D1E1990A963005470BC /* MCATaskViewController.m in Sources */,
 				CE27456119C01FD000DDA5A8 /* MCATermUseViewController.m in Sources */,
 				CEEDCABD197F8BE20088511D /* ASIDataDecompressor.m in Sources */,
@@ -1001,6 +1042,7 @@
 				CEEDCAD0197F8BF30088511D /* NSObject+SBJSON.m in Sources */,
 				CE2AE6311998881100B23FFF /* FMResultSet.m in Sources */,
 				CE32DA7619AAF14A0037C555 /* MCACalendarView.m in Sources */,
+				0A3824B119C39DE700662A39 /* MCAResourcesCatDHolder.m in Sources */,
 				CE278A1B19920D6700783592 /* SWLongPressGestureRecognizer.m in Sources */,
 				CEEDCAC2197F8BE20088511D /* ASINetworkQueue.m in Sources */,
 				CE278A1D19920D6700783592 /* SWUtilityButtonTapGestureRecognizer.m in Sources */,
@@ -1016,6 +1058,7 @@
 				CEA9D9D1197FEFFE009C3884 /* Reachability.m in Sources */,
 				CE36AE0219BD6B75004C047D /* MCADropboxNotesViewController.m in Sources */,
 				CEEDCABB197F8BE20088511D /* ASIAuthenticationDialog.m in Sources */,
+				0A0AB8E819C3FB0000C51EEE /* MCADetailTblCell.m in Sources */,
 				CE394C3619938D300080B5B8 /* MCACustomButton.m in Sources */,
 				CE207FB919A8580F00F329FC /* NSString+Util.m in Sources */,
 				CEEDCAE0197F8F520088511D /* MCARestIntraction.m in Sources */,
@@ -1025,6 +1068,7 @@
 				CEBD96E119B04E0000A63CC5 /* MCANotesCategoryViewController.m in Sources */,
 				CE2DFC4719AF1B51000D59EB /* MCALocalStoredFolder.m in Sources */,
 				CEEDCABF197F8BE20088511D /* ASIFormDataRequest.m in Sources */,
+				0A3824B419C39E0000662A39 /* MCAResourcesDHolder.m in Sources */,
 				CEEDCAD1197F8BF30088511D /* NSString+SBJSON.m in Sources */,
 				CE32DA7719AAF14A0037C555 /* UIView+convenience.m in Sources */,
 				CE278A1A19920D6700783592 /* SWCellScrollView.m in Sources */,

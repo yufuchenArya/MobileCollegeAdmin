@@ -84,8 +84,14 @@
 #define NOTIFICATION_NOTES_CATEGORY_SUCCESS @"notificationNotesCategorySuccess"
 #define NOTIFICATION_NOTES_CATEGORY_FAILED @"notificationNotesCategoryFailed"
 
+#define NOTIFICATION_RESOURCE_CATEGORY_SUCCESS @"notificationResourceCategorySuccess"
+#define NOTIFICATION_RESOURCE_CATEGORY_FAILED @"notificationResourceCategoryFailed"
+
 #define NOTIFICATION_NOTES_SUCCESS @"notificationNotesSuccess"
 #define NOTIFICATION_NOTES_FAILED @"notificationNotesFailed"
+
+#define NOTIFICATION_RESOURCE_SUCCESS @"notificationResourcesSuccess"
+#define NOTIFICATION_RESOURCE_FAILED @"notificationResourcesFailed"
 
 #define NOTIFICATION_USER_PROFILE_EDIT_SUCCESS @"notificationUserProfileEditSuccess"
 #define NOTIFICATION_USER_PROFILE_EDIT_FAILED @"notificationUserProfileEditFailed"
