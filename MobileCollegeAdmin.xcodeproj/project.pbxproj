@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A0AB8E819C3FB0000C51EEE /* MCADetailTblCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A0AB8E719C3FB0000C51EEE /* MCADetailTblCell.m */; };
 		0A3824B119C39DE700662A39 /* MCAResourcesCatDHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3824B019C39DE700662A39 /* MCAResourcesCatDHolder.m */; };
 		0A3824B419C39E0000662A39 /* MCAResourcesDHolder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A3824B319C39E0000662A39 /* MCAResourcesDHolder.m */; };
 		0A8BC6E019C39542007C2CB3 /* MCAResourcesCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BC6DF19C39542007C2CB3 /* MCAResourcesCategoryViewController.m */; };
 		0A8BC6E319C3955C007C2CB3 /* MCAResourcesDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BC6E219C3955C007C2CB3 /* MCAResourcesDetailViewController.m */; };
 		0A8BC6E619C395E2007C2CB3 /* MCAResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BC6E519C395E2007C2CB3 /* MCAResourcesViewController.m */; };
+		B6DF3B9119C69A44007AE61B /* MCAResourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DF3B9019C69A44007AE61B /* MCAResourceCell.m */; };
 		CE0D694F1995DC5C009C0DBE /* MCADBIntraction.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0D694E1995DC5C009C0DBE /* MCADBIntraction.m */; };
 		CE0D69521995FE9C009C0DBE /* MCAAddTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0D69511995FE9C009C0DBE /* MCAAddTaskViewController.m */; };
 		CE174993198D19C200F61135 /* AryaHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CE174992198D19C200F61135 /* AryaHUD.m */; };
@@ -138,8 +138,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0A0AB8E619C3FB0000C51EEE /* MCADetailTblCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCADetailTblCell.h; sourceTree = "<group>"; };
-		0A0AB8E719C3FB0000C51EEE /* MCADetailTblCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCADetailTblCell.m; sourceTree = "<group>"; };
 		0A3824AF19C39DE700662A39 /* MCAResourcesCatDHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAResourcesCatDHolder.h; sourceTree = "<group>"; };
 		0A3824B019C39DE700662A39 /* MCAResourcesCatDHolder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAResourcesCatDHolder.m; sourceTree = "<group>"; };
 		0A3824B219C39E0000662A39 /* MCAResourcesDHolder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAResourcesDHolder.h; sourceTree = "<group>"; };
@@ -150,6 +148,8 @@
 		0A8BC6E219C3955C007C2CB3 /* MCAResourcesDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAResourcesDetailViewController.m; sourceTree = "<group>"; };
 		0A8BC6E419C395E2007C2CB3 /* MCAResourcesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAResourcesViewController.h; sourceTree = "<group>"; };
 		0A8BC6E519C395E2007C2CB3 /* MCAResourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAResourcesViewController.m; sourceTree = "<group>"; };
+		B6DF3B8F19C69A44007AE61B /* MCAResourceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAResourceCell.h; sourceTree = "<group>"; };
+		B6DF3B9019C69A44007AE61B /* MCAResourceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAResourceCell.m; sourceTree = "<group>"; };
 		CE0D694D1995DC5C009C0DBE /* MCADBIntraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCADBIntraction.h; sourceTree = "<group>"; };
 		CE0D694E1995DC5C009C0DBE /* MCADBIntraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCADBIntraction.m; sourceTree = "<group>"; };
 		CE0D69501995FE9C009C0DBE /* MCAAddTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAAddTaskViewController.h; sourceTree = "<group>"; };
@@ -391,8 +391,8 @@
 				0A8BC6E519C395E2007C2CB3 /* MCAResourcesViewController.m */,
 				0A8BC6E119C3955C007C2CB3 /* MCAResourcesDetailViewController.h */,
 				0A8BC6E219C3955C007C2CB3 /* MCAResourcesDetailViewController.m */,
-				0A0AB8E619C3FB0000C51EEE /* MCADetailTblCell.h */,
-				0A0AB8E719C3FB0000C51EEE /* MCADetailTblCell.m */,
+				B6DF3B8F19C69A44007AE61B /* MCAResourceCell.h */,
+				B6DF3B9019C69A44007AE61B /* MCAResourceCell.m */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -934,6 +934,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = arya;
 				TargetAttributes = {
+					CE84C1EA1962D83800A351FF = {
+						DevelopmentTeam = J7KASTD2Y4;
+					};
 					CE84C20B1962D83800A351FF = {
 						TestTargetID = CE84C1EA1962D83800A351FF;
 					};
@@ -1020,6 +1023,7 @@
 				CE2DFC2919AEE193000D59EB /* MCANotesViewController.m in Sources */,
 				CE2DFC2C19AEE7C6000D59EB /* MCANotesCatDHolder.m in Sources */,
 				CE2AA3131999DE4900D43008 /* MCATaskDetailViewController.m in Sources */,
+				B6DF3B9119C69A44007AE61B /* MCAResourceCell.m in Sources */,
 				CEF5375E19A70FB700B72CD2 /* MCACalendarViewController.m in Sources */,
 				CE174993198D19C200F61135 /* AryaHUD.m in Sources */,
 				CE278A2219920DEF00783592 /* CustomTableViewCell.m in Sources */,
@@ -1058,7 +1062,6 @@
 				CEA9D9D1197FEFFE009C3884 /* Reachability.m in Sources */,
 				CE36AE0219BD6B75004C047D /* MCADropboxNotesViewController.m in Sources */,
 				CEEDCABB197F8BE20088511D /* ASIAuthenticationDialog.m in Sources */,
-				0A0AB8E819C3FB0000C51EEE /* MCADetailTblCell.m in Sources */,
 				CE394C3619938D300080B5B8 /* MCACustomButton.m in Sources */,
 				CE207FB919A8580F00F329FC /* NSString+Util.m in Sources */,
 				CEEDCAE0197F8F520088511D /* MCARestIntraction.m in Sources */,
@@ -1199,8 +1202,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rashmi Singh (2EC659949Q)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rashmi Singh (2EC659949Q)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1212,7 +1215,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d3f12233-bb5b-4175-afc6-25d8b7e67767";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1222,8 +1225,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rashmi Singh (2EC659949Q)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rashmi Singh (2EC659949Q)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1235,7 +1238,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "d3f12233-bb5b-4175-afc6-25d8b7e67767";
+				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "armv7 armv7s arm64";
 				WRAPPER_EXTENSION = app;
 			};

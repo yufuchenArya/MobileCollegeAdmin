@@ -14,7 +14,7 @@
 
 @implementation MCAResourcesDetailViewController
 
-@synthesize reDHolder;
+@synthesize reDHolder, detailCell;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,8 +39,17 @@
             [arr_url addObject:str];
 
     }
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didChangePreferredContentSize:)
+                                                 name:UIContentSizeCategoryDidChangeNotification object:nil];
+    tbl_url.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+
     // Do any additional setup after loading the view.
+}
+
+- (void)didChangePreferredContentSize:(NSNotification *)notification
+{
+    [tbl_url reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,17 +57,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return 80;
-    
-}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return arr_url.count;
     
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    [self configureCell:cell forRowAtIndexPath:indexPath];
     static NSString *cellIdentifier = @"urlCell";
     UITableViewCell  *cell = nil;
     cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -69,23 +74,30 @@
                 reuseIdentifier:cellIdentifier];
     }
     NSString* str = [arr_url objectAtIndex:indexPath.row];
+    NSLog(@"%@", str);
     UILabel *lbl_catName = (UILabel *)[cell.contentView viewWithTag:2];
     lbl_catName.text = str;
+    lbl_catName.numberOfLines = 0;
+    lbl_catName.lineBreakMode = NSLineBreakByWordWrapping;
+    [lbl_catName sizeToFit];
     
     tbl_url.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
     return cell;
-    
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSString* str = [arr_url objectAtIndex:indexPath.row];
+    
+    CGSize constraint = {236, 20000};
+    
+    CGSize size = [str sizeWithFont: [UIFont fontWithName:@"Verdana" size:13] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+    
+    CGFloat height = MAX(size.height, 44.0f);
+    
+    return height+10;
 }
-*/
+
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MCAResourceCell.h"
 
 @interface MCAResourcesDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 {
@@ -14,6 +15,8 @@
     NSMutableArray *arr_url;
 }
 
+@property (strong, nonatomic)MCAResourceCell *detailCell;
 @property(nonatomic, strong)MCAResourcesDHolder* reDHolder;
+
 
 @end
