@@ -2057,7 +2057,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Resources" id="Dn6-wu-iy5"/>
+                    <navigationItem key="navigationItem" title="Resources" id="Dn6-wu-iy5">
+                        <barButtonItem key="backBarButtonItem" title=" " id="7O0-jf-aTp"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tbl_resourcesCategory" destination="cm1-8J-Jnu" id="bIk-v0-owb"/>
                         <segue destination="hab-Cm-RMd" kind="push" identifier="segue_resources" id="Ygp-rc-y2D"/>
@@ -2110,7 +2112,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="AL4-ef-u5a"/>
+                    <navigationItem key="navigationItem" id="AL4-ef-u5a">
+                        <barButtonItem key="backBarButtonItem" title=" " id="e8v-ew-IJW"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tbl_resources" destination="tZj-a8-HIl" id="2t0-Cc-2JJ"/>
                         <segue destination="V6v-mO-Pae" kind="push" identifier="segue_url" id="Rag-aS-iOX"/>
