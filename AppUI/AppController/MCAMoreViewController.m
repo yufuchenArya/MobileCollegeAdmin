@@ -34,6 +34,8 @@
     arr_moreImageList = [[NSMutableArray alloc]initWithObjects:@"setting.png",@"share.png",@"feedback.png",@"logout.png", nil];
     
    tbl_moreOption.tableFooterView = [[UIView alloc] init];
+    
+    [RFRateMe showRateAlertAfterTimesOpened:1];
 }
 
 - (void)didReceiveMemoryWarning
@@ -92,4 +94,5 @@
         [self performSegueWithIdentifier:@"segue_setting" sender:nil];
     }
 }
+
 @end

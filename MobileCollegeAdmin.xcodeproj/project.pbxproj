@@ -13,6 +13,8 @@
 		0A8BC6E319C3955C007C2CB3 /* MCAResourcesDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BC6E219C3955C007C2CB3 /* MCAResourcesDetailViewController.m */; };
 		0A8BC6E619C395E2007C2CB3 /* MCAResourcesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A8BC6E519C395E2007C2CB3 /* MCAResourcesViewController.m */; };
 		B6DF3B9119C69A44007AE61B /* MCAResourceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DF3B9019C69A44007AE61B /* MCAResourceCell.m */; };
+		B6E323F019C7902300C12AAF /* RFRateMe.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E323ED19C7902300C12AAF /* RFRateMe.m */; };
+		B6E323F119C7902300C12AAF /* UIAlertView+NSCookbook.m in Sources */ = {isa = PBXBuildFile; fileRef = B6E323EF19C7902300C12AAF /* UIAlertView+NSCookbook.m */; };
 		CE0D694F1995DC5C009C0DBE /* MCADBIntraction.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0D694E1995DC5C009C0DBE /* MCADBIntraction.m */; };
 		CE0D69521995FE9C009C0DBE /* MCAAddTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0D69511995FE9C009C0DBE /* MCAAddTaskViewController.m */; };
 		CE174993198D19C200F61135 /* AryaHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = CE174992198D19C200F61135 /* AryaHUD.m */; };
@@ -150,6 +152,10 @@
 		0A8BC6E519C395E2007C2CB3 /* MCAResourcesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAResourcesViewController.m; sourceTree = "<group>"; };
 		B6DF3B8F19C69A44007AE61B /* MCAResourceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAResourceCell.h; sourceTree = "<group>"; };
 		B6DF3B9019C69A44007AE61B /* MCAResourceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCAResourceCell.m; sourceTree = "<group>"; };
+		B6E323EC19C7902300C12AAF /* RFRateMe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RFRateMe.h; sourceTree = "<group>"; };
+		B6E323ED19C7902300C12AAF /* RFRateMe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RFRateMe.m; sourceTree = "<group>"; };
+		B6E323EE19C7902300C12AAF /* UIAlertView+NSCookbook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+NSCookbook.h"; sourceTree = "<group>"; };
+		B6E323EF19C7902300C12AAF /* UIAlertView+NSCookbook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+NSCookbook.m"; sourceTree = "<group>"; };
 		CE0D694D1995DC5C009C0DBE /* MCADBIntraction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCADBIntraction.h; sourceTree = "<group>"; };
 		CE0D694E1995DC5C009C0DBE /* MCADBIntraction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCADBIntraction.m; sourceTree = "<group>"; };
 		CE0D69501995FE9C009C0DBE /* MCAAddTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCAAddTaskViewController.h; sourceTree = "<group>"; };
@@ -395,6 +401,17 @@
 				B6DF3B9019C69A44007AE61B /* MCAResourceCell.m */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		B6E323F219C7902700C12AAF /* RFRateMe */ = {
+			isa = PBXGroup;
+			children = (
+				B6E323EC19C7902300C12AAF /* RFRateMe.h */,
+				B6E323ED19C7902300C12AAF /* RFRateMe.m */,
+				B6E323EE19C7902300C12AAF /* UIAlertView+NSCookbook.h */,
+				B6E323EF19C7902300C12AAF /* UIAlertView+NSCookbook.m */,
+			);
+			name = RFRateMe;
 			sourceTree = "<group>";
 		};
 		CE174990198D19A100F61135 /* HUD */ = {
@@ -749,6 +766,7 @@
 		CE84C2311962DB6200A351FF /* AppExternal */ = {
 			isa = PBXGroup;
 			children = (
+				B6E323F219C7902700C12AAF /* RFRateMe */,
 				CEAB94E219BB189A00D4EC9E /* Objective-Zip */,
 				CE394C3319938D0C0080B5B8 /* MCACustomController */,
 				CE2DFC4419AF1B0A000D59EB /* LocalStoredFolder */,
@@ -1059,6 +1077,7 @@
 				CE1805A0198656260087CA3D /* MCAStudentDHolder.m in Sources */,
 				CE69728719C3057000DDE7F5 /* MCAChangePwdViewController.m in Sources */,
 				CEEDCAE3197F962F0088511D /* MCALoginDHolder.m in Sources */,
+				B6E323F119C7902300C12AAF /* UIAlertView+NSCookbook.m in Sources */,
 				CEA9D9D1197FEFFE009C3884 /* Reachability.m in Sources */,
 				CE36AE0219BD6B75004C047D /* MCADropboxNotesViewController.m in Sources */,
 				CEEDCABB197F8BE20088511D /* ASIAuthenticationDialog.m in Sources */,
@@ -1074,6 +1093,7 @@
 				0A3824B419C39E0000662A39 /* MCAResourcesDHolder.m in Sources */,
 				CEEDCAD1197F8BF30088511D /* NSString+SBJSON.m in Sources */,
 				CE32DA7719AAF14A0037C555 /* UIView+convenience.m in Sources */,
+				B6E323F019C7902300C12AAF /* RFRateMe.m in Sources */,
 				CE278A1A19920D6700783592 /* SWCellScrollView.m in Sources */,
 				CE278A1919920D6700783592 /* NSMutableArray+SWUtilityButtons.m in Sources */,
 				CE303986199F230D00D17A2B /* MCAMoreViewController.m in Sources */,

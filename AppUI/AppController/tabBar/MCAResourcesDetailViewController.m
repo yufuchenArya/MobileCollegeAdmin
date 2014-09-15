@@ -14,7 +14,7 @@
 
 @implementation MCAResourcesDetailViewController
 
-@synthesize reDHolder, detailCell;
+@synthesize reDHolder, detailCell, arr_resources;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,7 +32,7 @@
     
     self.navigationItem.title = reDHolder.str_book_name;
     
-    NSArray * arr_url_old = [reDHolder.str_url componentsSeparatedByString:@"]["];
+    NSArray * arr_url_old = [reDHolder.str_url componentsSeparatedByString:@"\\n"];
     for(NSString* strl in arr_url_old){
         NSCharacterSet *doNotWant = [NSCharacterSet characterSetWithCharactersInString:@"\\[]"];
         NSString *str = [[strl componentsSeparatedByCharactersInSet: doNotWant] componentsJoinedByString: @""];
@@ -98,6 +98,7 @@
     
     return height+10;
 }
+
 
 
 @end

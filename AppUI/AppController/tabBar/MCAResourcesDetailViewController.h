@@ -17,6 +17,7 @@
 
 @property (strong, nonatomic)MCAResourceCell *detailCell;
 @property(nonatomic, strong)MCAResourcesDHolder* reDHolder;
+@property (strong, nonatomic)NSMutableArray *arr_resources;
 
 
 @end

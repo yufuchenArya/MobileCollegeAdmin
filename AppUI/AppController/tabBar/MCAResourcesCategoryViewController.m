@@ -27,6 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     
     HUD = [AryaHUD new];
     [self.view addSubview:HUD];
@@ -87,21 +88,35 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    MCAResourcesCatDHolder *reDHolder = (MCAResourcesCatDHolder*)[arr_resourcesCategory objectAtIndex:indexPath.row];
-    
+    MCAResourcesCatDHolder *reDHolder = (MCAResourcesCatDHolder*)[arr_resourcesCategory objectAtIndex:indexPath.row];\
+    if ([reDHolder.str_resourcesCatId isEqualToString:@"10"]) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Mobile College Admin" message:@"You have to purchase for this version. Do you want to purchase?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"Yes", nil];
+        alert.backgroundColor = [UIColor blueColor];
+        [alert show];
+    }
+    else
     [self performSegueWithIdentifier:@"segue_resources" sender:reDHolder];
     
 }
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
+-(void)willPresentAlertView:(UIAlertView *)alertView{
+    UIImage *theImage = [UIImage imageNamed:@"BlueBg.png"];
+    UIView *view=[alertView valueForKey:@"_backgroundImageView"];
+    //Set frame according to adustable
+    UIImageView *image=[[UIImageView alloc] initWithImage:theImage];
+    [image setFrame:CGRectMake(0, 0, 280, 130)];
+    [view addSubview:image];
+    NSLog(@"%lu", (unsigned long)[alertView subviews].count);
+    //[[[alertView subviews] objectAtIndex:3] setBackgroundColor:[UIColor blueColor]];
+}
+
+-(void)alertView:(UIAlertView*)alterView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:URL_APPLESTORE]];
+    }
+}
+
 
 -(void)getResourcesCategory:(id)sender{
     
@@ -156,5 +171,7 @@
         reViewCtr.reCatDHolder = (MCAResourcesCatDHolder*)sender;
     }
 }
+
+
 
 @end

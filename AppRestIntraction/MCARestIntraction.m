@@ -821,6 +821,10 @@
             resourceDHolder.str_resourcesCatImage = [[arr_resourceCategory valueForKey:@"resource_cat_image"] objectAtIndex:i];
             [arr_resourcesCategoryList addObject:resourceDHolder];
         }
+        if (![[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] isEqualToString:@"p"])
+        {
+            [arr_resourcesCategoryList removeObjectAtIndex:0];
+        }
         dispatch_async(dispatch_get_main_queue(), ^
                        {
                            [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_RESOURCE_CATEGORY_SUCCESS object:arr_resourcesCategoryList];

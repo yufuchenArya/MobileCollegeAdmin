@@ -11,6 +11,7 @@
 
 //Main URL
 #define URL_MAIN @"http://122.176.45.15:8080/careerdefine/api/"
+#define URL_APPLESTORE @"https://itunes.apple.com/"
 
 //Message
 #define INVALID_PWD @"Please enter valid password."
