@@ -12,6 +12,7 @@
 #import "MCANotesDHolder.h"
 #import "MCAResourcesDHolder.h"
 #import "MCAResourcesCatDHolder.h"
+#import "MCAResourcesBookDHolder.h"
 #import "MCASignUpDHolder.h"
 #import "MCANotesCatDHolder.h"
 #import "ASIFormDataRequest.h"
@@ -40,6 +41,7 @@ MCARestIntraction *restIntraction;
 -(void)requestForResourcesCategory:(NSString*)info;
 -(void)requestForNotes:(NSString*)info;
 -(void)requestForResources:(NSString*)info;
+-(void)requestForResourcesBook:(NSString*)info;
 -(void)requestForUserProfileEdit:(NSString *)info;
 -(void)requestForChangePwd:(NSString *)info;
 

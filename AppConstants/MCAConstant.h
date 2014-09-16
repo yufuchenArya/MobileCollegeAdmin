@@ -94,6 +94,9 @@
 #define NOTIFICATION_RESOURCE_SUCCESS @"notificationResourcesSuccess"
 #define NOTIFICATION_RESOURCE_FAILED @"notificationResourcesFailed"
 
+#define NOTIFICATION_RESOURCE_BOOK_SUCCESS @"notificationResourcesBookSuccess"
+#define NOTIFICATION_RESOURCE_BOOK_FAILED @"notificationResourcesBookFailed"
+
 #define NOTIFICATION_USER_PROFILE_EDIT_SUCCESS @"notificationUserProfileEditSuccess"
 #define NOTIFICATION_USER_PROFILE_EDIT_FAILED @"notificationUserProfileEditFailed"
 

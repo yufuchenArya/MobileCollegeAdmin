@@ -27,7 +27,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    UIImage* img_book = [UIImage imageNamed:@"book.png"];
+    CGRect img_bookFrame = CGRectMake(0, 0, img_book.size.width, img_book.size.height);
+    UIButton *btn_book = [[UIButton alloc] initWithFrame:img_bookFrame];
+    [btn_book setBackgroundImage:img_book forState:UIControlStateNormal];
+    [btn_book addTarget:self
+                 action:@selector(btnBookDidClicked:)
+       forControlEvents:UIControlEventTouchUpInside];
+    [btn_book setShowsTouchWhenHighlighted:YES];
+    UIBarButtonItem *btnBar_book =[[UIBarButtonItem alloc] initWithCustomView:btn_book];
+    if ([[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] isEqualToString:@"p"]){
+    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:btnBar_book,nil]];
+    }
     
     HUD = [AryaHUD new];
     [self.view addSubview:HUD];
@@ -100,16 +111,6 @@
     
 }
 
--(void)willPresentAlertView:(UIAlertView *)alertView{
-    UIImage *theImage = [UIImage imageNamed:@"BlueBg.png"];
-    UIView *view=[alertView valueForKey:@"_backgroundImageView"];
-    //Set frame according to adustable
-    UIImageView *image=[[UIImageView alloc] initWithImage:theImage];
-    [image setFrame:CGRectMake(0, 0, 280, 130)];
-    [view addSubview:image];
-    NSLog(@"%lu", (unsigned long)[alertView subviews].count);
-    //[[[alertView subviews] objectAtIndex:3] setBackgroundColor:[UIColor blueColor]];
-}
 
 -(void)alertView:(UIAlertView*)alterView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
@@ -142,6 +143,16 @@
         
         [HUD hide];
         arr_resourcesCategory = [[MCADBIntraction databaseInteractionManager] retrieveResourceCatList: nil];
+        if (![[[NSUserDefaults standardUserDefaults]valueForKey:KEY_USER_TYPE] isEqualToString:@"p"])
+        {
+            for (int i = 0; i<arr_resourcesCategory.count; i++) {
+                MCAResourcesCatDHolder* reDHolder = [arr_resourcesCategory objectAtIndex:i];
+                if ([reDHolder.str_resourcesCatId isEqualToString:@"10"]) {
+                    [arr_resourcesCategory removeObjectAtIndex:i];
+                    break;
+                }
+            }
+        }
         [tbl_resourcesCategory reloadData];
     }
 }
@@ -172,6 +183,8 @@
     }
 }
 
-
+- (IBAction)btnBookDidClicked:(id)sender{
+    [self performSegueWithIdentifier:@"segue_book" sender:nil];
+}
 
 @end

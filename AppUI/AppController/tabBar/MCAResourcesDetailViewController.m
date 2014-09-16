@@ -31,12 +31,11 @@
     arr_url = [NSMutableArray new];
     
     self.navigationItem.title = reDHolder.str_book_name;
-    
     NSArray * arr_url_old = [reDHolder.str_url componentsSeparatedByString:@"\\n"];
     for(NSString* strl in arr_url_old){
-        NSCharacterSet *doNotWant = [NSCharacterSet characterSetWithCharactersInString:@"\\[]"];
+        NSCharacterSet *doNotWant = [NSCharacterSet characterSetWithCharactersInString:@"\\[]\""];
         NSString *str = [[strl componentsSeparatedByCharactersInSet: doNotWant] componentsJoinedByString: @""];
-            [arr_url addObject:str];
+        [arr_url addObject:str];
 
     }
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -74,7 +73,6 @@
                 reuseIdentifier:cellIdentifier];
     }
     NSString* str = [arr_url objectAtIndex:indexPath.row];
-    NSLog(@"%@", str);
     UILabel *lbl_catName = (UILabel *)[cell.contentView viewWithTag:2];
     lbl_catName.text = str;
     lbl_catName.numberOfLines = 0;

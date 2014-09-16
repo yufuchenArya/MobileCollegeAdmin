@@ -27,16 +27,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIImage* img_book = [UIImage imageNamed:@"book.png"];
-    CGRect img_bookFrame = CGRectMake(0, 0, img_book.size.width, img_book.size.height);
-    UIButton *btn_book = [[UIButton alloc] initWithFrame:img_bookFrame];
-    [btn_book setBackgroundImage:img_book forState:UIControlStateNormal];
-    [btn_book addTarget:self
-                 action:@selector(btnBookDidClicked:)
-       forControlEvents:UIControlEventTouchUpInside];
-    [btn_book setShowsTouchWhenHighlighted:YES];
-    UIBarButtonItem *btnBar_book =[[UIBarButtonItem alloc] initWithCustomView:btn_book];
-    [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:btnBar_book,nil]];
+    
     HUD = [AryaHUD new];
     [self.view addSubview:HUD];
     
@@ -153,7 +144,6 @@
         NSCharacterSet *doNotWant = [NSCharacterSet characterSetWithCharactersInString:@"\\[]\""];
         NSString* url = [[reDHolder.str_url componentsSeparatedByCharactersInSet:doNotWant] componentsJoinedByString:@""];
         url = [url substringFromIndex:[url rangeOfString:@"http"].location];
-        NSLog(@"%@", url);
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
     }
 }
@@ -167,7 +157,5 @@
         reDetailCtr.reDHolder = (MCAResourcesDHolder*)sender;
     }
 }
-- (IBAction)btnBookDidClicked:(id)sender{
-    //[self performSegueWithIdentifier:@"segue_url" sender:arr_resources];
-}
+
 @end
