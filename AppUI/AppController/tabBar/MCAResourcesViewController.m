@@ -121,14 +121,8 @@
     img_cat = [[UIImageView alloc]initWithFrame:CGRectMake(10, 8, 26, 26)];
     img_cat.tag = 1;
     [cell.contentView addSubview:img_cat];
-    if ([reDHolder.str_url rangeOfString:@"http"].location == NSNotFound) {
-        UIImage *img_book = [UIImage imageNamed:@"book.png"];
-        [img_cat setImage:img_book];
-    }else{
-        UIImage *img_web = [UIImage imageNamed:@"web.png"];
-        [img_cat setImage:img_web];
-    }
-    
+    UIImage *img_book = [UIImage imageNamed:@"book.png"];
+    [img_cat setImage:img_book];
     
     tbl_resources.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
@@ -137,15 +131,7 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MCAResourcesDHolder *reDHolder = (MCAResourcesDHolder*)[arr_resources objectAtIndex:indexPath.row];
-    if ([reDHolder.str_url rangeOfString:@"http"].location == NSNotFound) {
-        [self performSegueWithIdentifier:@"segue_url" sender:reDHolder];
-    }
-    else{
-        NSCharacterSet *doNotWant = [NSCharacterSet characterSetWithCharactersInString:@"\\[]\""];
-        NSString* url = [[reDHolder.str_url componentsSeparatedByCharactersInSet:doNotWant] componentsJoinedByString:@""];
-        url = [url substringFromIndex:[url rangeOfString:@"http"].location];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-    }
+    [self performSegueWithIdentifier:@"segue_url" sender:reDHolder];
 }
 
 #pragma mark - OTHER_METHOD
